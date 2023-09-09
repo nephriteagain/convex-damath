@@ -1,0 +1,42 @@
+"use client"
+import Link from "next/link"
+
+import LobbyComponent from "@/components/Lobby"
+import CreateRoom from "@/components/CreateRoom"
+
+import { useEffect } from "react"
+import { ConvexHttpClient } from "convex/browser"
+import { useAppDispatch, useAppSelector } from "@/redux/hooks"
+import { createRoom } from "@/redux/thunks"
+import { clearJoinedLobbyId } from "@/redux/slices/userSlice"
+import { clearLobbyData } from "@/redux/slices/lobbySlice"
+export const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL ?? "");
+
+export const dynamic = "force-dynamic";
+
+export default  function Home() {
+
+
+    const dispatch = useAppDispatch()
+    const {id, joinedLobby} = useAppSelector(state => state.user)
+    const {lobbies} = useAppSelector(state => state.lobby)
+
+    useEffect(() => {
+        if (!lobbies.some(l => l._id === joinedLobby)) {
+            dispatch(clearJoinedLobbyId())
+            dispatch(clearLobbyData())
+        }
+    }, [lobbies])
+
+    return (
+        <div className="w-full h-full">            
+            <div className="p-8 border-4 border-black max-w-[700px]">
+                <CreateRoom />
+                <LobbyComponent id={id} />
+            </div>
+            <Link href='/' className="underline decoration-2 text-xl text-center">
+                Back to Home
+            </Link>
+        </div>
+    )
+}
