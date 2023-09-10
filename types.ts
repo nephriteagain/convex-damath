@@ -29,7 +29,7 @@ export interface piece {
     type: 'x'|'z';
     value: number;
     king: boolean;
-    movable: boolean;
+    moves: number[];
 }
 
 export enum operation {
@@ -46,7 +46,7 @@ export interface players {
 
 export interface gameData {
     from: Id<'lobby'>
-    id: string;
+    id: Id<'games'>;
     players: players;
     playerTurn: string;
     gameType: GameTypes;
@@ -77,4 +77,11 @@ export enum messageType {
     APPROVE_RESTART,
     REQUEST_CHANGE_GAME_MODE,
     APPROVE_CHANGE_GAME_MODE,
+}
+
+export interface movablePieces {
+    piece: piece;
+    index: number;
+    jumpIndex: number;
+    direction: 'top right'|'top left'|'bot right'|'bot left'
 }

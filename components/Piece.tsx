@@ -1,26 +1,43 @@
 import { MouseEvent, } from "react"
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { piece } from "@/types";
+import { highlightMoves } from "@/redux/slices/gameSlice";
+import { piece, players } from "@/types";
 
 interface PieceProps {
     piece: piece;
-    index?: number
+    index?: number;
+    players: players;
+    playerTurn: string;
 }
 
 
 
-export default function Piece({piece, index}: PieceProps) {
+export default function Piece({piece, index, players, playerTurn}: PieceProps) {
+    const {id} = useAppSelector(state => state.user)
+    const dispatch = useAppDispatch()
+    const { type, value, moves, king } = piece
 
+    function handleClick(e: MouseEvent) {
+        console.log(piece.moves)
+        e.preventDefault();
+        e.stopPropagation();
+        dispatch(highlightMoves({pieceIndex: index, pieceToMove: piece}))
+    }
 
-    
+    const onClick = (
+        piece.moves.length > 0 &&  
+        players != undefined && 
+        players[piece.type] === id &&
+        playerTurn === id
+    ) ? handleClick : undefined
 
-    const { type, value, movable, king } = piece
     return (
         <div className={`z-10 ${type === 'z' ? 'red-piece' : 'blue-piece'}
-            ${movable ? 'opacity-100 cursor-pointer' : 'opacity-70'}
+            ${moves.length > 0 ? 'opacity-100 cursor-pointer' : 'opacity-70'}
             ${king ? 'border-4 border-dashed border-black' : ''}
             flex items-center justify-center aspect-square w-[80%] text-2xl text-white rounded-full`}
+            onClick={onClick}
         >
             <span className={`${(value === 6 || value === 9) && "border-t-4 border-white"}`}>
                 {value}
