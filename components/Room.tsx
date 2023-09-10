@@ -9,12 +9,15 @@ import { useAppDispatch } from "@/redux/hooks";
 import { leaveRoom, deleteRoom, startGame } from "@/redux/thunks";
 import { useQuery } from 'convex/react'
 import { api } from "@/convex/_generated/api";
+import { useRouter } from "next/navigation";
+import { gameStart } from "@/redux/slices/lobbySlice";
 interface RoomProps {
     userId: string;
     _id: Id<'lobby'>
 }
 
 export default function Room({_id,userId}: RoomProps) {
+    const router = useRouter()
     const dispatch = useAppDispatch()
     const room = useQuery(api.lobby.getRoom, {id: _id})
     if (!room) {
@@ -24,8 +27,11 @@ export default function Room({_id,userId}: RoomProps) {
             </SheetContent>
         )
     }
-    const { gameType, host, guest, start, _id: roomId } = room
-
+    const { gameType, host, guest,  _id: roomId } = room
+    
+    if (room?.start) {
+        dispatch(gameStart(room.start))
+    }
 
     return (
         <SheetContent>
@@ -57,7 +63,7 @@ export default function Room({_id,userId}: RoomProps) {
                     >
                         Leave Game
                     </button>
-                    <button onClick={() => dispatch(startGame(_id))}
+                    <button onClick={() => dispatch(startGame({id:_id, gameType, host, guest}))}
                         className="border-2 border-black px-2 py-1 disabled:opacity-40"
                     >
                         Start Game

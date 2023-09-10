@@ -7,19 +7,25 @@ import CreateRoom from "@/components/CreateRoom"
 import { useEffect } from "react"
 import { ConvexHttpClient } from "convex/browser"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
-import { createRoom } from "@/redux/thunks"
 import { clearJoinedLobbyId } from "@/redux/slices/userSlice"
 import { clearLobbyData } from "@/redux/slices/lobbySlice"
+import { useRouter } from 'next/navigation'
 export const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL ?? "");
 
 export const dynamic = "force-dynamic";
 
 export default  function Home() {
-
+    const router = useRouter()
 
     const dispatch = useAppDispatch()
     const {id, joinedLobby} = useAppSelector(state => state.user)
-    const {lobbies} = useAppSelector(state => state.lobby)
+    const {lobbies, lobbyData} = useAppSelector(state => state.lobby)
+    
+    useEffect(() => {
+        if (lobbyData?.start) {
+            router.push(`/game/${lobbyData.start}`)
+        }
+    }, [lobbyData])
 
     useEffect(() => {
         if (!lobbies.some(l => l._id === joinedLobby)) {

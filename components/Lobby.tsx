@@ -10,12 +10,19 @@ const LobbyComponent = ({id}: {id:string}) => {
     const lobbies = useAppSelector(state => state.lobby.lobbies)
     const dispatch = useAppDispatch()
     dispatch(getLobbies(lobby))
-    if (lobbies.length === 0) {
+    
+    if (lobbies == undefined) {
       return (
         <div className='max-w-[600px] bg-slate-300 px-4 py-2'>
           Loading...
         </div>
       )
+    }
+
+    if (lobbies.length === 0) {
+      <div className='max-w-[600px] bg-slate-300 px-4 py-2'>
+          No Active Rooms
+        </div>
     }
 
     return (

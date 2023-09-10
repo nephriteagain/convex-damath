@@ -19,7 +19,12 @@ export const lobbySlice = createSlice({
         },
         clearLobbyData(state) {
             state.lobbyData = undefined
-        }
+        },
+        gameStart(state, action) {
+            if (state?.lobbyData) {
+                state.lobbyData.start = action.payload
+            }
+        },
     },
     extraReducers: builder => {
         builder.addCase(createRoom.fulfilled, (state, action) => {
@@ -31,5 +36,5 @@ export const lobbySlice = createSlice({
     }
 })
 
-export const { getLobbies, clearLobbyData } = lobbySlice.actions
+export const { getLobbies, clearLobbyData, gameStart } = lobbySlice.actions
 export default lobbySlice.reducer

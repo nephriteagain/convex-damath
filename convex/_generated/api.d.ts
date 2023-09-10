@@ -14,7 +14,10 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as crons from "../crons";
+import type * as game from "../game";
 import type * as lobby from "../lobby";
+import type * as plans from "../plans";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -25,7 +28,10 @@ import type * as lobby from "../lobby";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  crons: typeof crons;
+  game: typeof game;
   lobby: typeof lobby;
+  plans: typeof plans;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

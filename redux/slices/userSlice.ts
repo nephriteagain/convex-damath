@@ -31,7 +31,7 @@ export const userSlice = createSlice({
             state.joinedLobby = action.payload._id
         }),
         builder.addCase(joinRoom.fulfilled, (state, action) => {
-            state.joinedLobby = action.payload            
+            state.joinedLobby = action.payload._id            
         })
     }
 })
