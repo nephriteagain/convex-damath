@@ -9,7 +9,7 @@ import { checkMovablePieces, kingPromoter } from '../gameLogic/checkMovablePiece
 export const getGameData = query({
     args: {id: v.id('games')},
     handler: async (ctx, args) => {
-        const gameData = await ctx.db.get(args.id) as gameData
+        const gameData = await ctx.db.get(args.id)
         return gameData
     }
 })
@@ -44,7 +44,7 @@ const movePieceArgs = {
         x: v.string()
     }),
     id: v.id('games'),
-    boardData: v.any()
+    boardData: v.array(v.any())
 }
 export const movePiece = mutation({
     // wtf is this typings

@@ -1,4 +1,4 @@
-import { Lobby } from '../types';
+import { GameTypes, Lobby } from '../types';
 import { query, mutation } from './_generated/server'
 import { v } from "convex/values";
 import {COUNTING, WHOLE, INTEGER} from '../lib/data/gameData'
@@ -23,7 +23,8 @@ export const getRoom = query({
 export const createLobby = mutation({
     args: {id: v.string()},
     handler: async (ctx, args) => {
-        const newLobby = {host: args.id, guest: '', start: '', gameType: 'COUNTING'}
+        const gameType  = GameTypes.COUNTING
+        const newLobby = {host: args.id, guest: '', start: '', gameType}
         const res = await ctx.db.insert('lobby', newLobby)
         return res
     }

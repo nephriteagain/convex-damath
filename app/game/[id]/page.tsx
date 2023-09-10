@@ -14,7 +14,7 @@ export default function Home() {
     const gData = useAppSelector(state => state.game.gameData)
     const { id } = useParams()
     const gameId = id as Id<'games'>
-    const gameData = useQuery(api.game.getGameData, {id: gameId}) as gameData
+    const gameData = useQuery(api.game.getGameData, {id: gameId})
     const dispatch = useAppDispatch()
 
     useEffect(() => {
