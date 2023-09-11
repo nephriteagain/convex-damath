@@ -12,6 +12,13 @@ export interface Lobby {
     guest: string;
     start: string;
     gameType: GameTypes;
+    messages: lobbyMessage[];
+}
+
+export interface lobbyMessage {
+    sId: string;
+    text:string;
+    mId: string;
 }
 
 
@@ -59,7 +66,7 @@ export interface gameData {
 export enum GameTypes  {
     COUNTING = 'COUNTING',
     WHOLE = 'WHOLE',
-    INTEGER = 'INTEGER'
+    INTEGER = 'INTEGER',
 }
 export interface score {
     z: number;

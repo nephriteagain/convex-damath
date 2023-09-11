@@ -5,7 +5,7 @@ export const clearOldRooms = internalMutation({
         const res = await ctx.db
             .query('lobby')
             .filter(q => q.lte(q.field('_creationTime'), (Date.now() - (5*60_000))))
-            .collect() as Lobby[]
+            .collect()
         res.forEach( async (r) => {
             await ctx.db.delete(r._id)
         })

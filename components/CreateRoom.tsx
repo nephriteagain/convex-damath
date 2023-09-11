@@ -12,9 +12,9 @@ export default function CreateRoom() {
     const { lobbyData } = useAppSelector(state => state.lobby)
     const dispatch = useAppDispatch()
 
-    return (
-        <Sheet>
-            { !joinedLobby ?
+    if (!joinedLobby) {
+        return (
+            <Sheet>
             <SheetTrigger 
                 className="border-2 border-black px-3 py-1 disabled:opacity-40"
                 onClick={() => dispatch(createRoom(userId))}
@@ -22,10 +22,22 @@ export default function CreateRoom() {
             >
                 Create Room
             </SheetTrigger> :
+            
+            {lobbyData != undefined && 
+            <Room 
+                _id={lobbyData._id}
+                userId={userId}
+            />
+            }
+            </Sheet>
+        )
+    }
+
+    return (
+        <Sheet>            
             <SheetTrigger>
                 Show Room
-            </SheetTrigger>
-            }
+            </SheetTrigger>            
             {lobbyData != undefined && 
             <Room 
                 _id={lobbyData._id}
@@ -33,6 +45,5 @@ export default function CreateRoom() {
             />
            }
         </Sheet>
-
     )
 }

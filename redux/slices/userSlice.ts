@@ -28,10 +28,14 @@ export const userSlice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(createRoom.fulfilled, (state, action) => {
-            state.joinedLobby = action.payload._id
+            if (action.payload) {
+                state.joinedLobby = action.payload._id
+            }
         }),
         builder.addCase(joinRoom.fulfilled, (state, action) => {
-            state.joinedLobby = action.payload._id            
+            if (action.payload) {
+                state.joinedLobby = action.payload._id
+            }        
         })
     }
 })

@@ -10,7 +10,12 @@ export default defineSchema({
             v.literal('COUNTING'),
             v.literal('INTEGER'),
             v.literal('WHOLE'),
-        )
+        ),
+        messages: v.array(v.object({
+            sId: v.string(),
+            mId: v.string(),
+            text: v.string()
+        }))
     }),
     games: defineTable({
         from: v.id('lobby'),

@@ -5,12 +5,16 @@ import { Lobby } from '@/types';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getLobbies } from '@/redux/slices/lobbySlice';
 import JoinRoom from './JoinRoom';
-const LobbyComponent = ({id}: {id:string}) => {
+import { useEffect } from 'react';
+export default function LobbyComponent ({id}: {id:string}) {
     const lobby = useQuery(api.lobby.getLobby) as Lobby[];
     const lobbies = useAppSelector(state => state.lobby.lobbies)
     const dispatch = useAppDispatch()
-    dispatch(getLobbies(lobby))
     
+    useEffect(() => {
+      dispatch(getLobbies(lobby))      
+    }, [lobby])
+
     if (lobbies == undefined) {
       return (
         <div className='max-w-[600px] bg-slate-300 px-4 py-2'>
@@ -48,4 +52,3 @@ const LobbyComponent = ({id}: {id:string}) => {
     );
   };
   
-  export default LobbyComponent;

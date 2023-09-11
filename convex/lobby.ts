@@ -2,6 +2,11 @@ import { GameTypes, Lobby } from '../types';
 import { query, mutation } from './_generated/server'
 import { v } from "convex/values";
 import {COUNTING, WHOLE, INTEGER} from '../lib/data/gameData'
+
+function generateId() {
+    return Math.random().toString(16).slice(2)
+}
+
 const games = {
     'COUNTING': COUNTING,
     'WHOLE': WHOLE,
@@ -15,7 +20,7 @@ export const getLobby = query(async ({db}) => {
 export const getRoom = query({
     args: {id: v.id('lobby')},
     handler: async (ctx, args) => {
-        const room = await ctx.db.get(args.id) as Lobby
+        const room = await ctx.db.get(args.id) 
         return room 
     }
 })
@@ -24,7 +29,7 @@ export const createLobby = mutation({
     args: {id: v.string()},
     handler: async (ctx, args) => {
         const gameType  = GameTypes.COUNTING
-        const newLobby = {host: args.id, guest: '', start: '', gameType}
+        const newLobby = {host: args.id, guest: '', start: '', gameType, messages: []}
         const res = await ctx.db.insert('lobby', newLobby)
         return res
     }
@@ -83,3 +88,27 @@ export const startGame = mutation({
     }
 })
 
+export const sendMessage = mutation({
+    args: {
+        id: v.id('lobby'), 
+        sId: v.string(), 
+        text: v.string(),
+        messages: v.array(v.object({
+            sId: v.string(),
+            mId: v.string(),
+            text: v.string()
+        }))
+    },
+    handler: async (ctx, args) => {
+        const {id, sId, text, messages} = args
+        const newMessage = {
+            sId, 
+            mId: generateId(),
+            text,
+        }
+        const newMessages = [...messages, newMessage]
+        // how to add the new Message to the messages[]?
+        const res = await ctx.db.patch(id, {messages: newMessages})
+        return res
+    }
+})

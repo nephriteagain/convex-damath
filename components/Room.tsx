@@ -11,6 +11,8 @@ import { useQuery } from 'convex/react'
 import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
 import { gameStart } from "@/redux/slices/lobbySlice";
+import LobbyMessage from "./LobbyMessage";
+
 interface RoomProps {
     userId: string;
     _id: Id<'lobby'>
@@ -27,7 +29,7 @@ export default function Room({_id,userId}: RoomProps) {
             </SheetContent>
         )
     }
-    const { gameType, host, guest,  _id: roomId } = room
+    const { gameType, host, guest,  _id: roomId, messages } = room
     
     if (room?.start) {
         dispatch(gameStart(room.start))
@@ -38,6 +40,8 @@ export default function Room({_id,userId}: RoomProps) {
             <SheetHeader className="mb-8">
             <SheetTitle className="text-2xl">Lobby</SheetTitle>            
             </SheetHeader>
+            <div>
+
             <div className="mb-4">
                 <div>
                     TYPE
@@ -77,6 +81,10 @@ export default function Room({_id,userId}: RoomProps) {
                     </button>
                 </div>
                 }
+            </div>
+            <div>
+                <LobbyMessage messages={messages} _id={_id}/>
+            </div>
             </div>
         </SheetContent>
     )
