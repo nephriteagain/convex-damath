@@ -9,17 +9,32 @@ import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { getGame } from "@/redux/slices/gameSlice"
 import { gameData } from "@/types"
+import { useRef } from "react"
+import { boardStyleFlip } from "@/lib/helper/styleHelper"
+
 
 export default function Home() {
     const gData = useAppSelector(state => state.game.gameData)
+    const userId = useAppSelector(state => state.user.id)
     const { id } = useParams()
     const gameId = id as Id<'games'>
     const gameData = useQuery(api.game.getGameData, {id: gameId})
     const dispatch = useAppDispatch()
 
+    const boardRef = useRef<HTMLDivElement>(null)
+
     useEffect(() => {
         if (gameData) {
             dispatch(getGame({id, gameData}))
+
+            // TODO: this causes stack overflow
+            // if (userId === gameData.players.x && boardRef.current) {
+            //     const board = boardRef.current as HTMLDivElement;              
+            //     const verticalNum = document.querySelector('.vertical-num') as HTMLDivElement
+            //     const horizontalNum = document.querySelector('.horizontal-num') as HTMLDivElement            
+            //     boardStyleFlip(board, horizontalNum, verticalNum)
+            //   }
+
         }
     } , [gameData])
    
@@ -30,6 +45,7 @@ export default function Home() {
                 gameBoard={gData.boardData}
                 players={gData.players}
                 playerTurn={gData.playerTurn}
+                ref={boardRef}
             />
         </div>
     )

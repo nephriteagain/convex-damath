@@ -87,3 +87,13 @@ function pieceCount(board: boxPiece[]) : number {
     })
     return count
 }
+
+export const getWatchGameList = query({
+    handler: async (ctx) => {
+        const watchGameList = await ctx.db
+            .query('games')
+            .filter(q => q.eq(q.field('gameOngoing'), true))
+            .collect()
+        return watchGameList
+    }
+})
