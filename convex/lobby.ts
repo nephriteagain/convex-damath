@@ -81,7 +81,8 @@ export const startGame = mutation({
                 x: args.guest
             },
             gameType: args.gameType,
-            gameOngoing: true
+            gameOngoing: true,
+            chat: []
         })
         const res = await ctx.db.patch(args.id, {start: gameId})
         return res

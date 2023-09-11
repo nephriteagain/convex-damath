@@ -84,10 +84,24 @@ type sendLobbyMsgArgs = {
     messages: lobbyMessage[]
 }
 export const sendLobbyMsg = createAsyncThunk(
-    'lobby/sendMesage',
+    'lobby/sendMessage',
     async (args: sendLobbyMsgArgs) => {
         const {id, sId, text, messages} = args
         await convex.mutation(api.lobby.sendMessage, {id,sId, text,messages})
         return
+    }
+)
+
+type sendGameMsgArgs = {
+    id: Id<'games'>;
+    sId: string;
+    text: string;
+    chat: lobbyMessage[]
+}
+export const sendGameMsg = createAsyncThunk(
+    'game/sendMessage',
+    async (args: sendGameMsgArgs) => {
+        const {id, sId, text, chat} = args
+        await convex.mutation(api.game.sendGameMessage, {id, sId, text, chat})
     }
 )

@@ -53,14 +53,15 @@ export interface players {
 
 export interface gameData {
     from: Id<'lobby'>
-    id: Id<'games'>;
+    _id: Id<'games'>;
     players: players;
     playerTurn: string;
     gameType: GameTypes;
     boardData: boxPiece[];
     gameOngoing: boolean;
     score?: score
-    message?: message
+    message?: message;
+    chat: lobbyMessage[];
 }
 
 export enum GameTypes  {

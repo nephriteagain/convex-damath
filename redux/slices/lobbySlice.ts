@@ -28,10 +28,12 @@ export const lobbySlice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(createRoom.fulfilled, (state, action) => {
-            state.lobbyData = action.payload
+            const lobby = action.payload as Lobby
+            state.lobbyData = lobby
         }),
         builder.addCase(joinRoom.fulfilled, (state, action) => {
-            state.lobbyData = action.payload
+            const lobby = action.payload as Lobby
+            state.lobbyData = lobby
         })
     }
 })

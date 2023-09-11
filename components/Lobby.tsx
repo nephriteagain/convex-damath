@@ -15,7 +15,7 @@ export default function LobbyComponent ({id}: {id:string}) {
       dispatch(getLobbies(lobby))      
     }, [lobby])
 
-    if (lobbies == undefined) {
+    if (!lobby) {
       return (
         <div className='max-w-[600px] bg-slate-300 px-4 py-2'>
           Loading...

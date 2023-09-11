@@ -11,6 +11,7 @@ import { getGame } from "@/redux/slices/gameSlice"
 import { gameData } from "@/types"
 import { useRef } from "react"
 import { boardStyleFlip } from "@/lib/helper/styleHelper"
+import WatchMessage from "@/components/WatchMessage"
 
 
 export default function Home() {
@@ -47,6 +48,10 @@ export default function Home() {
                 playerTurn={gData.playerTurn}
                 ref={boardRef}
             />
+            { gData && <WatchMessage 
+                messages={gData.chat} 
+                _id={gData._id}
+            />}
         </div>
     )
     

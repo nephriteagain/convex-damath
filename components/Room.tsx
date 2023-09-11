@@ -13,6 +13,8 @@ import { useRouter } from "next/navigation";
 import { gameStart } from "@/redux/slices/lobbySlice";
 import LobbyMessage from "./LobbyMessage";
 
+import { useEffect } from "react";
+
 interface RoomProps {
     userId: string;
     _id: Id<'lobby'>
@@ -22,6 +24,13 @@ export default function Room({_id,userId}: RoomProps) {
     const router = useRouter()
     const dispatch = useAppDispatch()
     const room = useQuery(api.lobby.getRoom, {id: _id})
+
+    useEffect(() => {
+        if (room?.start) {
+            dispatch(gameStart(room.start))
+        }
+    }, [room])
+
     if (!room) {
         return (
             <SheetContent>
@@ -31,9 +40,8 @@ export default function Room({_id,userId}: RoomProps) {
     }
     const { gameType, host, guest,  _id: roomId, messages } = room
     
-    if (room?.start) {
-        dispatch(gameStart(room.start))
-    }
+
+
 
     return (
         <SheetContent>

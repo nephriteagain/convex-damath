@@ -6,6 +6,14 @@ import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 import { checkMovablePieces, kingPromoter } from '../gameLogic/checkMovablePieces'
 // import { } from '../gameLogic/'
+
+
+function generateId() {
+    return Math.random().toString(16).slice(2)
+}
+
+
+
 export const getGameData = query({
     args: {id: v.id('games')},
     handler: async (ctx, args) => {
@@ -95,5 +103,29 @@ export const getWatchGameList = query({
             .filter(q => q.eq(q.field('gameOngoing'), true))
             .collect()
         return watchGameList
+    }
+})
+
+export const sendGameMessage = mutation({
+    args: {
+        id: v.id('games'), 
+        sId: v.string(), 
+        text: v.string(),
+        chat: v.array(v.object({
+            sId: v.string(),
+            mId: v.string(),
+            text: v.string()
+        }))
+    },
+    handler: async (ctx, args) => {
+        const {id, sId, text, chat} = args
+        const newMessage = {
+            sId,
+            mId: generateId(),
+            text,
+        }
+        const newChat = [...chat, newMessage]
+        const res = await ctx.db.patch(id, {chat: newChat})
+        return res
     }
 })
