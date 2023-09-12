@@ -16,13 +16,12 @@ export default function CreateRoom() {
         return (
             <Sheet>
             <SheetTrigger 
-                className="border-2 border-black px-3 py-1 disabled:opacity-40"
+                className="px-3 py-1 text-white bg-green-600 mb-2 rounded-md shadow-md drop-shadow-md hover:scale-105 active:scale-100 hover:bg-green-800 disabled:opacity-40 transition-all duration-150"
                 onClick={() => dispatch(createRoom(userId))}
                 disabled={Boolean(joinedLobby)}
             >
                 Create Room
-            </SheetTrigger> :
-            
+            </SheetTrigger>            
             {lobbyData != undefined && 
             <Room 
                 _id={lobbyData._id}
@@ -35,7 +34,7 @@ export default function CreateRoom() {
 
     return (
         <Sheet>            
-            <SheetTrigger>
+            <SheetTrigger className="px-3 py-1 text-white bg-green-600 mb-2 rounded-md shadow-md drop-shadow-md hover:scale-105 active:scale-100 hover:bg-green-800 disabled:opacity-40 transition-all duration-150">
                 Show Room
             </SheetTrigger>            
             {lobbyData != undefined && 

@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <Provider store={store}>
       <ConvexClientProvider>
-        <body className={inter.className}>{children}</body>
+        <body className={`${inter.className} bg-customLight`}>{children}</body>
       </ConvexClientProvider>
       </Provider>
     </html>

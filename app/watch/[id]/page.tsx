@@ -6,7 +6,7 @@ import { api } from "@/convex/_generated/api"
 import { Id } from "@/convex/_generated/dataModel"
 
 import Board from "@/components/Board"
-
+import WatchTurnBar from "@/components/WatchTurnBar"
 export default function Watch() {
     const {id} = useParams()
     const gameId = id as Id<'games'>
@@ -16,6 +16,10 @@ export default function Watch() {
 
     if (gameData) return (
         <div className="mt-12 flex flex-col w-full items-center justify-center">
+            <WatchTurnBar 
+                players={gameData.players}
+                playerTurn={gameData.playerTurn}
+            />
             <Board 
                 gameBoard={gameData.boardData}
                 players={gameData.players}
@@ -26,7 +30,9 @@ export default function Watch() {
 
     
     return (
-        <div>Loading...</div>
+        <div className="mt-12 flex flex-col w-full items-center justify-center">
+            Loading...
+        </div>
     )
     
 }

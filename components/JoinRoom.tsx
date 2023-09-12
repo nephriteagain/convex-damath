@@ -22,7 +22,7 @@ export default function JoinRoom({id, userId}: {id: Id<'lobby'>, userId: string}
     return (
         <Sheet>
             <SheetTrigger 
-                className="basis-1/4 disabled:opacity-40"
+                className="basis-1/4 disabled:opacity-40 bg-green-600 rounded-md shadow-md drop-shadow-md hover:bg-green-800 transition-all duration-150"
                 onClick={() => dispatch(joinRoom({id, userId}))}
                 disabled={Boolean(joinedLobby)}
             >

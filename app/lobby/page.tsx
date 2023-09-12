@@ -35,12 +35,12 @@ export default  function Home() {
     }, [lobbies])
 
     return (
-        <div className="w-full h-full">            
-            <div className="p-8 border-4 border-black max-w-[700px]">
+        <div className="w-full h-full flex flex-col">            
+            <div className="p-8 bg-customNeutral shadow-lg drop-shadow-lg mb-4 w-[700px] mx-auto mt-20">
                 <CreateRoom />
                 <LobbyComponent id={id} />
             </div>
-            <Link href='/' className="underline decoration-2 text-xl text-center">
+            <Link href='/' className="underline decoration-2 text-xl text-center hover:text-customSec transition-all duration-150">
                 Back to Home
             </Link>
         </div>

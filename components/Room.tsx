@@ -33,7 +33,7 @@ export default function Room({_id,userId}: RoomProps) {
 
     if (!room) {
         return (
-            <SheetContent>
+            <SheetContent className="bg-customNeutral">
                 Loading...
             </SheetContent>
         )
@@ -44,13 +44,14 @@ export default function Room({_id,userId}: RoomProps) {
 
 
     return (
-        <SheetContent>
+        <SheetContent className="bg-customNeutral text-white">
             <SheetHeader className="mb-8">
             <SheetTitle className="text-2xl">Lobby</SheetTitle>            
             </SheetHeader>
             <div>
 
-            <div className="mb-4">
+            <div className="w-fit">
+            <div className="mb-4 border-4 border-customSec  px-4 py-1 shadow-md drop-shadow-md">
                 <div>
                     TYPE
                 </div>
@@ -58,32 +59,33 @@ export default function Room({_id,userId}: RoomProps) {
                     {gameType}
                 </div>
             </div>
-            <div className="mb-4">
-                <div>HOST</div>
+            <div className="mb-4 border-4 border-customSec  px-4 py-1 shadow-md drop-shadow-md">
+                <div className="opacity-70">host</div>
                 <div>{host}</div>
             </div>
-            <div className="mb-4">
-                <div>GUEST</div>
+            <div className="mb-4 border-4 border-customSec  px-4 py-1 shadow-md drop-shadow-md">
+                <div className="opacity-70">guest</div>
                 <div>{guest || 'EMPTY'}</div>
+            </div>
             </div>
             <div>
                 {
                 host === userId ? 
                 <div className="flex flex-row justify-between">
                     <button onClick={() => dispatch(deleteRoom(_id))}
-                        className="border-2 border-black px-2 py-1 disabled:opacity-40"
+                        className="px-2 py-1 disabled:opacity-40 text-white bg-red-600 rounded-md shadow-md drop-shadow-md hover:scale-105 hover:bg-red-800 active:scale-100 transition-all duration-150"
                     >
                         Leave Game
                     </button>
                     <button onClick={() => dispatch(startGame({id:_id, gameType, host, guest}))}
-                        className="border-2 border-black px-2 py-1 disabled:opacity-40"
+                        className="px-2 py-1 disabled:opacity-40 text-white bg-green-600 rounded-md shadow-md drop-shadow-md hover:scale-105 hover:bg-green-800 active:scale-100 transition-all duration-150"
                     >
                         Start Game
                     </button>
                 </div> :
                 <div>
                     <button onClick={() => dispatch(leaveRoom(_id))}
-                        className="border-2 border-black px-2 py-1 disabled:opacity-40"
+                        className="px-2 py-1 disabled:opacity-40 text-white bg-red-600 rounded-md shadow-md drop-shadow-md hover:scale-105 hover:bg-red-800 active:scale-100 transition-all duration-150"
                     >
                         Leave Game
                     </button>

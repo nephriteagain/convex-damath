@@ -15,6 +15,8 @@ import {
   import { Button } from "./ui/button";
   import { Input } from "./ui/input";
 
+import Messages from "./Messages";
+
 interface WatchMessageProps {
     messages: lobbyMessage[]
     _id: Id<'games'>
@@ -62,7 +64,7 @@ export default function WatchMessage({messages, _id} : WatchMessageProps) {
                 setReadMsgCount(messages.length)
             }
         }}>
-            <SheetTrigger className="absolute top-4 right-4 border-2 border-black">
+            <SheetTrigger className="absolute top-4 right-4 bg-green-600 rounded-md text-lg text-white hover:bg-green-800 hover:scale-105 active:scale-100 transition-all duration-150">
                 <div className="relative w-full h-full">
                  {  messages.length - readMsgCount > 0 &&
                  <div className="absolute -right-3 -top-3 w-6 aspect-square rounded-full bg-blue-300">
@@ -76,32 +78,24 @@ export default function WatchMessage({messages, _id} : WatchMessageProps) {
                     Open Chat
                 </div>
             </SheetTrigger>
-            <SheetContent>
-            <form onSubmit={handleSubmit} className="mt-4 grid w-full gap-2">
+            <SheetContent className="pt-12 bg-customNeutral text-white">
+            <form onSubmit={handleSubmit} className="my-4 grid w-full gap-2">
             <Input placeholder="Type your message here." 
+                className="bg-customLight text-black border-none"
                 type="text"
                 value={message} 
                 onChange={(e) => setMessage(e.currentTarget.value)}
             />
-            <Button type="submit">
+            <Button type="submit"
+                className="bg-customSec hover:bg-customBg"
+            >
                     send
             </Button>
         </form>        
-        <ul className="h-[250px] overflow-auto text-white bg-gray-600 py-2 px-4 flex flex-col">
-            {messages.map((m) => {
-                const {sId, mId, text,} = m
-                return (
-                    <li key={mId} className={`mb-2 ${userId === sId ? 'ms-auto text-right' : 'me-auto text-left'}`}>
-                        <div className="">
-                            {text}
-                        </div>
-                        <div className="text-sm opacity-70">
-                            {userId === sId ? 'you' : sId}
-                        </div>                        
-                    </li>
-                )
-            })}
-        </ul>
+        <Messages 
+            messages={messages} 
+            userId={userId} 
+        />
             </SheetContent>
         </Sheet>
     )

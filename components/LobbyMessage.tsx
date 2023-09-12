@@ -7,6 +7,8 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { sendLobbyMsg } from "@/redux/thunks";
 import { Id } from "@/convex/_generated/dataModel";
 
+import Messages from "./Messages";
+
 interface LobbyMessageProps {
     messages: lobbyMessage[];
     _id: Id<'lobby'>
@@ -30,32 +32,23 @@ export default function LobbyMessage({messages, _id}: LobbyMessageProps) {
 
     return (
         <>
-        <form onSubmit={handleSubmit} className="mt-4 grid w-full gap-2">
+        <form onSubmit={handleSubmit} className="my-4 grid w-full gap-2">
             <Input placeholder="Type your message here." 
+                className="bg-customLight text-black border-none"
                 type="text"
                 value={message} 
                 onChange={(e) => setMessage(e.currentTarget.value)}
             />
-            <Button type="submit">
+            <Button type="submit"
+                className="bg-customSec hover:bg-customBg"
+            >
                     send
             </Button>
         </form>        
-        <ul className="h-[250px] overflow-auto text-white bg-gray-600 py-2 px-4 flex flex-col">
-            {messages.map((m) => {
-                const {sId, mId, text,} = m
-                return (
-                    <li key={mId} className={`mb-2 ${userId === sId ? 'ms-auto text-right' : 'me-auto text-left'}`}>
-                        <div className="">
-                            {text}
-                        </div>
-                        <div className="text-sm opacity-70">
-                            {userId === sId ? 'you' : sId}
-                        </div>                        
-                    </li>
-                )
-            })}
-        </ul>
-            
+        <Messages 
+            messages={messages} 
+            userId={userId} 
+        />            
         </>
     )
 }

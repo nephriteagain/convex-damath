@@ -138,3 +138,12 @@
   }
 
 }
+
+@layer base {
+  :root {
+    --color-background: 4, 13, 18;
+    --color-gray: 24, 61, 61;
+    --color-primary: 92, 131, 116;
+    --color-lite: 147, 177, 166;
+  }
+}

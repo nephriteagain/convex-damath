@@ -49,7 +49,11 @@ module.exports = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
-        },
+        },        
+          customBg: 'rgb(4, 13, 18)',
+          customSec: 'rgb(24, 61, 61)',
+          customNeutral: 'rgb(92, 131, 116)',
+          customLight: 'rgb(147, 177, 166)'        
       },
       borderRadius: {
         lg: "var(--radius)",
