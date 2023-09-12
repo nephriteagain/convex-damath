@@ -105,3 +105,75 @@ export const sendGameMsg = createAsyncThunk(
         await convex.mutation(api.game.sendGameMessage, {id, sId, text, chat})
     }
 )
+
+type changeTypeArgs = {
+    _id: Id<'lobby'>;
+    gameType: 'COUNTING'|'WHOLE'|'INTEGER';
+} 
+
+export const changeType = createAsyncThunk(
+    'game/changeGameType',
+    async (args: changeTypeArgs) => {
+        const { _id, gameType } = args
+        await convex.mutation(api.lobby.changeGameType, {_id, gameType})
+    }
+)
+
+type reqRestartArgs = {
+   userId: string;
+   gameId: Id<'games'>;
+}
+
+export const reqRestart = createAsyncThunk(
+    'game/reqRestart',
+    async (args: reqRestartArgs) => {
+        const { userId, gameId } = args
+        await convex.mutation(api.game.requestRestart, {userId, gameId})
+    }
+)
+type appRestartArgs = {
+    gameId: Id<'games'>;
+    gameType: 'COUNTING'|'WHOLE'|'INTEGER';
+ }
+
+export const appRestart = createAsyncThunk(
+    'game/appRestart',
+    async (args: appRestartArgs) => {
+        const { gameId, gameType } = args
+        await convex.mutation(api.game.approveRestart, {gameId, gameType})
+    }
+)
+
+type reqChangeGameModeArgs = {
+    userId: string;
+    gameId: Id<'games'>;
+    gameType: 'COUNTING'|'WHOLE'|'INTEGER';
+ }
+ 
+export const reqChangeGameMode = createAsyncThunk(
+    'game/reqChangeGameMode',
+    async (args: reqChangeGameModeArgs) => {
+        const { userId, gameId, gameType } = args
+        await convex.mutation(api.game.requestChangeGameMode, {userId, gameId, gameType})
+    }
+)
+
+type appChangeGameModeArgs = {
+    gameId: Id<'games'>;
+    gameType: 'COUNTING'|'WHOLE'|'INTEGER';
+ }
+ 
+export const appChangeGameMode = createAsyncThunk(
+    'game/appChangeGameMode',
+    async (args: appChangeGameModeArgs) => {
+        const { gameId, gameType } = args
+        await convex.mutation(api.game.approveChangeGameMode, {gameId, gameType})
+    }
+)
+
+export const leaveGame = createAsyncThunk(
+    'game/leaveGame',
+    async (gameId: Id<'games'>) => {
+        await convex.mutation(api.game.leaveGame, {gameId})
+    }
+)

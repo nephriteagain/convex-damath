@@ -11,7 +11,10 @@ import { useQuery } from 'convex/react'
 import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
 import { gameStart } from "@/redux/slices/lobbySlice";
+import { debounce } from "lodash";
+import { useToast } from "./ui/use-toast";
 import LobbyMessage from "./LobbyMessage";
+import GameType from "./GameType";
 
 import { useEffect } from "react";
 
@@ -22,12 +25,18 @@ interface RoomProps {
 
 export default function Room({_id,userId}: RoomProps) {
     const router = useRouter()
+    const { toast } = useToast()
     const dispatch = useAppDispatch()
+    const debouncedDispatch = debounce(dispatch, 2000)
     const room = useQuery(api.lobby.getRoom, {id: _id})
-
+    
     useEffect(() => {
         if (room?.start) {
-            dispatch(gameStart(room.start))
+            toast({
+                description: 'game is starting...',
+                duration: 2000,
+            })
+            debouncedDispatch(gameStart(room.start))
         }
     }, [room])
 
@@ -38,7 +47,7 @@ export default function Room({_id,userId}: RoomProps) {
             </SheetContent>
         )
     }
-    const { gameType, host, guest,  _id: roomId, messages } = room
+    const { gameType, host, guest,  _id: roomId, messages, } = room
     
 
 
@@ -55,9 +64,11 @@ export default function Room({_id,userId}: RoomProps) {
                 <div>
                     TYPE
                 </div>
-                <div>
-                    {gameType}
-                </div>
+                <GameType 
+                    host={host}
+                    gameType={gameType}
+                    lobbyId={_id}
+                />
             </div>
             <div className="mb-4 border-4 border-customSec  px-4 py-1 shadow-md drop-shadow-md">
                 <div className="opacity-70">host</div>

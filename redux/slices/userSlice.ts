@@ -1,6 +1,6 @@
 import { User } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
-import { createRoom, joinRoom } from "../thunks";
+import { createRoom, joinRoom, leaveRoom } from "../thunks";
 export function generateId() {
     return Math.random().toString(16).slice(2)
 }
@@ -36,6 +36,9 @@ export const userSlice = createSlice({
             if (action.payload) {
                 state.joinedLobby = action.payload._id
             }        
+        }),
+        builder.addCase(leaveRoom.fulfilled, (state) => {
+            state.joinedLobby = ''
         })
     }
 })

@@ -35,7 +35,11 @@ export default defineSchema({
             z: v.number(),
             x: v.number()
         })),
-        message: v.optional(v.any()),
+        message: v.optional(v.object({
+            sender: v.string(),
+            type: v.string(),
+            data: v.optional(v.string())
+        })),
         chat: v.array(v.object({
             sId: v.string(),
             mId: v.string(),

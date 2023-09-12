@@ -30,7 +30,7 @@ export default function Watch() {
 
     
     return (
-        <div className="mt-12 flex flex-col w-full items-center justify-center">
+        <div className="w-[100vw] h-[100vh] fixed bg-customBg text-3xl text-customLight flex items-center justify-center">
             Loading...
         </div>
     )

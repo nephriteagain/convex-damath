@@ -22,7 +22,7 @@ interface WatchMessageProps {
     _id: Id<'games'>
 }
 
-export default function WatchMessage({messages, _id} : WatchMessageProps) {
+export default function GameMessage({messages, _id} : WatchMessageProps) {
     const [ message, setMessage ] = useState('')
     const [ readMsgCount, setReadMsgCount ] = useState(0)
     const [ isOpen, setIsOpen ] = useState(false)
@@ -67,7 +67,7 @@ export default function WatchMessage({messages, _id} : WatchMessageProps) {
             <SheetTrigger className="absolute top-4 right-4 bg-green-600 rounded-md text-lg text-white hover:bg-green-800 hover:scale-105 active:scale-100 transition-all duration-150">
                 <div className="relative w-full h-full">
                  {  messages.length - readMsgCount > 0 &&
-                 <div className="absolute -right-3 -top-3 w-6 aspect-square rounded-full bg-blue-300">
+                 <div className="absolute -right-3 -top-3 w-6 aspect-square rounded-full bg-blue-300 animate-bounce">
                     {getUnreadMsgCount()}
                 </div>
                 }

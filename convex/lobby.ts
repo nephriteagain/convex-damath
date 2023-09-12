@@ -113,3 +113,19 @@ export const sendMessage = mutation({
         return res
     }
 })
+
+export const changeGameType = mutation({
+    args: {
+        _id: v.id('lobby'),
+        gameType: v.union(
+            v.literal('COUNTING'),
+            v.literal('WHOLE'),
+            v.literal('INTEGER')
+        ), 
+    },
+    handler: async (ctx, args) => {
+        const { _id, gameType } = args
+        const res = await ctx.db.patch(_id, {gameType})
+        return res
+    }
+})

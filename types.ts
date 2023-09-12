@@ -76,16 +76,11 @@ export interface score {
 
 export interface message {
     sender: string;
-    type: messageType;
-    data: GameTypes
+    type: string;
+    data?: GameTypes
 }
 
-export enum messageType {
-    REQUEST_RESTART,
-    APPROVE_RESTART,
-    REQUEST_CHANGE_GAME_MODE,
-    APPROVE_CHANGE_GAME_MODE,
-}
+
 
 export interface movablePieces {
     piece: piece;

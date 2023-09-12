@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Lobby } from "@/types";
-import { createRoom, joinRoom } from "../thunks";
+import { createRoom, joinRoom, leaveRoom } from "../thunks";
 const initialState : {
     lobbies: Lobby[];
     lobbyData?: Lobby;
@@ -34,6 +34,9 @@ export const lobbySlice = createSlice({
         builder.addCase(joinRoom.fulfilled, (state, action) => {
             const lobby = action.payload as Lobby
             state.lobbyData = lobby
+        }),
+        builder.addCase(leaveRoom.fulfilled, (state) => {
+            state.lobbyData = undefined;
         })
     }
 })

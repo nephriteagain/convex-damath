@@ -45,9 +45,12 @@ export const gameSlice = createSlice({
                 state.pieceIndex = index
             }
             
+        },
+        playerLeft(state) {
+            state = init
         }
     }    
 })
 
-export const { getGame, highlightMoves } = gameSlice.actions
+export const { getGame, highlightMoves, playerLeft } = gameSlice.actions
 export default gameSlice.reducer

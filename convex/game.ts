@@ -5,6 +5,7 @@ import { gameData } from "../types";
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 import { checkMovablePieces, kingPromoter } from '../gameLogic/checkMovablePieces'
+import { COUNTING, WHOLE, INTEGER } from '../lib/data/gameData';
 // import { } from '../gameLogic/'
 
 
@@ -12,6 +13,11 @@ function generateId() {
     return Math.random().toString(16).slice(2)
 }
 
+const games = {
+    'COUNTING': COUNTING,
+    'WHOLE': WHOLE,
+    'INTEGER': INTEGER,
+}
 
 
 export const getGameData = query({
@@ -126,6 +132,85 @@ export const sendGameMessage = mutation({
         }
         const newChat = [...chat, newMessage]
         const res = await ctx.db.patch(id, {chat: newChat})
+        return res
+    }
+})
+
+export const requestRestart = mutation({
+    args: {
+        userId: v.string(),
+        gameId: v.id('games')
+    },
+    handler: async (ctx, args) => {
+       const { userId, gameId } = args 
+       const res = await ctx.db.patch(gameId, {message: {
+        sender: userId,
+        type: 'REQ_RESTART'
+       }})
+       return res
+    }
+})
+
+const gameTypeSchema = v.union(
+    v.literal('COUNTING'),
+    v.literal('INTEGER'),
+    v.literal('WHOLE'),
+)
+
+export const approveRestart = mutation({
+    args: {
+        gameId: v.id('games'),
+        gameType: gameTypeSchema
+    },
+    handler: async (ctx, args) => {
+        const { gameId, gameType } = args
+        
+        await ctx.db.patch(gameId, {
+            boardData: games[gameType],
+            message: undefined
+        })
+    }
+})
+
+export const requestChangeGameMode = mutation({
+    args: {
+        userId: v.string(),
+        gameId: v.id('games'),
+        gameType: gameTypeSchema
+    },
+    async handler(ctx, args) {
+        const { userId, gameId, gameType } = args
+        const res = await ctx.db.patch(gameId, {
+            message: {
+                type: 'REQ_CHANGE_GAME_MODE',
+                sender: userId,
+                data: gameType
+            }
+        })
+        return res
+    },
+})
+
+export const approveChangeGameMode = mutation({
+    args: {
+        gameId: v.id('games'),
+        gameType: gameTypeSchema
+    },
+    handler: async (ctx, args) => {
+        const { gameId, gameType } = args        
+        const res = await ctx.db.patch(gameId, {
+            message: undefined,
+            boardData: games[gameType]
+        })
+        return res
+    },
+})
+
+export const leaveGame = mutation({
+    args: {gameId: v.id('games')},
+    handler: async (ctx, args) => {
+        const {gameId} = args
+        const res =  await ctx.db.patch(gameId, {gameOngoing: false})
         return res
     }
 })

@@ -10,6 +10,9 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { clearJoinedLobbyId } from "@/redux/slices/userSlice"
 import { clearLobbyData } from "@/redux/slices/lobbySlice"
 import { useRouter } from 'next/navigation'
+import { deleteRoom } from "@/redux/thunks"
+import { Toaster } from "@/components/ui/toaster"
+
 export const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL ?? "");
 
 export const dynamic = "force-dynamic";
@@ -22,9 +25,13 @@ export default  function Home() {
     const {lobbies, lobbyData} = useAppSelector(state => state.lobby)
     
     useEffect(() => {
+        if (lobbyData?.start && lobbyData.host === id) {
+            dispatch(deleteRoom(lobbyData._id))
+        }
         if (lobbyData?.start) {
             router.push(`/game/${lobbyData.start}`)
         }
+
     }, [lobbyData])
 
     useEffect(() => {
@@ -43,6 +50,7 @@ export default  function Home() {
             <Link href='/' className="underline decoration-2 text-xl text-center hover:text-customSec transition-all duration-150">
                 Back to Home
             </Link>
+            <Toaster />
         </div>
     )
 }
