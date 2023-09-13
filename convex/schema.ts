@@ -31,11 +31,11 @@ export default defineSchema({
         ),
         boardData: v.array(v.any()),
         gameOngoing: v.boolean(),
-        score: v.optional(v.object({
+        score: v.object({
             z: v.number(),
             x: v.number()
-        })),
-        message: v.optional(v.object({
+        }),
+        command: v.optional(v.object({
             sender: v.string(),
             type: v.string(),
             data: v.optional(v.string())

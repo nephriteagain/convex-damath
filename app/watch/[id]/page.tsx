@@ -7,6 +7,7 @@ import { Id } from "@/convex/_generated/dataModel"
 
 import Board from "@/components/Board"
 import WatchTurnBar from "@/components/WatchTurnBar"
+import Scores from "@/components/Score"
 export default function Watch() {
     const {id} = useParams()
     const gameId = id as Id<'games'>
@@ -20,6 +21,7 @@ export default function Watch() {
                 players={gameData.players}
                 playerTurn={gameData.playerTurn}
             />
+            <Scores score={gameData.score}/>
             <Board 
                 gameBoard={gameData.boardData}
                 players={gameData.players}

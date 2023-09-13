@@ -11,9 +11,12 @@ import { getGame } from "@/redux/slices/gameSlice"
 import { GameTypes, gameData } from "@/types"
 import { useRef } from "react"
 import { boardStyleFlip } from "@/lib/helper/styleHelper"
+
 import GameMessage from "@/components/GameMessage"
 import Settings from "@/components/Settings"
 import Rules from "@/components/Rules"
+import Scores from "@/components/Score"
+
 import { useToast } from "@/components/ui/use-toast"
 import { ToastAction } from "@radix-ui/react-toast"
 import { appRestart, appChangeGameMode } from "@/redux/thunks"
@@ -74,14 +77,14 @@ export default function Home() {
             deboundedRedirect()
         }
 
-        if (gData?.message?.type === 'REQ_RESTART') {
-            if (userId === gData.message.sender) {
+        if (gData?.command?.type === 'REQ_RESTART') {
+            if (userId === gData.command.sender) {
                 toast({
                     description: 'a game restart request is sent, waiting for approval',
                     duration: 3000
                 })
             }
-            if (userId !== gData.message.sender && 
+            if (userId !== gData.command.sender && 
                 (gData.players.x === userId ||
                 gData.players.z === userId)) {
                 toast({
@@ -93,19 +96,19 @@ export default function Home() {
                 })
             }
         }
-        if (gData?.message?.type === 'REQ_CHANGE_GAME_MODE' && gData?.message?.data) {
-            if (userId === gData.message.sender) {
+        if (gData?.command?.type === 'REQ_CHANGE_GAME_MODE' && gData?.command?.data) {
+            if (userId === gData.command.sender) {
                 toast({
-                    description: `a change game mode to (${gData.message.data}) request is sent, waiting for approval`,
+                    description: `a change game mode to (${gData.command.data}) request is sent, waiting for approval`,
                     duration: 3000
                 })
             }
-            if (userId !== gData.message.sender && 
+            if (userId !== gData.command.sender && 
                 (gData.players.x === userId ||
                 gData.players.z === userId)) {
-                    const newGameType = gData.message?.data as GameTypes
+                    const newGameType = gData.command?.data as GameTypes
                 toast({
-                    description: `a player is requesting a change game mode to (${gData.message.data}), click approve to confirm`,
+                    description: `a player is requesting a change game mode to (${gData.command.data}), click approve to confirm`,
                     duration: 5000,
                     action: <ToastAction altText="approve" 
                         onClick={() => dispatch(appChangeGameMode({gameId: gData._id, gameType: newGameType}))}
@@ -119,6 +122,7 @@ export default function Home() {
     if (gData) return (
         <div className="mt-12 flex flex-col w-full items-center justify-center">
             <PlayerTurnBar/>
+            <Scores score={gData.score}/>
             <Board 
                 gameBoard={gData.boardData}
                 players={gData.players}

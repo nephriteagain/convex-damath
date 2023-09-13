@@ -59,8 +59,8 @@ export interface gameData {
     gameType: GameTypes;
     boardData: boxPiece[];
     gameOngoing: boolean;
-    score?: score
-    message?: message;
+    score: score;
+    command?: message;
     chat: lobbyMessage[];
 }
 

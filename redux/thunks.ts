@@ -2,7 +2,9 @@ import { Id } from '../convex/_generated/dataModel';
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { convex } from "@/app/lobby/page"
 import { api } from "@/convex/_generated/api"
-import { GameTypes, piece, boxPiece, operation, players, lobbyMessage } from '@/types';
+import { GameTypes, piece, boxPiece, operation, players, lobbyMessage, score } from '@/types';
+
+
 export const createRoom = createAsyncThunk(
     'lobby/createRoom',
     async (id:string) => {
@@ -55,12 +57,13 @@ type moveArgs = {
     players: players;
     id: Id<'games'>;
     boardData: boxPiece[];
+    score: score;
 
 }
 export const movePiece = createAsyncThunk(
     'game/move',
     async (args: moveArgs) => {
-        const {piece, index, pieceIndex, playerTurn, players, id, boardData,} = args
+        const {piece, index, pieceIndex, playerTurn, players, id, boardData, score} = args
         await convex.mutation(
             api.game.movePiece, {
                 piece,
@@ -70,7 +73,8 @@ export const movePiece = createAsyncThunk(
                 players, 
                 id, 
                 //@ts-ignore
-                boardData
+                boardData,
+                score
             }
             )
         return 

@@ -7,7 +7,7 @@ import { v } from "convex/values";
 import { checkMovablePieces, kingPromoter } from '../gameLogic/checkMovablePieces'
 import { COUNTING, WHOLE, INTEGER } from '../lib/data/gameData';
 // import { } from '../gameLogic/'
-
+import { scoreHandler, getNewPieceBox, } from '../gameLogic/scoreHandler'
 
 function generateId() {
     return Math.random().toString(16).slice(2)
@@ -17,7 +17,7 @@ const games = {
     'COUNTING': COUNTING,
     'WHOLE': WHOLE,
     'INTEGER': INTEGER,
-}
+}   
 
 
 export const getGameData = query({
@@ -58,13 +58,17 @@ const movePieceArgs = {
         x: v.string()
     }),
     id: v.id('games'),
-    boardData: v.array(v.any())
+    boardData: v.array(v.any()),
+    score: v.object({
+        z: v.number(),
+        x: v.number()
+    })
 }
 export const movePiece = mutation({
     // wtf is this typings
     args: movePieceArgs,
     handler: async (ctx, args) => {
-        const {piece, index, pieceIndex, playerTurn, id, boardData, players} = args
+        const {piece, index, pieceIndex, playerTurn, id, boardData, players, score} = args
         let nextTurn = playerTurn === players?.x ? players?.z : players?.x
         const oldBoard = cloneDeep(boardData)
 
@@ -78,15 +82,27 @@ export const movePiece = mutation({
         const boardDataWithNewMoves = checkMovablePieces(newBoardData, playerToCheck, didCapturedAPiece, piece)
         const canMultiJump = boardDataWithNewMoves.some(box => box?.piece?.moves && box.piece.moves.length > 0 && box?.piece?.type !== playerToCheck && box?.piece?.value === piece.value)
 
+        let newScore = score
+        if (didCapturedAPiece) {
+            const capturedPiece = capturedPieceArr[0]
+            const newPieceBox = getNewPieceBox(boardDataWithNewMoves, piece)
+            const scoree = players.x === nextTurn ? 'z' : 'x'
+            newScore = scoreHandler(score, scoree, piece, capturedPiece, newPieceBox)
+        }
+
         if (canMultiJump && didCapturedAPiece) {
-            console.log('can multi jump')
             nextTurn = playerTurn === players?.z ? players?.z : players?.x
         }
 
         if (!canMultiJump) {
             kingPromoter(boardDataWithNewMoves)
         }
-        await ctx.db.patch(id, {playerTurn: nextTurn, boardData: boardDataWithNewMoves})
+        await ctx.db.patch(id, {
+            playerTurn: nextTurn, 
+            boardData: 
+            boardDataWithNewMoves,
+            score: newScore
+        })
         return
 
     }
@@ -143,10 +159,12 @@ export const requestRestart = mutation({
     },
     handler: async (ctx, args) => {
        const { userId, gameId } = args 
-       const res = await ctx.db.patch(gameId, {message: {
-        sender: userId,
-        type: 'REQ_RESTART'
-       }})
+       const res = await ctx.db.patch(gameId, {
+        command: {
+            sender: userId,
+            type: 'REQ_RESTART'
+           }
+    })
        return res
     }
 })
@@ -167,7 +185,7 @@ export const approveRestart = mutation({
         
         await ctx.db.patch(gameId, {
             boardData: games[gameType],
-            message: undefined
+            command: undefined
         })
     }
 })
@@ -181,7 +199,7 @@ export const requestChangeGameMode = mutation({
     async handler(ctx, args) {
         const { userId, gameId, gameType } = args
         const res = await ctx.db.patch(gameId, {
-            message: {
+            command: {
                 type: 'REQ_CHANGE_GAME_MODE',
                 sender: userId,
                 data: gameType
@@ -199,7 +217,7 @@ export const approveChangeGameMode = mutation({
     handler: async (ctx, args) => {
         const { gameId, gameType } = args        
         const res = await ctx.db.patch(gameId, {
-            message: undefined,
+            command: undefined,
             boardData: games[gameType]
         })
         return res

@@ -19,7 +19,7 @@ interface BoxProps {
 
 export default function Box({playable, piece, operation, index, highlighted, players, playerTurn}: BoxProps) {
     const dispatch = useAppDispatch()
-    const { gameId, pieceToMove, pieceIndex, gameData } = useAppSelector(state => state.game)
+    const { gameId, pieceToMove, pieceIndex, gameData, } = useAppSelector(state => state.game)
     function handleClick(e: MouseEvent, index: number) {
         console.log('move')
         e.stopPropagation();
@@ -36,7 +36,8 @@ export default function Box({playable, piece, operation, index, highlighted, pla
             playerTurn,
             //@ts-ignore
             id: gameId,
-            players,            
+            players,
+            score: gameData.score  
         }))
     }
 
