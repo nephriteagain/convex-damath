@@ -78,7 +78,7 @@ export default function GameMessage({messages, _id} : WatchMessageProps) {
                     Open Chat
                 </div>
             </SheetTrigger>
-            <SheetContent className="pt-12 bg-customNeutral text-white">
+            <SheetContent className=" bg-customNeutral text-white">
             <form onSubmit={handleSubmit} className="my-4 grid w-full gap-2">
             <Input placeholder="Type your message here." 
                 className="bg-customLight text-black border-none"

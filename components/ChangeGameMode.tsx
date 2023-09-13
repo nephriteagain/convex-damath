@@ -1,4 +1,4 @@
-import {  MouseEvent } from "react"
+import {  MouseEvent, useState } from "react"
 
 import { Button } from "@/components/ui/button"
 
@@ -15,6 +15,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import LoadingSvg from "./LoadingSvg"
 
 import {
     AlertDialog,
@@ -36,13 +37,22 @@ interface ChangeGameModeProps {
 }
 
 export default function ChangeGameMode({gameId}: ChangeGameModeProps) {
+    const [ loading, setLoading ] = useState(false)
     const dispatch = useAppDispatch()
     // const { id } = useAppSelector(state => state.game)
     const { id: userId } = useAppSelector(state => state.user)
 
     async function handleClick(e: MouseEvent<HTMLButtonElement>) {
+        e.preventDefault()
         const gameType = e.currentTarget.innerText.trim() as GameTypes
-        dispatch(reqChangeGameMode({userId, gameId, gameType}))
+        try {
+          setLoading(true)
+          await dispatch(reqChangeGameMode({userId, gameId, gameType}))
+        } catch (error) {
+          console.error('something went wrong')
+        } finally {
+          setLoading(false)
+        }
     }
 
     return (
@@ -60,18 +70,45 @@ export default function ChangeGameMode({gameId}: ChangeGameModeProps) {
         <AlertDialogFooter>
           <AlertDialogAction 
             onClick={handleClick}
+            disabled={loading}
+            className="relative flex items-center justify-center disabled:opacity-50"
           >
-            COUNTING
+            { loading && <LoadingSvg
+                    className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                    width={24}
+                    height={24}
+                />}                
+                <p className={loading ? 'invisible' : 'visible'}>
+                    COUNTING
+                </p>
             </AlertDialogAction>
             <AlertDialogAction 
                 onClick={handleClick}
+                disabled={loading}
+                className="relative flex items-center justify-center disabled:opacity-50"
             >
-            WHOLE
+                { loading && <LoadingSvg
+                    className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                    width={24}
+                    height={24}
+                />}
+                <p className={loading ? 'invisible' : 'visible'}>
+                    WHOLE
+                </p>
             </AlertDialogAction>
             <AlertDialogAction 
                 onClick={handleClick}
+                disabled={loading}
+                className="relative flex items-center justify-center disabled:opacity-50"
             >
-            INTEGER
+              { loading && <LoadingSvg
+                    className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                    width={24}
+                    height={24}
+                />}
+                <p className={loading ? 'invisible' : 'visible'}>
+                    INTEGER
+                </p>
             </AlertDialogAction>
 
           <AlertDialogCancel>

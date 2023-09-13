@@ -5,33 +5,64 @@ import { Lobby } from '@/types';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getLobbies } from '@/redux/slices/lobbySlice';
 import JoinRoom from './JoinRoom';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+
+const loaderData = new Array(5).fill(true)
+
 export default function LobbyComponent ({id}: {id:string}) {
     const lobby = useQuery(api.lobby.getLobby) as Lobby[];
     const lobbies = useAppSelector(state => state.lobby.lobbies)
     const dispatch = useAppDispatch()
-    
+    const loaderRef = useRef<HTMLDivElement>(null)
+
+
     useEffect(() => {
       dispatch(getLobbies(lobby))      
     }, [lobby])
 
+
+
     if (!lobby) {
       return (
-        <div className='max-w-[600px] bg-slate-300 px-4 py-2'>
-          Loading...
-        </div>
+        <section className='max-w-[600px] bg-customBg px-4 py-2  text-white h-[400px]'>
+          <div className='flex flex-row w-full bg-customSec mb-2 font-semibold px-4 py-2 text-lg'>
+            <div className='basis-1/4 text-center'>TYPE</div>
+            <div className='basis-1/4 text-center'>HOST</div>
+            <div className='basis-1/4 text-center'>GUEST</div>
+            <div className='basis-1/4 text-center'>ACTION</div>
+          </div>
+            <div ref={loaderRef}>
+                {loaderData.map((l,i) =>{
+                    return (
+                        <div key={i} 
+                            style={{animationDelay: `${100*i}ms`}}
+                            className={`flex flex-row bg-customSec mb-2 px-4 py-1 w-full h-[1.75rem] animate-pulse`}
+                        >
+                        </div>
+                    )
+                })}
+            </div>
+        </section>
       )
     }
 
     if (lobbies.length === 0) {
-      <div className='max-w-[600px] bg-slate-300 px-4 py-2'>
-          No Active Rooms
+      return ( <section className='max-w-[600px] bg-customBg px-4 py-2 text-white h-[400px]'>
+        <div className='flex flex-row w-full bg-customSec mb-2 font-semibold px-4 py-2 text-lg'>
+          <div className='basis-1/4 text-center'>TYPE</div>
+          <div className='basis-1/4 text-center'>HOST</div>
+          <div className='basis-1/4 text-center'>GUEST</div>
+          <div className='basis-1/4 text-center'>ACTION</div>
         </div>
+          <p className='text-center py-4'>
+            no active rooms found...
+          </p>
+        </section>)
     }
 
     return (
-      <section className='max-w-[600px] bg-customBg px-4 py-2 text-white'>
-        <div className='flex flex-row w-full bg-customSec mb-2 font-semibold px-4 py-1'>
+      <section className='max-w-[600px] bg-customBg px-4 py-2  text-white h-[400px]'>
+        <div className='flex flex-row w-full bg-customSec mb-2 font-semibold px-4 py-2 text-lg'>
           <div className='basis-1/4 text-center'>TYPE</div>
           <div className='basis-1/4 text-center'>HOST</div>
           <div className='basis-1/4 text-center'>GUEST</div>

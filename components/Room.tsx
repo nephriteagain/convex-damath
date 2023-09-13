@@ -15,8 +15,9 @@ import { debounce } from "lodash";
 import { useToast } from "./ui/use-toast";
 import LobbyMessage from "./LobbyMessage";
 import GameType from "./GameType";
+import LoadingSvg from "./LoadingSvg";
 
-import { useEffect } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 
 interface RoomProps {
     userId: string;
@@ -29,7 +30,33 @@ export default function Room({_id,userId}: RoomProps) {
     const dispatch = useAppDispatch()
     const debouncedDispatch = debounce(dispatch, 2000)
     const room = useQuery(api.lobby.getRoom, {id: _id})
-    
+    const [leaveLoading, setLeaveLoading] = useState(false)
+    const [startLoading, setStartLoading] = useState(false)
+
+    async function handleDeleteRoom(e: MouseEvent) {
+        e.preventDefault()
+        try {
+            setLeaveLoading(true)
+            await dispatch(deleteRoom(_id))
+        } catch (error) {
+            console.error('something went wrong')
+        } finally {
+            setLeaveLoading(false)
+        }
+    }
+
+    async function handleStartRoom(e: MouseEvent) {
+        e.preventDefault()
+        try {
+            setStartLoading(true)
+            await dispatch(startGame({id:_id, gameType, host, guest}))
+        } catch (error) {
+            console.error('something went wrong')
+        } finally {
+            setStartLoading(false)
+        }
+    }
+
     useEffect(() => {
         if (room?.start) {
             toast({
@@ -83,22 +110,49 @@ export default function Room({_id,userId}: RoomProps) {
                 {
                 host === userId ? 
                 <div className="flex flex-row justify-between">
-                    <button onClick={() => dispatch(deleteRoom(_id))}
-                        className="px-2 py-1 disabled:opacity-40 text-white bg-red-600 rounded-md shadow-md drop-shadow-md hover:scale-105 hover:bg-red-800 active:scale-100 transition-all duration-150"
-                    >
-                        Leave Game
+                    <button 
+                        onClick={handleDeleteRoom}
+                        className="relative flex items-center justify-center px-2 py-1 disabled:opacity-40 text-white bg-red-600 rounded-md shadow-md drop-shadow-md hover:scale-105 hover:bg-red-800 active:scale-100 transition-all duration-150"
+                        disabled={Boolean(leaveLoading)}
+                    >   
+                        { leaveLoading && <LoadingSvg 
+                            className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                            width={24}
+                            height={24}
+                        /> }
+                        <p className={leaveLoading? 'invisible' : 'visible'}>
+                            Leave Game                        
+                        </p>
                     </button>
-                    <button onClick={() => dispatch(startGame({id:_id, gameType, host, guest}))}
-                        className="px-2 py-1 disabled:opacity-40 text-white bg-green-600 rounded-md shadow-md drop-shadow-md hover:scale-105 hover:bg-green-800 active:scale-100 transition-all duration-150"
+                    <button 
+                        onClick={handleStartRoom}
+                        className="relative flex items-center justify-center px-2 py-1 disabled:opacity-40 text-white bg-green-600 rounded-md shadow-md drop-shadow-md hover:scale-105 hover:bg-green-800 active:scale-100 transition-all duration-150"
+                        disabled={Boolean(startLoading)}
                     >
-                        Start Game
+                         { startLoading && <LoadingSvg 
+                            className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                            width={24}
+                            height={24}
+                        /> }
+                        <p className={startLoading? 'invisible' : 'visible'}>
+                            Start Game
+                        </p>
                     </button>
                 </div> :
                 <div>
-                    <button onClick={() => dispatch(leaveRoom(_id))}
-                        className="px-2 py-1 disabled:opacity-40 text-white bg-red-600 rounded-md shadow-md drop-shadow-md hover:scale-105 hover:bg-red-800 active:scale-100 transition-all duration-150"
-                    >
-                        Leave Game
+                     <button 
+                        onClick={handleDeleteRoom}
+                        className="relative flex items-center justify-center px-2 py-1 disabled:opacity-40 text-white bg-red-600 rounded-md shadow-md drop-shadow-md hover:scale-105 hover:bg-red-800 active:scale-100 transition-all duration-150"
+                        disabled={Boolean(leaveLoading)}
+                    >   
+                        { leaveLoading && <LoadingSvg 
+                            className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                            width={24}
+                            height={24}
+                        /> }
+                        <p className={leaveLoading? 'invisible' : 'visible'}>
+                            Leave Game                        
+                        </p>
                     </button>
                 </div>
                 }

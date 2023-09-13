@@ -1,4 +1,4 @@
-import { MouseEvent } from "react"
+import { MouseEvent, useState } from "react"
 
 import {
     AlertDialog,
@@ -15,16 +15,28 @@ import {
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { Id } from "@/convex/_generated/dataModel"
 import { leaveGame } from "@/redux/thunks"
+
+import LoadingSvg from "./LoadingSvg"
+
 interface LeaveGameProps {
     gameId: Id<'games'>
 }
 export default function LeaveGame({gameId}: LeaveGameProps) {
+
+    const [ loading, setLoading ] = useState(false)
     const dispatch = useAppDispatch()
     // const { id } = useAppSelector(state => state.game)
 
-    function handleClick(e: MouseEvent) {
+    async function handleClick(e: MouseEvent) {
         e.preventDefault()
-        dispatch(leaveGame(gameId))
+        try {
+            setLoading(true)
+            await dispatch(leaveGame(gameId))
+        } catch (error) {
+            console.error('something went wrong')
+        } finally {
+            setLoading(false)
+        }
     }
 
     return (
@@ -46,9 +58,18 @@ export default function LeaveGame({gameId}: LeaveGameProps) {
                     Cancel
                 </AlertDialogCancel>
                 <AlertDialogAction
+                    className="relative flex items-center justify-center"
                     onClick={handleClick}
+                    disabled={loading}
                 >
-                    Continue
+                    { loading && <LoadingSvg
+                    className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                    width={24}
+                    height={24}
+                />}
+                    <p className={loading ? 'invisible' : 'visible'}>
+                        Continue
+                    </p>
                 </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
