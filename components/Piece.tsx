@@ -19,7 +19,6 @@ export default function Piece({piece, index, players, playerTurn}: PieceProps) {
     const { type, value, moves, king } = piece
 
     function handleClick(e: MouseEvent) {
-        console.log(piece.moves)
         e.preventDefault();
         e.stopPropagation();
         dispatch(highlightMoves({pieceIndex: index, pieceToMove: piece}))

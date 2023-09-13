@@ -51,7 +51,6 @@ export function scoreHandler(
 
 
 export function getNewPieceBox(boardData: boxPiece[], piece: piece) : boxPiece {
-    console.log('get new piece func')
     const newPieceBox = boardData.find(box => {
         return piece.value === box?.piece?.value && piece.type === box?.piece?.type
     }) as boxPiece

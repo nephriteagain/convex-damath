@@ -8,7 +8,7 @@ import { Id } from "@/convex/_generated/dataModel"
 import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { getGame } from "@/redux/slices/gameSlice"
-import { GameTypes, gameData } from "@/types"
+import { GameTypes, gameData, players } from "@/types"
 import { useRef } from "react"
 import { boardStyleFlip } from "@/lib/helper/styleHelper"
 
@@ -44,7 +44,15 @@ export default function Home() {
     function redirectToLobby() {
         router.push('/lobby')
     }
-    const deboundedRedirect = debounce(redirectToLobby, 3000)
+
+    useEffect(() => {
+        if (boardRef?.current && userId === gData?.players.x) {
+            const board = boardRef.current as HTMLDivElement;              
+            const verticalNum = document.querySelector('.vertical-num') as HTMLDivElement
+            const horizontalNum = document.querySelector('.horizontal-num') as HTMLDivElement            
+            boardStyleFlip(board, horizontalNum, verticalNum)              
+        }
+    }, [gData])
 
     useEffect(() => {
         if (gameData) {
@@ -74,7 +82,7 @@ export default function Home() {
                 description: 'a player has left the game'
             })
             dispatch(playerLeft)
-            deboundedRedirect()
+            redirectToLobby()
         }
 
         if (gData?.command?.type === 'REQ_RESTART') {
@@ -119,6 +127,13 @@ export default function Home() {
 
     }, [gData])
    
+    function getPlayerColor(userId: string, players: players) {
+        if (userId === players.x) {
+            return 'BLUE'
+        }
+        return 'RED'
+    }
+
     if (gData) return (
         <div className="mt-12 flex flex-col w-full items-center justify-center">
             <PlayerTurnBar/>
@@ -128,6 +143,7 @@ export default function Home() {
                 players={gData.players}
                 playerTurn={gData.playerTurn}
                 ref={boardRef}
+                side={getPlayerColor(userId, gData.players)}
             />
             <GameMessage 
                 messages={gData.chat} 

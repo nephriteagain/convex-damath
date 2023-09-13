@@ -30,7 +30,6 @@ export const gameSlice = createSlice({
             const index = action.payload.pieceIndex as number
             const piece = action.payload.pieceToMove as piece
             if (state.gameData) {
-                console.log('test')
                 const boardCopy = cloneDeep(state.gameData.boardData) as boxPiece[]
                 boardCopy.forEach(b => {
                     if (b.hightlighted) {
