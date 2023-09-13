@@ -10,9 +10,11 @@ import { useToast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation"
 import { debounce } from "lodash"
 
+import { BiArrowBack } from 'react-icons/bi'
 import Board from "@/components/Board"
 import WatchTurnBar from "@/components/WatchTurnBar"
 import Scores from "@/components/Score"
+import Link from "next/link"
 export default function Watch() {
     const {id} = useParams()
     const gameId = id as Id<'games'>
@@ -47,6 +49,10 @@ export default function Watch() {
                 players={gameData.players}
                 playerTurn={gameData.playerTurn}
             />
+            <Link href={'/'} className="absolute left-4 top-4 px-3 py-[2px] font-bold text-lg flex flex-row items-center justify-center hover:underline hover:bg-customSec hover:text-customLight transition-all duration-150 rounded-lg">
+                <BiArrowBack className="me-2"/> 
+                <p>back to home</p>
+            </Link>
         </div>
         <Toaster />
         </>

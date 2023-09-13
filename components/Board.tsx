@@ -4,6 +4,7 @@ import { forwardRef, Ref } from "react"
 
 import Box from "./Box"
 import Nums from "./Nums"
+import Side from "./Side"
 
 interface BoardProps {
     gameBoard: boxPiece[]|undefined
@@ -37,16 +38,7 @@ export default forwardRef(function Board({gameBoard = COUNTING, players, playerT
                     />
                 )
             })}
-            <div className="vertical-num absolute w-8 h-full -left-12 flex flex-col shadow-lg drop-shadow-lg">
-                {numArr.map(n => {
-                    return <Nums number={n} key={n}/>            
-                })}
-            </div>
-            <div className="horizontal-num absolute h-8 w-full -bottom-14 flex flex-row shadow-lg drop-shadow-lg">
-                {numArr.map(n => {
-                    return <Nums number={n} key={n}/>            
-                })}
-            </div>                
+            <Side numArr={numArr} />
             </div>
     )
 })
