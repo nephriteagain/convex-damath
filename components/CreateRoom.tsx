@@ -32,7 +32,7 @@ export default function CreateRoom() {
         return (
             <Sheet>
             <SheetTrigger 
-                className="relative flex items-center justify-center px-3 py-1 text-white bg-green-600 mb-2 rounded-md shadow-md drop-shadow-md hover:scale-105 active:scale-100 hover:bg-green-800 disabled:opacity-40 transition-all duration-150"
+                className="relative w-fit flex items-center justify-center px-3 py-1 text-white bg-green-600 mb-2 rounded-md shadow-md drop-shadow-md hover:scale-105 active:scale-100 hover:bg-green-800 disabled:opacity-40 transition-all duration-150"
                 onClick={handleCreateRoom}
                 disabled={Boolean(joinedLobby || lobbyData || loading)}
             >
@@ -57,7 +57,7 @@ export default function CreateRoom() {
 
     return (
         <Sheet>            
-            <SheetTrigger className="px-3 py-1 text-white bg-green-600 mb-2 rounded-md shadow-md drop-shadow-md hover:scale-105 active:scale-100 hover:bg-green-800 disabled:opacity-40 transition-all duration-150">
+            <SheetTrigger className="px-3 py-1 text-white bg-green-600 mb-2 rounded-md shadow-md drop-shadow-md hover:scale-105 active:scale-100 hover:bg-green-800 disabled:opacity-40 transition-all duration-150 w-fit">
                 Show Room
             </SheetTrigger>            
             {lobbyData != undefined && 

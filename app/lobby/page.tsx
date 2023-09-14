@@ -43,7 +43,7 @@ export default  function Home() {
 
     return (
         <div className="w-full h-full flex flex-col">            
-            <div className="p-8 bg-customNeutral shadow-lg drop-shadow-lg mb-4 w-[700px] mx-auto mt-20">
+            <div className="flex flex-col mt-12 p-8 bg-customNeutral shadow-lg drop-shadow-lg mb-4 w-[650px] mx-auto">
                 <CreateRoom />
                 <LobbyComponent id={id} />
             </div>

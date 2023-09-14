@@ -7,6 +7,9 @@ interface WatchTurnBarProps {
 
 export default function WatchTurnBar({players, playerTurn}: WatchTurnBarProps) {
     function playerTurnHandler() : string {
+        if (players.x === 'fake') {
+            return 'Loading...'
+        }
         if (players.x === playerTurn) {
             return 'Blue Turn'
         }

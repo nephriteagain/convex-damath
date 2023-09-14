@@ -15,6 +15,19 @@ import Board from "@/components/Board"
 import WatchTurnBar from "@/components/WatchTurnBar"
 import Scores from "@/components/Score"
 import Link from "next/link"
+import LoadingSvg from "@/components/LoadingSvg"
+import EmptyBoard from "@/components/EmptyBoard"
+
+const fakeScore = {
+    x: 0,
+    z: 0
+}
+const fakePlayerTurn = 'loading'
+const fakePlayers = {
+    x: 'fake',
+    z: 'fake'
+}
+
 export default function Watch() {
     const {id} = useParams()
     const gameId = id as Id<'games'>
@@ -49,9 +62,9 @@ export default function Watch() {
                 players={gameData.players}
                 playerTurn={gameData.playerTurn}
             />
-            <Link href={'/'} className="absolute left-4 top-4 px-3 py-[2px] font-bold text-lg flex flex-row items-center justify-center hover:underline hover:bg-customSec hover:text-customLight transition-all duration-150 rounded-lg">
+            <Link href={'/watch'} className="absolute left-4 top-3 px-3 py-[2px] font-bold text-lg flex flex-row items-center justify-center hover:underline hover:bg-customSec hover:text-customLight transition-all duration-150 rounded-lg">
                 <BiArrowBack className="me-2"/> 
-                <p>back to home</p>
+                <p>watch lobby</p>
             </Link>
         </div>
         <Toaster />
@@ -60,8 +73,13 @@ export default function Watch() {
 
     
     return (
-        <div className="w-[100vw] h-[100vh] fixed bg-customBg text-3xl text-customLight flex items-center justify-center">
-            Loading...
+        <div className="flex flex-col  items-center justify-center w-[100vw] h-[100vh] fixed bg-transparent text-3xl text-customLight  z-20">
+            <div className="absolute top-8 left-[50%] translate-x-[-50%] translate-y-[-50%] z-30">
+                <LoadingSvg width={40} height={40} className="text-black"/>                
+            </div>
+            <WatchTurnBar players={fakePlayers} playerTurn={fakePlayerTurn} />
+            <Scores score={fakeScore} className="opacity-70"/>
+            <EmptyBoard className="z-10 text-black opacity-70"/>
         </div>
     )
     
