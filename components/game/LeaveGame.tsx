@@ -16,7 +16,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { Id } from "@/convex/_generated/dataModel"
 import { leaveGame } from "@/redux/thunks"
 
-import LoadingSvg from "./LoadingSvg"
+import LoadingSvg from "../common/LoadingSvg"
 
 interface LeaveGameProps {
     gameId: Id<'games'>

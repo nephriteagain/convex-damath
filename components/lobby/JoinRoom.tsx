@@ -11,7 +11,7 @@ import { useAppSelector, useAppDispatch  } from "@/redux/hooks"
 import Room from "./Room"
 import { Id } from "@/convex/_generated/dataModel"
 import { useState, MouseEvent, useRef } from "react"
-import LoadingSvg from "./LoadingSvg"
+import LoadingSvg from "../common/LoadingSvg"
 import { joinRoom } from "@/redux/thunks"
 export default function JoinRoom({id, userId, showSheet}: {id: Id<'lobby'>, userId: string, showSheet: () => void}) {
     const dispatch = useAppDispatch()

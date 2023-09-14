@@ -12,10 +12,10 @@ import {
     SheetTrigger,
   } from "@/components/ui/sheet"
   
-  import { Button } from "./ui/button";
-  import { Input } from "./ui/input";
+  import { Button } from "../ui/button";
+  import { Input } from "../ui/input";
 
-import Messages from "./Messages";
+import Messages from "../common/Messages";
 
 interface WatchMessageProps {
     messages: lobbyMessage[]

@@ -1,8 +1,8 @@
 "use client"
 import Link from "next/link"
 
-import LobbyComponent from "@/components/Lobby"
-import CreateRoom from "@/components/CreateRoom"
+import LobbyComponent from "@/components/lobby/Lobby"
+import CreateRoom from "@/components/lobby/CreateRoom"
 
 import { useEffect, useRef } from "react"
 import { ConvexHttpClient } from "convex/browser"

@@ -11,12 +11,12 @@ import { useRouter } from "next/navigation"
 import { debounce } from "lodash"
 
 import { BiArrowBack } from 'react-icons/bi'
-import Board from "@/components/Board"
-import WatchTurnBar from "@/components/WatchTurnBar"
-import Scores from "@/components/Score"
+import Board from "@/components/game/Board"
+import WatchTurnBar from "@/components/watch/WatchTurnBar"
+import Scores from "@/components/game/Score"
 import Link from "next/link"
-import LoadingSvg from "@/components/LoadingSvg"
-import EmptyBoard from "@/components/EmptyBoard"
+import LoadingSvg from "@/components/common/LoadingSvg"
+import EmptyBoard from "@/components/watch/EmptyBoard"
 
 const fakeScore = {
     x: 0,

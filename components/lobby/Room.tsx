@@ -12,10 +12,10 @@ import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
 import { gameStart } from "@/redux/slices/lobbySlice";
 import { debounce } from "lodash";
-import { useToast } from "./ui/use-toast";
+import { useToast } from "../ui/use-toast";
 import LobbyMessage from "./LobbyMessage";
-import GameType from "./GameType";
-import LoadingSvg from "./LoadingSvg";
+import GameType from "../game/GameType";
+import LoadingSvg from "../common/LoadingSvg";
 
 import { MouseEvent, useEffect, useState, forwardRef, ForwardedRef } from "react";
 

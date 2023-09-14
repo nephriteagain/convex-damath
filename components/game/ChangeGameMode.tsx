@@ -15,7 +15,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import LoadingSvg from "./LoadingSvg"
+import LoadingSvg from "../common/LoadingSvg"
 
 import {
     AlertDialog,

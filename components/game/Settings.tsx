@@ -1,5 +1,5 @@
 
-import { Button } from "./ui/button"
+import { Button } from "../ui/button"
 import ChangeGameMode from "./ChangeGameMode"
 import LeaveGame from "./LeaveGame"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
@@ -15,7 +15,7 @@ import {
     SheetTrigger,
   } from "@/components/ui/sheet"
 
-import LoadingSvg from "./LoadingSvg"
+import LoadingSvg from "../common/LoadingSvg"
 
 interface ButtonsProps {
     showRules: () => void

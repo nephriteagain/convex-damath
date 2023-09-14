@@ -7,7 +7,7 @@ import { useAppSelector, useAppDispatch } from "@/redux/hooks"
 import { createRoom } from "@/redux/thunks"
 import { MouseEvent, useState, forwardRef, ForwardedRef } from "react"
 import Room from "./Room"
-import LoadingSvg from "./LoadingSvg"
+import LoadingSvg from "../common/LoadingSvg"
 
 
 export default  forwardRef(function CreateRoom(_,ref: ForwardedRef<HTMLButtonElement>) {

@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { sendLobbyMsg } from "@/redux/thunks";
 import { Id } from "@/convex/_generated/dataModel";
 
-import Messages from "./Messages";
+import Messages from "../common/Messages";
 
 interface LobbyMessageProps {
     messages: lobbyMessage[];
