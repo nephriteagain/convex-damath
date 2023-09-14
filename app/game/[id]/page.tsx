@@ -5,7 +5,7 @@ import PlayerTurnBar from "@/components/game/PlayerTurnBar"
 import { useQuery } from "convex/react"
 import { api } from "@/convex/_generated/api"
 import { Id } from "@/convex/_generated/dataModel"
-import { useEffect, useState } from "react"
+import { useEffect, useState,} from "react"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { getGame } from "@/redux/slices/gameSlice"
 import { GameTypes, gameData, players } from "@/types"
@@ -187,6 +187,7 @@ export default function Home() {
         <div className="w-[100vw] h-[100vh] fixed bg-customBg text-3xl text-customLight flex items-center justify-center">
             Loading...
         </div>
+        
     )
     
 }
