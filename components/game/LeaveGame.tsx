@@ -42,7 +42,7 @@ export default function LeaveGame({gameId}: LeaveGameProps) {
     return (
         <AlertDialog>
             <AlertDialogTrigger
-                className="max-w-[200px] bg-destructive text-white py-[0.5rem] text-md shadow-sm drop-shadow-md hover:scale-105 active:scale-95 transition-all duration-150 rounded-md"
+                className="bg-customSec hover:bg-[#ef4444] max-w-[200px] text-white py-[0.5rem] text-md shadow-sm drop-shadow-md hover:scale-105 active:scale-95 transition-all duration-150 rounded-md"
             >
                 Leave Game
             </AlertDialogTrigger>

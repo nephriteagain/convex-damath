@@ -16,6 +16,7 @@ import {
   import { Input } from "../ui/input";
 
 import Messages from "../common/Messages";
+import LoadingSvg from "../common/LoadingSvg";
 
 interface WatchMessageProps {
     messages: lobbyMessage[]
@@ -26,19 +27,28 @@ export default function GameMessage({messages, _id} : WatchMessageProps) {
     const [ message, setMessage ] = useState('')
     const [ readMsgCount, setReadMsgCount ] = useState(0)
     const [ isOpen, setIsOpen ] = useState(false)
+    const [ loading, setLoading ] = useState(false)
 
     const {id: userId} = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault();
-        await dispatch(sendGameMsg({
-            id: _id,
-            sId: userId,
-            text: message,
-            chat: messages
-        }))
-        setMessage('')
+        try {
+            setLoading(true)
+            await dispatch(sendGameMsg({
+                id: _id,
+                sId: userId,
+                text: message,
+                chat: messages
+            }))
+            setMessage('')
+        } catch (error) {
+            console.error('something went wrong')
+        } finally {
+            setLoading(false)
+        }
+        
     }
 
     useEffect(() => {
@@ -87,9 +97,17 @@ export default function GameMessage({messages, _id} : WatchMessageProps) {
                 onChange={(e) => setMessage(e.currentTarget.value)}
             />
             <Button type="submit"
-                className="bg-customSec hover:bg-customBg"
+                className="relative bg-customSec hover:bg-customBg flex items-center justify-center disabled:opacity-50"
             >
+                { loading && <LoadingSvg
+                className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                width={24}
+                height={24}
+                />}
+                <p className={loading ? 'invisible' : 'visible'}>
                     send
+                </p>
+
             </Button>
         </form>        
         <Messages 

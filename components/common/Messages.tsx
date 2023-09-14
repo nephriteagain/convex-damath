@@ -7,11 +7,11 @@ interface MessagesProps {
 
 export default function Messages({messages, userId}: MessagesProps) {
     return (
-        <ul className="h-[230px] overflow-auto text-white bg-customBg py-2 px-4 flex flex-col shadow-lg drop-shadow-lg">
+        <ul className="h-[230px] overflow-auto text-black bg-customLight py-2 px-4 flex flex-col shadow-lg drop-shadow-lg rounded-md">
             {messages.map((m) => {
                 const {sId, mId, text,} = m
                 return (
-                    <li key={mId} className={`mb-2 ${userId === sId ? 'ms-auto text-right' : 'me-auto text-left'}`}>
+                    <li key={mId} className={`bg-customSec text-white px-3 py-[2px] rounded-lg mb-2 ${userId === sId ? 'ms-auto text-right' : 'me-auto text-left'} shadow-md drop-shadow-md`}>
                         <div className="">
                             {text}
                         </div>

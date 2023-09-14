@@ -181,3 +181,10 @@ export const leaveGame = createAsyncThunk(
         await convex.mutation(api.game.leaveGame, {gameId})
     }
 )
+
+export const clearCommands = createAsyncThunk(
+    'game/clearCommands',
+    async (gameId: Id<'games'>) => {
+        await convex.mutation(api.game.clearCommands, {gameId})
+    }
+)

@@ -19,11 +19,12 @@ import Scores from "@/components/game/Score"
 
 import { useToast } from "@/components/ui/use-toast"
 import { ToastAction } from "@radix-ui/react-toast"
-import { appRestart, appChangeGameMode } from "@/redux/thunks"
+import { appRestart, appChangeGameMode, clearCommands } from "@/redux/thunks"
 import { Toaster } from "@/components/ui/toaster"
 import { playerLeft } from "@/redux/slices/gameSlice"
 import { useRouter } from "next/navigation"
-import { debounce } from "lodash"
+import { debounce, delay } from "lodash"
+import { getTotalRemainingScore } from "@/gameLogic/scoreHandler"
 
 export default function Home() {
     const [ openRules, setOpenRules ] = useState(false)
@@ -45,6 +46,8 @@ export default function Home() {
         router.push('/lobby')
     }
 
+    const delayedRedirect = debounce(redirectToLobby, 3000)
+
     useEffect(() => {
         if (boardRef?.current && userId === gData?.players.x) {
             const board = boardRef.current as HTMLDivElement;              
@@ -58,17 +61,6 @@ export default function Home() {
         if (gameData) {
             dispatch(getGame({id, gameData}))
 
-            // TODO: this causes stack overflow
-            // if (userId === gameData.players.x && boardRef.current) {
-            //     const board = boardRef.current as HTMLDivElement;              
-            //     const verticalNum = document.querySelector('.vertical-num') as HTMLDivElement
-            //     const horizontalNum = document.querySelector('.horizontal-num') as HTMLDivElement            
-            //     boardStyleFlip(board, horizontalNum, verticalNum)
-            //   }
-            
-            // if (!gameData.boardData.some(b => b?.piece?.moves && b.piece.moves.length > 0)) {
-
-            // }
 
         }
     } , [gameData])
@@ -77,11 +69,39 @@ export default function Home() {
         if (!gData) {
             return
         }
+        if (!gData.boardData.some(box => box?.piece?.moves && box.piece.moves.length > 0)) {
+            const totalScores = gData.score
+            if (totalScores.z > totalScores.x) {
+              toast({
+                title: "Red Win!",
+                description: `[RED TOTAL: ${totalScores.z}]  [BLUE TOTAL: ${totalScores.x}]`,
+                duration: 3000
+              })
+            }
+            if (totalScores.z < totalScores.x) {
+              toast({
+                title: "Blue Win!",
+                description: `[RED TOTAL: ${totalScores.z}]  [BLUE TOTAL: ${totalScores.x}]`,
+                duration: 3000
+              })
+            }
+            else {
+              toast({
+                title: "Draw!",
+                description: `[RED TOTAL: ${totalScores.z}]  [BLUE TOTAL: ${totalScores.x}]`,
+                duration: 3000
+              })
+            }
+            dispatch(playerLeft())
+            delayedRedirect()
+            return
+          }
+
         if (!gData.gameOngoing) {
             toast({
                 description: 'a player has left the game'
             })
-            dispatch(playerLeft)
+            dispatch(playerLeft())
             redirectToLobby()
         }
 
@@ -91,6 +111,7 @@ export default function Home() {
                     description: 'a game restart request is sent, waiting for approval',
                     duration: 3000
                 })
+                dispatch(clearCommands(gData._id))
             }
             if (userId !== gData.command.sender && 
                 (gData.players.x === userId ||
@@ -110,6 +131,7 @@ export default function Home() {
                     description: `a change game mode to (${gData.command.data}) request is sent, waiting for approval`,
                     duration: 3000
                 })
+                dispatch(clearCommands(gData._id))
             }
             if (userId !== gData.command.sender && 
                 (gData.players.x === userId ||

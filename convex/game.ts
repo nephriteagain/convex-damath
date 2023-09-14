@@ -7,7 +7,7 @@ import { v } from "convex/values";
 import { checkMovablePieces, kingPromoter } from '../gameLogic/checkMovablePieces'
 import { COUNTING, WHOLE, INTEGER } from '../lib/data/gameData';
 // import { } from '../gameLogic/'
-import { scoreHandler, getNewPieceBox, } from '../gameLogic/scoreHandler'
+import { scoreHandler, getNewPieceBox, getTotalRemainingScore} from '../gameLogic/scoreHandler'
 
 function generateId() {
     return Math.random().toString(16).slice(2)
@@ -97,11 +97,26 @@ export const movePiece = mutation({
         if (!canMultiJump) {
             kingPromoter(boardDataWithNewMoves)
         }
+
+        if (!boardDataWithNewMoves.some(box => box?.piece?.moves && box.piece.moves.length > 0)) {
+            const totalScores = {...newScore}
+            totalScores.x += getTotalRemainingScore('x', boardDataWithNewMoves)
+            totalScores.z += getTotalRemainingScore('z', boardDataWithNewMoves)
+            await ctx.db.patch(id, {
+                playerTurn: nextTurn, 
+                boardData: 
+                boardDataWithNewMoves,
+                score: newScore,
+                gameOngoing: false
+            })
+            return
+        }
+        
         await ctx.db.patch(id, {
             playerTurn: nextTurn, 
             boardData: 
             boardDataWithNewMoves,
-            score: newScore
+            score: newScore,
         })
         return
 
@@ -229,6 +244,15 @@ export const leaveGame = mutation({
     handler: async (ctx, args) => {
         const {gameId} = args
         const res =  await ctx.db.patch(gameId, {gameOngoing: false})
+        return res
+    }
+})
+
+export const clearCommands = mutation({
+    args: {gameId: v.id('games')},
+    handler: async (ctx, args) => {
+        const { gameId } =  args
+        const res = await ctx.db.patch(gameId, {command: undefined})
         return res
     }
 })

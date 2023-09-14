@@ -2,6 +2,8 @@
 import { Button } from "../ui/button"
 import ChangeGameMode from "./ChangeGameMode"
 import LeaveGame from "./LeaveGame"
+import LoadingSvg from "../common/LoadingSvg"
+
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { MouseEvent, useState } from "react"
 
@@ -15,7 +17,6 @@ import {
     SheetTrigger,
   } from "@/components/ui/sheet"
 
-import LoadingSvg from "../common/LoadingSvg"
 
 interface ButtonsProps {
     showRules: () => void
@@ -51,16 +52,17 @@ export default function Settings({showRules, gameId}: ButtonsProps) {
             </span>
         </Button>
       </SheetTrigger>
-      <SheetContent side='left' className="flex flex-col gap-4 w-[280px]">
+      <SheetContent side='left' className="flex flex-col gap-4 w-[280px] bg-customNeutral">
            
            <Button variant="default"
-               className="max-w-[200px] text-md shadow-sm drop-shadow-md hover:scale-105 active:scale-95 transition-all duration-150"
+               className="bg-customSec max-w-[200px] text-lg shadow-sm drop-shadow-md hover:scale-105 active:scale-95 transition-all duration-150"
                onClick={showRules}
            >
                Show Rules
            </Button>
-           <Button variant="destructive"
-               className=" relative flex items-center justify-center max-w-[200px] text-md shadow-sm drop-shadow-md hover:scale-105 active:scale-95 disabled:opacity-50 transition-all duration-150"
+           <ChangeGameMode gameId={gameId} />
+           <Button variant="default"
+               className="bg-customSec hover:bg-[#ef4444] relative flex items-center justify-center max-w-[200px] text-md shadow-sm drop-shadow-md hover:scale-105 active:scale-95 disabled:opacity-50 transition-all duration-150"
                onClick={handleRestart}
                disabled={loading}
            >
@@ -74,8 +76,6 @@ export default function Settings({showRules, gameId}: ButtonsProps) {
                 </p>
            </Button>
            <LeaveGame gameId={gameId} />
-           <ChangeGameMode gameId={gameId} />
-
       </SheetContent>
     </Sheet>
         

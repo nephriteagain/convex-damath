@@ -95,7 +95,11 @@ function Rules({ setOpenRules, openRules }: RuleProps) {
         <br/>
         <br/>
         <Button variant='link' className='italic'>
-            <Link href="https://depedbohol.org/v2/wp-content/uploads/2014/09/Rules-of-Damath.pdf" target='_blank'>
+            <Link 
+              href="https://depedbohol.org/v2/wp-content/uploads/2014/09/Rules-of-Damath.pdf" 
+              target='_blank'
+              className="hover:scale-x-105 transition-all duration-150"
+            >
                 Rules was sourced here.
             </Link>
         </Button>

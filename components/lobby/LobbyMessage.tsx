@@ -8,6 +8,7 @@ import { sendLobbyMsg } from "@/redux/thunks";
 import { Id } from "@/convex/_generated/dataModel";
 
 import Messages from "../common/Messages";
+import LoadingSvg from "../common/LoadingSvg";
 
 interface LobbyMessageProps {
     messages: lobbyMessage[];
@@ -15,19 +16,28 @@ interface LobbyMessageProps {
 }
 export default function LobbyMessage({messages, _id}: LobbyMessageProps) {
     const [message, setMessage] = useState('')
+    const [loading, setLoading ] = useState(false)
     
     const {id: userId} = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault()
-        await dispatch(sendLobbyMsg({
-            id: _id,
-            sId: userId,
-            text: message,
-            messages,
-        }))        
-        setMessage('')
+        try {
+            setLoading(true)
+            await dispatch(sendLobbyMsg({
+                id: _id,
+                sId: userId,
+                text: message,
+                messages,
+            }))    
+            setMessage('')
+        } catch (error) {
+            console.error('something went wrong')                
+        } finally {
+            setLoading(false)
+        }
+        
     }
 
     return (
@@ -40,9 +50,17 @@ export default function LobbyMessage({messages, _id}: LobbyMessageProps) {
                 onChange={(e) => setMessage(e.currentTarget.value)}
             />
             <Button type="submit"
-                className="bg-customSec hover:bg-customBg"
-            >
+                className="relative bg-customSec hover:bg-customBg flex items-center justify-center disabled:opacity-50"
+                disabled={loading}
+            >       
+                { loading && <LoadingSvg
+                className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                width={24}
+                height={24}
+                />}
+                <p className={loading ? 'invisible' : 'visible'}>
                     send
+                </p>
             </Button>
         </form>        
         <Messages 

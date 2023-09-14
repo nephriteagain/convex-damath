@@ -18,3 +18,30 @@ export const RULES: string[] = [
   
   "The player with the greater accumulated total score wins the game."
   ] 
+
+  export const ABOUT = `Damath is a two-player educational board game combining the board game "Dama" (Filipino checkers) and math. It is used as a teaching tool for both elementary and high school mathematics. Every piece has a corresponding number and each even (white) square on board has a mathematical symbol. The game is commonly played in all elementary and secondary schools in the Philippines. In 2017, some developments in the game was proposed by Vincent Isidro to accommodate the needs of students who have special needs. The proposed inclusive version of the game rules was evaluated by a panel consisting of popular and respected Damath players such as Richard Rusczyk, Acey Edward Eli, Jocelyn Marie Gahol, Camila Villena, Ma. Teresa Duran and headed by Lucienne Marie Andres.`
+  
+
+  export const HISTORY = `Damath was invented by Jesus Huenda, a teacher in the province of Sorsogon, Philippines, who had encountered problems in teaching math using traditional teaching methods. Inspired in part by an investigatory project called “Dama de Numero” submitted by a student (Emilio Hina Jr.) in 1975, Huenda overhauled the game and introduced it to his class, who enjoyed playing. Damath became popular and in 1980, the first Damath tournament was held in Sorsogon. The next year, Huenda received a gold medallion from the late President Ferdinand Marcos for his contributions in the field of teaching mathematics. The game reached its peak popularity in the 1990s, when it made the rounds of several mathematics education conventions all over the world such as the 10th Conference of the Mathematical Association of Western Australia (MAWA), the UNESCO-ICT4E conference in Thailand, the SEAMEO RECSAM/SEAMEC conference in Malaysia, and the APEC Learning Community Builders (ALCoB) conference in Korea. Damath was first introduced to the United States of America by an international Filipino educator, Reynaldo L. Duran at the National Council of Teachers of Mathematics (NCTM) Conference in New Mexico, USA in 2011.`
+
+  export const BOARD_AND_PIECES = `The board is similar to a checkerboard but with a twist. All even (white) tiles on the board have a mathematical symbol which dictates the operation that will be used when a player's piece captures the opponent's piece. It has numbers labeled 0-7 on its sides to determine the coordinates of the piece. Each piece of the player has corresponding values depending on what type of damath is being played. Both board and damath pieces are mostly made of thick cardboard or illustration board.`
+
+  export const GAMEPLAY = `The rules are similar to checkers but there are some differences:`
+
+  export const GAMEPLAY_LIST = [
+    'The goal is to have the most points at the end of the game.',
+    'Points are scored for each capture made during play and for each piece still on the board at the end of the game.',
+    'The games ends if a player has no pieces remaining (or cannot make a legal move), the moves are repetitive, or the twenty-minute time limit is reached.',
+
+  ]
+
+  export const POINTS = `Points are scored as follows`
+
+  export const POINTS_LIST = [
+    'Each piece is assigned a value (printed on the piece)',
+    'When a capture is made, the score of the capture is calculated by using the mathematical operation shown on the space the capturing piece lands on, with the values of the capturing piece and the captured piece as the operands.',
+    'When a dama piece (king) captures or is captured, the score is doubled (or quadrupled when a dama piece captures a dama piece).',
+    'Each player also scores the value of their pieces remaining on the board at the end of the game, with dama pieces again scoring double.'
+  ]
+
+  export const ADDITIONAL = 'Each player also scores the value of their pieces remaining on the board at the end of the game, with dama pieces again scoring double.'
