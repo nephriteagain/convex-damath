@@ -4,7 +4,7 @@ import Link from "next/link"
 import LobbyComponent from "@/components/Lobby"
 import CreateRoom from "@/components/CreateRoom"
 
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { ConvexHttpClient } from "convex/browser"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { clearJoinedLobbyId } from "@/redux/slices/userSlice"
@@ -19,7 +19,7 @@ export const dynamic = "force-dynamic";
 
 export default  function Home() {
     const router = useRouter()
-
+    const sheetRef = useRef<HTMLButtonElement>(null)
     const dispatch = useAppDispatch()
     const {id, joinedLobby} = useAppSelector(state => state.user)
     const {lobbies, lobbyData} = useAppSelector(state => state.lobby)
@@ -41,11 +41,19 @@ export default  function Home() {
         }
     }, [lobbies])
 
+
+    function showSheet() {
+        if (!sheetRef.current) {
+            return
+        }
+        sheetRef.current.click()
+    }
+
     return (
         <div className="w-full h-full flex flex-col">            
             <div className="flex flex-col mt-12 p-8 bg-customNeutral shadow-lg drop-shadow-lg mb-4 w-[650px] mx-auto">
-                <CreateRoom />
-                <LobbyComponent id={id} />
+                <CreateRoom ref={sheetRef} />
+                <LobbyComponent id={id} showSheet={showSheet} />
             </div>
             <Link href='/' className="underline decoration-2 text-xl text-center hover:text-customSec transition-all duration-150">
                 Back to Home

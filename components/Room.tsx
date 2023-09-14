@@ -17,14 +17,14 @@ import LobbyMessage from "./LobbyMessage";
 import GameType from "./GameType";
 import LoadingSvg from "./LoadingSvg";
 
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState, forwardRef, ForwardedRef } from "react";
 
 interface RoomProps {
     userId: string;
     _id: Id<'lobby'>
 }
 
-export default function Room({_id,userId}: RoomProps) {
+export default forwardRef(function Room({_id,userId}: RoomProps, ref: ForwardedRef<HTMLDivElement>) {
     const router = useRouter()
     const { toast } = useToast()
     const dispatch = useAppDispatch()
@@ -80,7 +80,7 @@ export default function Room({_id,userId}: RoomProps) {
 
 
     return (
-        <SheetContent className="bg-customNeutral text-white">
+        <SheetContent className="bg-customNeutral text-white" ref={ref}>
             <SheetHeader className="mb-8">
             <SheetTitle className="text-2xl">Lobby</SheetTitle>            
             </SheetHeader>
@@ -163,4 +163,4 @@ export default function Room({_id,userId}: RoomProps) {
             </div>
         </SheetContent>
     )
-}
+})

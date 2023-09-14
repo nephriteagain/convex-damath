@@ -9,7 +9,7 @@ import { useEffect,  } from 'react';
 
 const loaderData = new Array(5).fill(true)
 
-export default function LobbyComponent ({id}: {id:string}) {
+export default function LobbyComponent ({id, showSheet}: {id:string; showSheet: () => void}) {
     const lobby = useQuery(api.lobby.getLobby) as Lobby[];
     const lobbies = useAppSelector(state => state.lobby.lobbies)
     const dispatch = useAppDispatch()
@@ -23,7 +23,7 @@ export default function LobbyComponent ({id}: {id:string}) {
 
     if (!lobby) {
       return (
-        <section className=' max-w-[600px] bg-customBg px-4 py-2  text-white h-[400px] overflow-y-auto'>
+        <section className='max-w-[600px] bg-customBg px-4 py-2  text-white h-[400px] overflow-y-auto'>
           <div className='flex flex-row w-full bg-customSec mb-2 font-semibold px-4 py-2 text-lg '>
             <div className='basis-1/4 text-center'>TYPE</div>
             <div className='basis-1/4 text-center'>HOST</div>
@@ -46,17 +46,15 @@ export default function LobbyComponent ({id}: {id:string}) {
     }
 
     if (lobbies.length === 0) {
-      return ( <section className='max-w-[600px] bg-customBg px-4 py-2 text-white h-[400px]'>
-        <div className='flex flex-row w-full bg-customSec mb-2 font-semibold px-4 py-2 text-lg'>
-          <div className='basis-1/4 text-center'>TYPE</div>
-          <div className='basis-1/4 text-center'>HOST</div>
-          <div className='basis-1/4 text-center'>GUEST</div>
-          <div className='basis-1/4 text-center'>ACTION</div>
-        </div>
-          <p className='text-center py-4'>
-            no active rooms found...
-          </p>
-        </section>)
+      return (<section className='relative max-w-[600px] bg-customBg px-4 py-2  text-white h-[400px] overflow-y-auto'>
+      <div className='top-0 sticky flex flex-row w-full bg-customSec mb-2 font-semibold px-4 py-2 text-lg z-10'>
+        <div className='basis-1/4 text-center'>TYPE</div>
+        <div className='basis-1/4 text-center'>HOST</div>
+        <div className='basis-1/4 text-center'>GUEST</div>
+        <div className='basis-1/4 text-center'>ACTION</div>
+      </div>
+      <p className='text-center mt-4'>no active rooms found...</p>
+    </section>)
     }
 
     return (
@@ -74,7 +72,11 @@ export default function LobbyComponent ({id}: {id:string}) {
                     <div className='basis-1/4 text-center'>{gameType}</div>
                     <div className='basis-1/4 text-center'>{host}</div>
                     <div className='basis-1/4 text-center'>{guest || 'empty'}</div>                    
-                    <JoinRoom id={_id} userId={id} />                  
+                    <JoinRoom 
+                      id={_id} 
+                      userId={id} 
+                      showSheet={showSheet}
+                    />                  
                 </div>
             )
         })}

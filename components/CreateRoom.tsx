@@ -5,11 +5,12 @@ import {
   } from "@/components/ui/sheet"
 import { useAppSelector, useAppDispatch } from "@/redux/hooks"  
 import { createRoom } from "@/redux/thunks"
-import { MouseEvent, useState } from "react"
+import { MouseEvent, useState, forwardRef, ForwardedRef } from "react"
 import Room from "./Room"
 import LoadingSvg from "./LoadingSvg"
 
-export default function CreateRoom() {
+
+export default  forwardRef(function CreateRoom(_,ref: ForwardedRef<HTMLButtonElement>) {
 
     const [ loading, setLoading ] = useState(false)
     const {id: userId, joinedLobby} = useAppSelector(state => state.user)
@@ -57,7 +58,9 @@ export default function CreateRoom() {
 
     return (
         <Sheet>            
-            <SheetTrigger className="px-3 py-1 text-white bg-green-600 mb-2 rounded-md shadow-md drop-shadow-md hover:scale-105 active:scale-100 hover:bg-green-800 disabled:opacity-40 transition-all duration-150 w-fit">
+            <SheetTrigger className="px-3 py-1 text-white bg-green-600 mb-2 rounded-md shadow-md drop-shadow-md hover:scale-105 active:scale-100 hover:bg-green-800 disabled:opacity-40 transition-all duration-150 w-fit"
+                ref={ref}
+            >
                 Show Room
             </SheetTrigger>            
             {lobbyData != undefined && 
@@ -68,4 +71,4 @@ export default function CreateRoom() {
            }
         </Sheet>
     )
-}
+})
