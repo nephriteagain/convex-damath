@@ -1,6 +1,6 @@
 import { Id } from '../convex/_generated/dataModel';
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { convex } from '@/convex/convex';
+import { convex } from '@/lib/convex';
 import { api } from "@/convex/_generated/api"
 import { GameTypes, piece, boxPiece, operation, players, lobbyMessage, score } from '@/types';
 

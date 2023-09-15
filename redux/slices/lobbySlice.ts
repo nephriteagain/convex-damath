@@ -9,7 +9,7 @@ const initialState : {
 }
 
 import { api } from "@/convex/_generated/api";
-import { convex } from "@/convex/convex";
+import { convex } from "@/lib/convex";
 
 export const lobbySlice = createSlice({
     name: 'lobby',
