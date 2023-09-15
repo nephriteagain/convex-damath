@@ -19,6 +19,7 @@ import GameType from "../game/GameType";
 import LoadingSvg from "../common/LoadingSvg";
 
 import { MouseEvent, useEffect, useState, forwardRef, ForwardedRef } from "react";
+import { GameTypes } from "@/types";
 
 interface RoomProps {
     userId: string;
@@ -62,7 +63,8 @@ export default forwardRef(function Room({_id,userId}: RoomProps, ref: ForwardedR
         e.preventDefault()
         try {
             setStartLoading(true)
-            await dispatch(startGame({id:_id, gameType, host, guest}))
+            const type = gameType as  GameTypes
+            await dispatch(startGame({id:_id, gameType: type, host, guest}))
         } catch (error) {
             console.error('something went wrong')
         } finally {
