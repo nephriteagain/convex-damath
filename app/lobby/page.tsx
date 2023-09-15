@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation'
 import { clearRoom } from "@/redux/thunks"
 import { Toaster } from "@/components/ui/toaster"
 
+
 export const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL ?? "");
 
 export const dynamic = "force-dynamic";
@@ -30,6 +31,8 @@ export default  function Home() {
             dispatch(clearRoom(lobbyData._id))
         }
         if (lobbyData?.start) {
+            dispatch(clearJoinedLobbyId())
+            dispatch(clearLobbyData())
             router.push(`/game/${lobbyData.start}`)
         }
 

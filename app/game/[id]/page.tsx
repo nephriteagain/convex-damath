@@ -16,6 +16,7 @@ import GameMessage from "@/components/game/GameMessage"
 import Settings from "@/components/game/Settings"
 import Rules from "@/components/game/Rules"
 import Scores from "@/components/game/Score"
+import WinnerModal from "@/components/game/WinnerModal"
 
 import { useToast } from "@/components/ui/use-toast"
 import { ToastAction } from "@radix-ui/react-toast"
@@ -28,6 +29,9 @@ import { getTotalRemainingScore } from "@/gameLogic/scoreHandler"
 
 export default function Home() {
     const [ openRules, setOpenRules ] = useState(false)
+    const [ showWinnerModal, setShowWinnerModal ] = useState(false)
+    const [ totalScores, setTotalScores ] = useState({z:0, x:0})
+
     const gData = useAppSelector(state => state.game.gameData)
     const userId = useAppSelector(state => state.user.id)
     const { id } = useParams()
@@ -41,12 +45,14 @@ export default function Home() {
     function showRules() {
         setOpenRules((rule) => !rule)
     }
-    
+
     function redirectToLobby() {
         router.push('/lobby')
     }
 
     const delayedRedirect = debounce(redirectToLobby, 3000)
+    
+
 
     useEffect(() => {
         if (boardRef?.current && userId === gData?.players.x) {
@@ -71,31 +77,9 @@ export default function Home() {
         }
         if (!gData.boardData.some(box => box?.piece?.moves && box.piece.moves.length > 0)) {
             const totalScores = gData.score
-            if (totalScores.z > totalScores.x) {
-              toast({
-                title: "Red Win!",
-                description: `[RED TOTAL: ${totalScores.z}]  [BLUE TOTAL: ${totalScores.x}]`,
-                duration: 3000
-              })
-            }
-            if (totalScores.z < totalScores.x) {
-              toast({
-                title: "Blue Win!",
-                description: `[RED TOTAL: ${totalScores.z}]  [BLUE TOTAL: ${totalScores.x}]`,
-                duration: 3000
-              })
-            }
-            else {
-              toast({
-                title: "Draw!",
-                description: `[RED TOTAL: ${totalScores.z}]  [BLUE TOTAL: ${totalScores.x}]`,
-                duration: 3000
-              })
-            }
-            dispatch(playerLeft())
-            delayedRedirect()
-            return
-          }
+            setTotalScores(totalScores)
+            setShowWinnerModal(true)
+        }
 
         if (!gData.gameOngoing) {
             toast({
@@ -180,6 +164,10 @@ export default function Home() {
                 setOpenRules={setOpenRules}        
         /> }
         <Toaster />
+        { showWinnerModal && <WinnerModal 
+            totalScores={totalScores} 
+            setShowWinnerModal={setShowWinnerModal}
+        />}
         </div>
     )
     
