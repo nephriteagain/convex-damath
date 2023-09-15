@@ -1,7 +1,7 @@
 
 const loaderData = new Array(5).fill(true)
 import Link from "next/link"
-import Filter from "../lobby/Filter"
+import Filter from "../common/Filter"
 
 export default function WatchLoading({opacity}: {opacity?:number}) {
     return (

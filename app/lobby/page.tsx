@@ -3,10 +3,9 @@ import Link from "next/link"
 
 import LobbyComponent from "@/components/lobby/Lobby"
 import CreateRoom from "@/components/lobby/CreateRoom"
-import Filter from "@/components/lobby/Filter"
+import Filter from "@/components/common/Filter"
 
 import { useEffect, useRef } from "react"
-import { ConvexHttpClient } from "convex/browser"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { clearJoinedLobbyId } from "@/redux/slices/userSlice"
 import { clearLobbyData } from "@/redux/slices/lobbySlice"
@@ -14,8 +13,6 @@ import { useRouter } from 'next/navigation'
 import { clearRoom } from "@/redux/thunks"
 import { Toaster } from "@/components/ui/toaster"
 
-
-export const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL ?? "");
 
 export const dynamic = "force-dynamic";
 

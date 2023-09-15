@@ -4,7 +4,7 @@ import { useQuery } from "convex/react"
 import Link from "next/link"
 
 import WatchLoading from "@/components/watch/WatchLoading"
-import Filter from "@/components/lobby/Filter"
+import Filter from "@/components/common/Filter"
 import { useSearchParams } from "next/navigation"
 
 // TODO: add pagination
