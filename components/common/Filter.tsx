@@ -42,9 +42,9 @@ export default function Filter({className}: {className?: string}) {
     }
     
     return (
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row gap-2 sm:gap-4">
             <Select onValueChange={(v) => changeFilter(v)}>
-                <SelectTrigger className={`w-[100px] text-sm bg-customLight border-transparent ${className}`}>
+                <SelectTrigger className={`sm:text-sm w-[100px] text-sm bg-customLight border-transparent ${className}`}>
                     <SelectValue 
                         placeholder="filter"
                     />
@@ -55,7 +55,7 @@ export default function Filter({className}: {className?: string}) {
                     <SelectItem value="COUNTING">Counting</SelectItem>
                     <SelectItem value="WHOLE">Whole</SelectItem>
                     <SelectItem value="INTEGER">Integer</SelectItem>
-                    <SelectItem value="">Remove Filter</SelectItem>
+                    <SelectItem value="">None</SelectItem>
                     </SelectGroup>
                 </SelectContent>
             </Select>
@@ -63,7 +63,7 @@ export default function Filter({className}: {className?: string}) {
                 setSelected(v)
                 changeOrder(v)
             }}>
-                <SelectTrigger className={`w-fit text-sm bg-customLight border-transparent ${className}`}>
+                <SelectTrigger className={`sm:text-sm w-fit text-sm bg-customLight border-transparent ${className}`}>
                     <SelectValue 
                      onChange={(e) => console.log(e.currentTarget)}
                         defaultValue='desc' 

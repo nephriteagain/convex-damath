@@ -34,8 +34,8 @@ export default function LobbyComponent ({id, showSheet}: {id:string; showSheet: 
 
     if (!lobby) {
       return (
-        <section className='max-w-[600px] bg-customBg px-4 py-2  text-white h-[400px] overflow-y-auto'>
-          <div className='select-none flex flex-row w-full bg-customSec mb-2 font-semibold px-4 py-2 text-lg '>
+        <section className='max-w-[600px] bg-customBg px-0 sm:px-4 py-2  text-white h-[400px] overflow-y-auto'>
+          <div className='select-none flex flex-row w-full bg-customSec mb-2 font-semibold px-2 sm:px-4 py-2 sm:text-lg '>
             <div className='basis-1/4 text-center'>TYPE</div>
             <div className='basis-1/4 text-center'>HOST</div>
             <div className='basis-1/4 text-center'>GUEST</div>
@@ -57,8 +57,8 @@ export default function LobbyComponent ({id, showSheet}: {id:string; showSheet: 
     }
 
     if (lobbies.length === 0) {
-      return (<section className='relative max-w-[600px] bg-customBg px-4 py-2  text-white h-[400px] overflow-y-auto'>
-      <div className='select-none top-0 sticky flex flex-row w-full bg-customSec mb-2 font-semibold px-4 py-2 text-lg z-10'>
+      return (<section className='relative max-w-[600px] bg-customBg px-0 sm:px-4 py-2  text-white h-[400px] overflow-y-auto'>
+      <div className='select-none top-0 sticky flex flex-row w-full bg-customSec mb-2 font-semibold px-2 sm:px-4 py-2  sm:text-lg z-10'>
         <div className='basis-1/4 text-center'>TYPE</div>
         <div className='basis-1/4 text-center'>HOST</div>
         <div className='basis-1/4 text-center'>GUEST</div>
@@ -69,8 +69,8 @@ export default function LobbyComponent ({id, showSheet}: {id:string; showSheet: 
     }
 
     return (
-      <section className='relative max-w-[600px] bg-customBg px-4 py-2  text-white h-[400px] overflow-y-auto'>
-        <div className='select-none top-0 sticky flex flex-row w-full bg-customSec mb-2 font-semibold px-4 py-2 text-lg z-10'>
+      <section className='relative max-w-[600px] bg-customBg px-0 sm:px-4 py-2  text-white h-[400px] overflow-y-auto'>
+        <div className='select-none top-0 sticky flex flex-row w-full bg-customSec mb-2 font-semibold px-2 sm:px-4 py-2 sm:text-lg z-10'>
           <div className='basis-1/4 text-center'>TYPE</div>
           <div className='basis-1/4 text-center'>HOST</div>
           <div className='basis-1/4 text-center'>GUEST</div>
@@ -79,10 +79,10 @@ export default function LobbyComponent ({id, showSheet}: {id:string; showSheet: 
         {(lobbies)?.map((lobby: Lobby) => {
             const { _id, host, guest, gameType } = lobby
             return (
-                <div key={_id} className='flex flex-row bg-customSec mb-2 px-4 py-1'>
-                    <div className='basis-1/4 text-center'>{gameType}</div>
-                    <div className='basis-1/4 text-center'>{host}</div>
-                    <div className='basis-1/4 text-center'>{guest || 'empty'}</div>                    
+                <div key={_id} className='flex flex-row bg-customSec mb-2 px-1 sm:px-4 py-1 text-sm sm:text-base'>
+                    <div className='basis-1/4 text-center overflow-clip'>{gameType}</div>
+                    <div className='basis-1/4 text-center overflow-clip'>{host}</div>
+                    <div className='basis-1/4 text-center overflow-clip'>{guest || 'empty'}</div>                    
                     <JoinRoom 
                       id={_id} 
                       userId={id} 
