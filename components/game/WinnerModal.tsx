@@ -35,7 +35,7 @@ export default function WinnerModal({totalScores, setShowWinnerModal}: {
 
         return (
             <div className="fixed w-[100vw] h-[100vh] bg-transparent z-30 text-white">
-                <div  className="w-full h-full bg-white opacity-50 z-40" 
+                <div  className="w-full h-full bg-customBg opacity-50 z-40" 
                     onClick={(e) => toggleModal(e)}
                 />
                 <div className="bg-customSec absolute w-[280px] h-[200px] flex flex-col items-center justify-center top-[50%] left-[50%] translate-x-[-50%] translate-y-[-70%] z-50 shadow-lg drop-shadow-lg">

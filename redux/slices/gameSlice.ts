@@ -2,6 +2,7 @@ import { cloneDeep } from 'lodash'
 import { createSlice } from "@reduxjs/toolkit";
 import { boxPiece, gameData, piece } from "@/types";
 import { Id } from '@/convex/_generated/dataModel';
+import { movePiece } from '../thunks';
 
 type initialState = {
     gameId: Id<'games'>|'';
@@ -46,9 +47,19 @@ export const gameSlice = createSlice({
             
         },
         playerLeft(state) {
-            state = init
+            state.gameId = ''
+            state.pieceToMove = null
+            state.pieceIndex =  -1
+            state.gameData = undefined
         }
-    }    
+    },
+    extraReducers: (buider) => {
+        buider.addCase(movePiece.fulfilled, (state) => {
+            state.pieceToMove = null
+            state.pieceIndex = -1
+        })
+    }
+
 })
 
 export const { getGame, highlightMoves, playerLeft } = gameSlice.actions

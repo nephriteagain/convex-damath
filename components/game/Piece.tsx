@@ -21,13 +21,12 @@ export default function Piece({piece, index, players, playerTurn}: PieceProps) {
     function handleClick(e: MouseEvent) {
         e.preventDefault();
         e.stopPropagation();
+        console.log('clicked')
         dispatch(highlightMoves({pieceIndex: index, pieceToMove: piece}))
     }
 
     const onClick = (
         piece.moves.length > 0 &&  
-        players != undefined && 
-        players[piece.type] === id &&
         playerTurn === id
     ) ? handleClick : undefined
 

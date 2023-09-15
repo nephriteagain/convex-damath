@@ -22,7 +22,7 @@ export default  forwardRef(function CreateRoom({showSheet}: {showSheet: () => vo
         e.preventDefault()
         try {
             setLoading(true)
-            await dispatch(createRoom(userId))    
+            await dispatch(createRoom(userId)) 
 
         } catch (error) {
             console.error('something went wrong')

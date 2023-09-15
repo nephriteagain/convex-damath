@@ -42,23 +42,15 @@ export default function Box({playable, piece, operation, index, highlighted, pla
     }
 
     return (
-        <div className={`relative w-full aspect-square flex items-center justify-center ${highlighted? 'bg-green-300' : ''}`}
+        <div className={`select-none relative w-full aspect-square flex items-center justify-center ${highlighted? 'bg-green-300' : ''}`}
             style={playable ? {}: {background: 'linear-gradient(to top left, #111 0%, rgba(0, 0, 0, 0.80) 75%'}}
             onClick={highlighted ? (e) => handleClick(e,index) : undefined}
         >
             {
-                (piece != undefined && piece.moves.length > 0) &&
+                piece != undefined &&
                 <Piece 
                     piece={piece}
                     index={index}
-                    players={players}
-                    playerTurn={playerTurn}
-                /> 
-            }
-            {
-                (piece != undefined && piece.moves.length === 0) &&
-                <Piece 
-                    piece={piece} 
                     players={players}
                     playerTurn={playerTurn}
                 /> 

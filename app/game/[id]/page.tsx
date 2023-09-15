@@ -86,7 +86,7 @@ export default function Home() {
                 description: 'a player has left the game'
             })
             dispatch(playerLeft())
-            redirectToLobby()
+            delayedRedirect()
         }
 
         if (gData?.command?.type === 'REQ_RESTART') {
