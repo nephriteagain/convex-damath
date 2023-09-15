@@ -6,11 +6,22 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getLobbies } from '@/redux/slices/lobbySlice';
 import JoinRoom from './JoinRoom';
 import { useEffect,  } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 const loaderData = new Array(5).fill(true)
 
+
 export default function LobbyComponent ({id, showSheet}: {id:string; showSheet: () => void}) {
-    const lobby = useQuery(api.lobby.getLobby) as Lobby[];
+    const searchParams = useSearchParams()
+    
+    type FILTER = 'COUNTING'|'WHOLE'|'INTEGER'|null
+    type ORDER = 'asc' | 'desc'
+    
+
+    const filter = searchParams.get('filter') as FILTER
+    const order = searchParams.get('order') as ORDER || 'desc' as ORDER
+
+    const lobby = useQuery(api.lobby.getLobby, {filter, order}) as Lobby[];
     const lobbies = useAppSelector(state => state.lobby.lobbies)
     const dispatch = useAppDispatch()
 

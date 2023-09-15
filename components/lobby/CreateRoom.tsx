@@ -5,14 +5,15 @@ import {
   } from "@/components/ui/sheet"
 import { useAppSelector, useAppDispatch } from "@/redux/hooks"  
 import { createRoom } from "@/redux/thunks"
-import { MouseEvent, useState, forwardRef, ForwardedRef } from "react"
+import { MouseEvent, useState, forwardRef, ForwardedRef, } from "react"
 import Room from "./Room"
 import LoadingSvg from "../common/LoadingSvg"
 
 
-export default  forwardRef(function CreateRoom(_,ref: ForwardedRef<HTMLButtonElement>) {
+export default  forwardRef(function CreateRoom({showSheet}: {showSheet: () => void},ref: ForwardedRef<HTMLButtonElement>) {
 
     const [ loading, setLoading ] = useState(false)
+
     const {id: userId, joinedLobby} = useAppSelector(state => state.user)
     const { lobbyData } = useAppSelector(state => state.lobby)
     const dispatch = useAppDispatch()
@@ -22,12 +23,15 @@ export default  forwardRef(function CreateRoom(_,ref: ForwardedRef<HTMLButtonEle
         try {
             setLoading(true)
             await dispatch(createRoom(userId))    
+
         } catch (error) {
             console.error('something went wrong')
         } finally {
             setLoading(false)
         }
     }
+
+
 
     if (!joinedLobby) {
         return (

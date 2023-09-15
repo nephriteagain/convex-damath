@@ -10,7 +10,8 @@ import { leaveRoom, deleteRoom, startGame } from "@/redux/thunks";
 import { useQuery } from 'convex/react'
 import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
-import { gameStart } from "@/redux/slices/lobbySlice";
+import { gameStart, clearLobbyData, } from "@/redux/slices/lobbySlice";
+import { clearJoinedLobbyId } from "@/redux/slices/userSlice";
 import { debounce } from "lodash";
 import { useToast } from "../ui/use-toast";
 import LobbyMessage from "./LobbyMessage";
@@ -45,6 +46,18 @@ export default forwardRef(function Room({_id,userId}: RoomProps, ref: ForwardedR
         }
     }
 
+    async function handleLeaveRoom(e: MouseEvent) {
+        e.preventDefault()
+        try {
+            setLeaveLoading(true)
+            await dispatch(leaveRoom(_id))
+        } catch (error) {
+            console.error('something went wrong')
+        } finally {
+            setLeaveLoading(false)
+        }
+    }
+
     async function handleStartRoom(e: MouseEvent) {
         e.preventDefault()
         try {
@@ -58,6 +71,13 @@ export default forwardRef(function Room({_id,userId}: RoomProps, ref: ForwardedR
     }
 
     useEffect(() => {
+        if (room?.host === '') {
+            dispatch(clearJoinedLobbyId())
+            dispatch(clearLobbyData())
+        }
+    }, [room])
+
+    useEffect(() => {
         if (room?.start) {
             toast({
                 description: 'game is starting...',
@@ -67,7 +87,7 @@ export default forwardRef(function Room({_id,userId}: RoomProps, ref: ForwardedR
         }
     }, [room])
 
-    if (!room) {
+    if (!room) {    
         return (
             <SheetContent className="bg-customNeutral">
                 Loading...
@@ -80,7 +100,7 @@ export default forwardRef(function Room({_id,userId}: RoomProps, ref: ForwardedR
 
 
     return (
-        <SheetContent className="bg-customNeutral text-white" ref={ref}>
+        <SheetContent className="bg-customNeutral text-white overflow-y-auto" ref={ref}>
             <SheetHeader className="mb-8">
             <SheetTitle className="text-2xl">Lobby</SheetTitle>            
             </SheetHeader>
@@ -141,7 +161,7 @@ export default forwardRef(function Room({_id,userId}: RoomProps, ref: ForwardedR
                 </div> :
                 <div>
                      <button 
-                        onClick={handleDeleteRoom}
+                        onClick={handleLeaveRoom}
                         className="relative flex items-center justify-center px-2 py-1 disabled:opacity-40 text-white bg-red-600 rounded-md shadow-md drop-shadow-md hover:scale-105 hover:bg-red-800 active:scale-100 transition-all duration-150"
                         disabled={Boolean(leaveLoading)}
                     >   

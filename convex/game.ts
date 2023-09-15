@@ -134,10 +134,35 @@ function pieceCount(board: boxPiece[]) : number {
 }
 
 export const getWatchGameList = query({
-    handler: async (ctx) => {
+    args: {
+        filter: v.optional(v.union(
+            v.string(),
+            v.null()
+        )),
+        order: v.optional(v.union(
+            v.literal('asc'),
+            v.literal('desc'),
+        ))
+    },
+    handler: async (ctx, args) => {
+        const { filter, order = 'desc' } = args        
+        if (
+            filter === 'COUNTING' ||
+            filter === 'WHOLE' ||
+            filter === 'INTEGER'
+        ) {
+            const watchGameList = await ctx.db
+                .query('games')
+                .filter(q => q.eq(q.field('gameOngoing'), true))
+                .filter(q => q.eq(q.field('gameType'), filter))
+                .order(order)
+                .collect()
+            return watchGameList
+        }
         const watchGameList = await ctx.db
             .query('games')
             .filter(q => q.eq(q.field('gameOngoing'), true))
+            .order(order)
             .collect()
         return watchGameList
     }

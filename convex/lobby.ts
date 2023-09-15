@@ -13,8 +13,37 @@ const games = {
     'INTEGER': INTEGER,
 }
 
-export const getLobby = query(async ({db}) => {
-    return await db.query('lobby').collect()
+
+
+export const getLobby = query({
+    args: {
+        filter: v.optional(v.union(
+            v.string(),
+            v.null()
+        )),
+        order: v.optional(v.union(
+            v.literal('asc'),
+            v.literal('desc'),
+        ))
+    },
+    handler: async (ctx, args) => {
+        const {filter, order = 'desc'} = args
+        if (
+            filter === 'COUNTING' ||
+            filter === 'WHOLE' ||
+            filter === 'INTEGER'
+        ) {
+            return await ctx.db
+                .query('lobby')
+                .filter(q => q.eq(q.field('gameType'), filter))
+                .order(order)
+                .collect()
+        }
+        return await ctx.db
+            .query('lobby')
+            .order(order)
+            .collect()
+    }
 })
 
 export const getRoom = query({
@@ -52,6 +81,14 @@ export const leaveLobby = mutation({
 })
 
 export const deleteLobby = mutation({
+    args: {id: v.id('lobby')},
+    handler: async (ctx, args) => {
+        const res = await ctx.db.patch(args.id, {host: ''})
+        return args.id
+    }
+})
+
+export const clearRoom = mutation({
     args: {id: v.id('lobby')},
     handler: async (ctx, args) => {
         const res = await ctx.db.delete(args.id)

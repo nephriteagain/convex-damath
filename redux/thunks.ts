@@ -33,10 +33,18 @@ export const leaveRoom = createAsyncThunk(
 export const deleteRoom = createAsyncThunk(
     'lobby/deleteRoom',
     async (id: Id<'lobby'>) => {
-        await convex.mutation(api.lobby.deleteLobby, {id})        
+        const gameId = await convex.mutation(api.lobby.deleteLobby, {id})        
+        return gameId
+
     }
 )
 
+export const clearRoom = createAsyncThunk(
+    'lobby/clearRoom',
+    async (id: Id<'lobby'>) => {
+        await convex.mutation(api.lobby.clearRoom, {id})        
+    }
+)
 
 export const startGame = createAsyncThunk(
     'lobby/startGame',

@@ -4,14 +4,29 @@ import { useQuery } from "convex/react"
 import Link from "next/link"
 
 import WatchLoading from "@/components/watch/WatchLoading"
+import Filter from "@/components/lobby/Filter"
+import { useSearchParams } from "next/navigation"
+
 // TODO: add pagination
 export default function Watch() {
-    const watchList = useQuery(api.game.getWatchGameList)
+    const searchParams = useSearchParams()
+    
+    type FILTER = 'COUNTING'|'WHOLE'|'INTEGER'|null|''
+    type ORDER = 'asc' | 'desc'
+    
+    const filter = searchParams.get('filter') as FILTER
+    const order = searchParams.get('order') as ORDER || 'desc' as ORDER
+
+    const watchList = useQuery(api.game.getWatchGameList, {filter, order})
+    
     if (watchList?.length === 0) {
         return (
             <div className="mt-12 flex flex-col w-full items-center justify-center">
 
-            <section className=" bg-customNeutral  p-8  text-white h-[500px]">
+            <section className=" bg-customNeutral  p-8 pt-4  text-white h-[500px]">
+                <div className="flex flex-row justify-end">
+                    <Filter className="text-black ms"/>
+                </div>
                 <div className=" flex flex-row font-semibold px4 py-2  mb-2 bg-customSec text-lg rounded-md shadow-md drop-shadow-md">
                     <div className="basis-1/4 ps-2">TYPE</div>
                     <div className="basis-1/4">HOST</div>
@@ -33,8 +48,10 @@ export default function Watch() {
     if (watchList) {
         return (
             <div className="mt-12 flex flex-col w-full items-center justify-center">
-
-            <section className=" bg-customNeutral  p-8  text-white h-[500px]">
+            <section className=" bg-customNeutral  p-8 pt-4  text-white h-[500px]">
+                <div className="flex flex-row justify-end">
+                    <Filter className="text-black ms"/>
+                </div>
                 <div className=" flex flex-row font-semibold px4 py-2  mb-2 bg-customSec text-lg rounded-md shadow-md drop-shadow-md">
                     <div className="basis-1/4 ps-2">TYPE</div>
                     <div className="basis-1/4">HOST</div>
