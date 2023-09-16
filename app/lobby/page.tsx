@@ -47,10 +47,6 @@ export default  function Home() {
 
     }, [lobbyData])
 
-    let i=0
-    while(i < 1000 * 60) {
-        i++
-    }
 
     function showSheet() {
         if (!sheetRef.current) {

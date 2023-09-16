@@ -5,7 +5,7 @@ import PlayerTurnBar from "@/components/game/PlayerTurnBar"
 import { useQuery } from "convex/react"
 import { api } from "@/convex/_generated/api"
 import { Id } from "@/convex/_generated/dataModel"
-import { useEffect, useState,} from "react"
+import { useEffect, useState, useLayoutEffect } from "react"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { getGame } from "@/redux/slices/gameSlice"
 import { GameTypes, gameData, players } from "@/types"
@@ -26,6 +26,7 @@ import { playerLeft } from "@/redux/slices/gameSlice"
 import { useRouter } from "next/navigation"
 import { debounce, delay } from "lodash"
 import { getTotalRemainingScore } from "@/gameLogic/scoreHandler"
+import { getLocalId } from "@/redux/slices/userSlice"
 
 export default function Home() {
     const [ openRules, setOpenRules ] = useState(false)
@@ -42,6 +43,10 @@ export default function Home() {
     const boardRef = useRef<HTMLDivElement>(null)
     const router = useRouter()
 
+    if (gData && (gData.players.x !== userId && gData.players.z !== userId)) {
+        router.push(`/watch/${gData._id}`)
+    }
+
     function showRules() {
         setOpenRules((rule) => !rule)
     }
@@ -52,6 +57,16 @@ export default function Home() {
 
     const delayedRedirect = debounce(redirectToLobby, 3000)
     
+
+    useLayoutEffect(() => {
+        const localId = localStorage.getItem('localId')
+        if (typeof localId === 'string') {
+            dispatch(getLocalId(localId))
+            return
+        }
+        localStorage.setItem('localId', userId)
+    
+        }, [])
 
 
     useEffect(() => {
@@ -164,7 +179,7 @@ export default function Home() {
                 setOpenRules={setOpenRules}        
         /> }
         <Toaster />
-        { !showWinnerModal && <WinnerModal 
+        { showWinnerModal && <WinnerModal 
             totalScores={totalScores} 
             setShowWinnerModal={setShowWinnerModal}
         />}

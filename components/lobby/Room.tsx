@@ -61,6 +61,9 @@ export default forwardRef(function Room({_id,userId}: RoomProps, ref: ForwardedR
 
     async function handleStartRoom(e: MouseEvent) {
         e.preventDefault()
+        if (guest === '' || host === '') {
+            return
+        }
         try {
             setStartLoading(true)
             const type = gameType as  GameTypes
@@ -149,7 +152,7 @@ export default forwardRef(function Room({_id,userId}: RoomProps, ref: ForwardedR
                     <button 
                         onClick={handleStartRoom}
                         className="relative flex items-center justify-center px-2 py-1 disabled:opacity-40 text-white bg-green-600 rounded-md shadow-md drop-shadow-md hover:scale-105 hover:bg-green-800 active:scale-100 transition-all duration-150"
-                        disabled={Boolean(startLoading)}
+                        disabled={Boolean(startLoading || (guest ==='' || host === ''))}
                     >
                          { startLoading && <LoadingSvg 
                             className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
