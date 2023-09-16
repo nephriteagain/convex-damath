@@ -5,7 +5,7 @@ export default function LobbyLoading({opacity}: {opacity?: number}) {
     return (
         <div className="w-full h-full flex flex-col">            
             <div 
-                className="flex flex-col mt-12 py-8 px-1  sm:p-8 bg-customNeutral shadow-lg drop-shadow-lg mb-4 w-full sm:w-[640px] mx-auto"
+                className="flex flex-col mt-12 py-8 px-1  sm:p-8 h-[85%] sm:h-auto bg-customNeutral shadow-lg drop-shadow-lg mb-4 w-full sm:w-[640px] mx-auto"
                 style={opacity? {opacity: `${opacity}`} : {opacity: '1'}}
             >                
                 <div

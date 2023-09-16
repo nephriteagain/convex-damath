@@ -49,7 +49,7 @@ export default  function Home() {
 
     return (
         <div className="w-full h-full flex flex-col">            
-            <div className=" flex flex-col mt-12 py-8 px-1 sm:p-8 bg-customNeutral shadow-lg drop-shadow-lg mb-4 w-full sm:w-[640px] mx-auto">
+            <div className=" flex flex-col mt-12 py-8 px-1 sm:p-8 h-[85%] sm:h-auto bg-customNeutral shadow-lg drop-shadow-lg mb-4 w-full sm:w-[640px] mx-auto">
                 <div className="flex flex-row justify-between items-center">
                     <CreateRoom ref={sheetRef} showSheet={showSheet}/>
                     <Filter />
