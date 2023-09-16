@@ -12,6 +12,9 @@ import { clearLobbyData } from "@/redux/slices/lobbySlice"
 import { useRouter } from 'next/navigation'
 import { clearRoom, checkJoinedLobby } from "@/redux/thunks"
 import { Toaster } from "@/components/ui/toaster"
+import { api } from "@/convex/_generated/api"
+import { convex } from "@/lib/convex"
+import { Id } from "@/convex/_generated/dataModel"
 
 export const dynamic = "force-dynamic";
 
@@ -34,15 +37,25 @@ export default  function Home() {
 
     }, [])
 
-    
-    useEffect(() => {
-        if (lobbyData?.start && lobbyData.host === id) {
-            dispatch(clearRoom(lobbyData._id))
-        }
+
+    async function getGameData(gameId: Id<'games'>) {
         if (lobbyData?.start) {
+            const data = await convex.query(api.game.getGameData, {id:gameId})
             dispatch(clearJoinedLobbyId())
             dispatch(clearLobbyData())
-            router.push(`/game/${lobbyData.start}`)
+            if (data?.gameOngoing) {
+                router.push(`/game/${lobbyData.start}`)
+            }
+            
+        }
+    }
+    
+    useEffect(() => {
+        //TODO: make auto recon when game is disconnected,
+        // fix this dont delete the db
+        if (lobbyData?.start) {
+            const gameId = lobbyData.start as Id<'games'>
+            getGameData(gameId)
         }
 
     }, [lobbyData])

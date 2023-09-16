@@ -55,11 +55,13 @@ export const getLobby = query({
             return await ctx.db
                 .query('lobby')
                 .filter(q => q.eq(q.field('gameType'), filter))
+                .filter(q => q.eq(q.field('start'), ''))
                 .order(order)
                 .collect()
         }
         return await ctx.db
             .query('lobby')
+            .filter(q => q.eq(q.field('start'), ''))
             .order(order)
             .collect()
     }

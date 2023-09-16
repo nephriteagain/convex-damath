@@ -84,10 +84,6 @@ export default forwardRef(function Room({_id,userId}: RoomProps, ref: ForwardedR
 
     useEffect(() => {
         if (room?.start) {
-            toast({
-                description: 'game is starting...',
-                duration: 2000,
-            })
             debouncedDispatch(gameStart(room.start))
         }
     }, [room])
