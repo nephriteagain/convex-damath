@@ -45,7 +45,7 @@ export default function Settings({showRules, gameId}: ButtonsProps) {
         <Sheet>
       <SheetTrigger asChild>
         <Button variant={null}
-            className="absolute top-4 left-2 hover:scale-125 hover:rotate-90  transition-all duration-150"
+            className="absolute top-2 left-2 hover:scale-125 hover:rotate-90  transition-all duration-150"
         >
             <span className="text-3xl">
                 <IoMdSettings />

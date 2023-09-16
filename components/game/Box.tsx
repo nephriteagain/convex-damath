@@ -55,8 +55,8 @@ export default function Box({playable, piece, operation, index, highlighted, pla
                     playerTurn={playerTurn}
                 /> 
             }
-            <div className={`absolute ${piece != undefined ? 'left-[2px] top-[2px]' : ''}`}>
-                <span className={`font-semibold ${piece == undefined ? 'text-4xl' : ''}`}>
+            <div className={`absolute ${piece != undefined ? 'left-0 top-0  sm:left-[2px] sm:top-[2px]' : ''}`}>
+                <span className={` font-semibold ${piece == undefined ? 'text-4xl' : ''}`}>
                     {operation === 'add' && <RiAddFill />}
                     {operation === 'subtract' && <RiSubtractFill />}
                     {operation === 'multiply' && <RiCloseFill />}

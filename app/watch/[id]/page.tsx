@@ -51,7 +51,7 @@ export default function Watch() {
 
     if (gameData) return (
         <>
-        <div className="mt-12 flex flex-col w-full items-center justify-center">
+        <div className=" h-full flex flex-col w-full items-center justify-center">
             <WatchTurnBar 
                 players={gameData.players}
                 playerTurn={gameData.playerTurn}

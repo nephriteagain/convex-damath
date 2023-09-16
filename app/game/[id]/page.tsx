@@ -141,7 +141,7 @@ export default function Home() {
     }
 
     if (gData) return (
-        <div className="mt-12 flex flex-col w-full items-center justify-center">
+        <div className="h-full flex flex-col w-full items-center justify-center">
             <PlayerTurnBar/>
             <Scores score={gData.score}/>
             <Board 
