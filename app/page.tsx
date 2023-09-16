@@ -1,8 +1,13 @@
+"use client"
 import Link from "next/link"
 import About from "@/components/game/About"
 import RuleModal from "@/components/game/RuleModal"
 
+
+
 export default function Home() {
+
+
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">

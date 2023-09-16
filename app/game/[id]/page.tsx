@@ -164,7 +164,7 @@ export default function Home() {
                 setOpenRules={setOpenRules}        
         /> }
         <Toaster />
-        { showWinnerModal && <WinnerModal 
+        { !showWinnerModal && <WinnerModal 
             totalScores={totalScores} 
             setShowWinnerModal={setShowWinnerModal}
         />}

@@ -5,14 +5,13 @@ import LobbyComponent from "@/components/lobby/Lobby"
 import CreateRoom from "@/components/lobby/CreateRoom"
 import Filter from "@/components/common/Filter"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useLayoutEffect } from "react"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
-import { clearJoinedLobbyId } from "@/redux/slices/userSlice"
+import { clearJoinedLobbyId, getLocalId } from "@/redux/slices/userSlice"
 import { clearLobbyData } from "@/redux/slices/lobbySlice"
 import { useRouter } from 'next/navigation'
-import { clearRoom } from "@/redux/thunks"
+import { clearRoom, checkJoinedLobby } from "@/redux/thunks"
 import { Toaster } from "@/components/ui/toaster"
-
 
 export const dynamic = "force-dynamic";
 
@@ -22,6 +21,19 @@ export default  function Home() {
     const dispatch = useAppDispatch()
     const {id, joinedLobby} = useAppSelector(state => state.user)
     const {lobbies, lobbyData} = useAppSelector(state => state.lobby)
+
+
+    useLayoutEffect(() => {
+    const localId = localStorage.getItem('localId')
+    if (typeof localId === 'string') {
+        dispatch(getLocalId(localId))
+        dispatch(checkJoinedLobby(localId))
+        return
+    }
+    localStorage.setItem('localId', id)
+
+    }, [])
+
     
     useEffect(() => {
         if (lobbyData?.start && lobbyData.host === id) {

@@ -1,6 +1,6 @@
 import { User } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
-import { createRoom, joinRoom, leaveRoom } from "../thunks";
+import { createRoom, joinRoom, leaveRoom, checkJoinedLobby } from "../thunks";
 export function generateId() {
     return Math.random().toString(16).slice(2)
 }
@@ -24,7 +24,10 @@ export const userSlice = createSlice({
         },
         clearJoinedLobbyId(state) {
             state.joinedLobby = ''
-        }
+        },
+        getLocalId(state, action) {
+            state.id = action.payload
+        },
     },
     extraReducers: builder => {
         builder.addCase(createRoom.fulfilled, (state, action) => {
@@ -39,9 +42,14 @@ export const userSlice = createSlice({
         }),
         builder.addCase(leaveRoom.fulfilled, (state) => {
             state.joinedLobby = ''
+        }),
+        builder.addCase(checkJoinedLobby.fulfilled, (state, action) => {
+            if (action.payload !== null) {
+                state.joinedLobby = action.payload._id
+            }
         })
     }
 })
 
-export const { getUserId, clearJoinedLobbyId } = userSlice.actions
+export const { getUserId, clearJoinedLobbyId, getLocalId } = userSlice.actions
 export default userSlice.reducer

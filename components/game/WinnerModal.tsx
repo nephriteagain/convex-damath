@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { debounce } from "lodash";
 import { playerLeft } from "@/redux/slices/gameSlice";
 import { useAppDispatch } from "@/redux/hooks";
+import { Button } from "../ui/button";
 
 // TODO: fix the bug instant redirecting after game finishes
 export default function WinnerModal({totalScores, setShowWinnerModal}: {
@@ -57,12 +58,15 @@ export default function WinnerModal({totalScores, setShowWinnerModal}: {
                         </div>
                     </div>
                     <div>
-                        <button onClick={(e) => {
-                            toggleModal(e)
-                            handleLeave()
-                        }}>
-                            close
-                        </button>
+                        <Button 
+                            className="bg-customNeutral mt-4 shadow-md drop-shadow-md px-4"
+                            onClick={(e) => {
+                                toggleModal(e)
+                                handleLeave()
+                            }}
+                        >
+                            CLOSE
+                        </Button>
                     </div>
                 </div>
             </div>

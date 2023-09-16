@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Lobby } from "@/types";
-import { createRoom, joinRoom, leaveRoom, deleteRoom } from "../thunks";
+import { createRoom, joinRoom, leaveRoom, deleteRoom, checkJoinedLobby } from "../thunks";
 const initialState : {
     lobbies: Lobby[];
     lobbyData?: Lobby;
@@ -43,7 +43,14 @@ export const lobbySlice = createSlice({
         }),
         builder.addCase(deleteRoom.fulfilled, (_, action) => {
             convex.mutation(api.lobby.clearRoom, {id: action.payload})
+        }),
+        builder.addCase(checkJoinedLobby.fulfilled, (state, action) => {
+            if (action.payload !== null) {
+                const lobby = action.payload as Lobby
+                state.lobbyData = lobby
+            }
         })
+
     }
 })
 

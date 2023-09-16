@@ -196,3 +196,11 @@ export const clearCommands = createAsyncThunk(
         await convex.mutation(api.game.clearCommands, {gameId})
     }
 )
+
+export const checkJoinedLobby = createAsyncThunk(
+    'game/checkJoinedLobby',
+    async (id: string) => {
+        const res = await convex.query(api.lobby.checkJoinedLobby, {localId: id})
+        return res
+    }
+)

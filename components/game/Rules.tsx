@@ -67,7 +67,7 @@ function Rules({ setOpenRules, openRules }: RuleProps) {
   }, [openRules])
 
   return (
-    <div className="rule-popup z-[20] p-[1rem] absolute w-[500px] h-[75vh] overflow-auto  top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] shadow-xl drop-shadow-lg rounded-lg"  
+    <div className="rule-popup z-[20] p-[1rem] absolute w-[90%] sm:w-[500px] h-[60vh] sm:h-[75vh] overflow-auto  top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] shadow-xl drop-shadow-lg rounded-lg"  
       ref={popupRef}
     >
         <div className='mb-8'>

@@ -14,6 +14,25 @@ const games = {
 }
 
 
+export const checkJoinedLobby = query({
+    args: {
+        localId: v.string()
+    },
+    handler: async (ctx, args) => {
+        const existingLobby = await ctx.db
+            .query('lobby')
+            .filter((q) => q.or(
+                    q.eq(q.field('host'), args.localId), 
+                    q.eq(q.field('guest'), args.localId)
+            ))
+            .first()
+        if (existingLobby) {
+            return existingLobby
+        }
+        return null
+    }
+})
+
 
 export const getLobby = query({
     args: {
@@ -170,3 +189,4 @@ export const changeGameType = mutation({
         return res
     }
 })
+
