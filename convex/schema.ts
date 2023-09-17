@@ -16,7 +16,11 @@ export default defineSchema({
             mId: v.string(),
             text: v.string()
         }))
-    }),
+    })
+        .index("by_host", ["host"])
+        .index("by_guest", ["guest"]),
+
+
     games: defineTable({
         from: v.id('lobby'),
         players: v.object({

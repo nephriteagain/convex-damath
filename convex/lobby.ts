@@ -21,14 +21,20 @@ export const checkJoinedLobby = query({
     handler: async (ctx, args) => {
         const existingLobby = await ctx.db
             .query('lobby')
-            .filter((q) => q.or(
-                    q.eq(q.field('host'), args.localId), 
-                    q.eq(q.field('guest'), args.localId)
-            ))
+            .withIndex('by_host')            
+            .filter((q) => q.eq(q.field('host'), args.localId))
             .first()
         if (existingLobby) {
             return existingLobby
         }
+        const existingLobby2 = await ctx.db
+            .query('lobby')
+            .withIndex('by_guest')            
+            .filter((q) => q.eq(q.field('guest'), args.localId))
+            .first()
+            if (existingLobby2) {
+                return existingLobby2
+            }
         return null
     }
 })
