@@ -46,7 +46,7 @@ export default function LeaveGame({gameId}: LeaveGameProps) {
             >
                 Leave Game
             </AlertDialogTrigger>
-            <AlertDialogContent>
+            <AlertDialogContent className="bg-customLight">
                 <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
@@ -54,11 +54,11 @@ export default function LeaveGame({gameId}: LeaveGameProps) {
                 </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                <AlertDialogCancel>
+                <AlertDialogCancel className="bg-transparent hover:bg-transparent border-2 border-customSec hover:bg-customSec hover:text-white">
                     Cancel
                 </AlertDialogCancel>
                 <AlertDialogAction
-                    className="relative flex items-center justify-center"
+                    className="relative flex items-center justify-center bg-customSec text-white"
                     onClick={handleClick}
                     disabled={loading}
                 >

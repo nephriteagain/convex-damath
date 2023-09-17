@@ -8,14 +8,26 @@ import LocalBoard from "@/components/local/LocalBoard"
 import LocalTurn from "@/components/local/LocalTurn"
 import Scores from "@/components/game/Score"
 import PostGameModal from "@/components/local/GameOverModal"
+import LocalSettings from "@/components/local/LocalSettings"
+import Rules from "@/components/game/Rules"
 
 export default function Page() {
     const [ gameStart, setGameStart ] = useState(false)    
     const [ isGameOver, setIsGameOver ] = useState(false)
+    const [ openRules, setOpenRules ] = useState(false)
+
     const { playerTurn, score, boardData } = useAppSelector(s => s.local)
+
+    function showRules() {
+        setOpenRules((rule) => !rule)
+    }
 
     function hideModal() {
         setGameStart(true)
+    }
+
+    function shoModal() {
+        setGameStart(false)
     }
     
     useEffect(() => {
@@ -33,17 +45,26 @@ export default function Page() {
             <LocalBoard />
             { (!gameStart) &&
                 <PreGameModal 
-                    hideModal={hideModal} 
+                hideModal={hideModal} 
                 />
             }
             {
                 isGameOver &&
                 <PostGameModal 
-                    setGameStart={setGameStart}
-                    setIsGameOver={setIsGameOver}
-                    score={score}
+                setGameStart={setGameStart}
+                setIsGameOver={setIsGameOver}
+                score={score}
                 />
             }
+            { openRules && <Rules
+                openRules={openRules}
+                setOpenRules={setOpenRules}
+                />
+            }
+            <LocalSettings 
+                showRules={showRules} 
+                showModal={shoModal}
+            />
         </div>
     )
 }

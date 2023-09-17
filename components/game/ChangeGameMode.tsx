@@ -63,7 +63,7 @@ export default function ChangeGameMode({gameId}: ChangeGameModeProps) {
           Change Game Mode
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className="bg-customLight border-none">
         <AlertDialogHeader>
           <AlertDialogTitle>Select a Game Mode</AlertDialogTitle>
           <AlertDialogDescription>
@@ -74,7 +74,7 @@ export default function ChangeGameMode({gameId}: ChangeGameModeProps) {
           <AlertDialogAction 
             onClick={handleClick}
             disabled={loading}
-            className="relative flex items-center justify-center disabled:opacity-50"
+            className="relative flex items-center justify-center disabled:opacity-50 bg-customSec"
           >
             { loading && <LoadingSvg
                     className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
@@ -88,7 +88,7 @@ export default function ChangeGameMode({gameId}: ChangeGameModeProps) {
             <AlertDialogAction 
                 onClick={handleClick}
                 disabled={loading}
-                className="relative flex items-center justify-center disabled:opacity-50"
+                className="relative flex items-center justify-center disabled:opacity-50 bg-customSec"
             >
                 { loading && <LoadingSvg
                     className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
@@ -102,7 +102,7 @@ export default function ChangeGameMode({gameId}: ChangeGameModeProps) {
             <AlertDialogAction 
                 onClick={handleClick}
                 disabled={loading}
-                className="relative flex items-center justify-center disabled:opacity-50"
+                className="relative flex items-center justify-center disabled:opacity-50 bg-customSec"
             >
               { loading && <LoadingSvg
                     className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
@@ -114,8 +114,8 @@ export default function ChangeGameMode({gameId}: ChangeGameModeProps) {
                 </p>
             </AlertDialogAction>
 
-          <AlertDialogCancel>
-            Cancel
+          <AlertDialogCancel className="bg-transparent border-customSec border-2 hover:bg-customSec hover:text-white">
+            CLOSE
             </AlertDialogCancel>
         </AlertDialogFooter>
       </AlertDialogContent>

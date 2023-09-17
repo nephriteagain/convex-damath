@@ -23,6 +23,8 @@ export default function LobbyMessage({messages, _id}: LobbyMessageProps) {
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault()
+        if (message.length === 0) return
+        
         try {
             setLoading(true)
             await dispatch(sendLobbyMsg({

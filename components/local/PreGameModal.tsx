@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select"
 import { changeGameType } from "@/redux/slices/localSlice"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
-
+import { reset } from "@/redux/slices/localSlice"
 import { Button } from "../ui/button"
 
 export default function PreGameModal({hideModal}: {hideModal: () => void}) {
@@ -35,7 +35,10 @@ export default function PreGameModal({hideModal}: {hideModal: () => void}) {
                     </SelectGroup>
                 </SelectContent>
             </Select>
-            <Button onClick={hideModal}
+            <Button onClick={() => {
+                hideModal()
+                dispatch(reset())
+            }}
                 className="bg-customNeutral px-8 shadow-md drop-shadow-md"
             >
                 Start

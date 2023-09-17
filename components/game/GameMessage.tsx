@@ -34,6 +34,8 @@ export default function GameMessage({messages, _id} : WatchMessageProps) {
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault();
+        if (message.length === 0) return
+
         try {
             setLoading(true)
             await dispatch(sendGameMsg({

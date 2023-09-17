@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-6">
-      <h1 className="text-5xl font-bold border-4 border-dashed p-4">
+      <h1 className="text-3xl sm:text-5xl font-bold border-4 border-dashed p-4">
         <span className="me-4 text-red-800">
             Damath
         </span>

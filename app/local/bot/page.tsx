@@ -8,6 +8,8 @@ import LocalBoard from "@/components/local/LocalBoard"
 import LocalTurn from "@/components/local/LocalTurn"
 import Scores from "@/components/game/Score"
 import PostGameModal from "@/components/local/GameOverModal"
+import LocalSettings from "@/components/local/LocalSettings"
+import Rules from "@/components/game/Rules"
 
 import { debounce } from "lodash"
 import { piece } from "@/types"
@@ -15,6 +17,7 @@ import { piece } from "@/types"
 export default function Page() {
     const [ gameStart, setGameStart ] = useState(false)    
     const [ isGameOver, setIsGameOver ] = useState(false)
+    const [ openRules, setOpenRules ] = useState(false)
 
     const { playerTurn, score, boardData } = useAppSelector(s => s.local)
     const dispatch = useAppDispatch()
@@ -23,8 +26,18 @@ export default function Page() {
 
     const delayedDispatch = debounce(dispatch, 2000)
 
+    function showRules() {
+        setOpenRules((rule) => !rule)
+    }
+
+
     function hideModal() {
         setGameStart(true)
+    }
+
+    
+    function shoModal() {
+        setGameStart(false)
     }
 
     useLayoutEffect(() => {
@@ -65,7 +78,7 @@ export default function Page() {
             pieceIndex: randomIdx,
             index: randomMove
         }))
-    }, [playerTurn])
+    }, [boardData])
 
 
     function getRandomIndex(array: any[]) {
@@ -95,6 +108,15 @@ export default function Page() {
                     score={score}
                 />
             }
+             { openRules && <Rules
+                openRules={openRules}
+                setOpenRules={setOpenRules}
+                />
+            }
+            <LocalSettings 
+                showRules={showRules} 
+                showModal={shoModal}
+            />
         </div>
     )
 }

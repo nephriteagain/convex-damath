@@ -29,8 +29,10 @@ export default function Local() {
                 <AlertDialogTitle>
                     Local
                 </AlertDialogTitle>
-                <AlertDialogDescription className="flex flex-row justify-center gap-4">
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogDescription className="flex flex-row justify-center items-center m-0 gap-4">
+                <AlertDialogCancel className="bg-transparent text-white border-customSec border-2 hover:bg-transparent">
+                    Cancel
+                </AlertDialogCancel>
                 <AlertDialogAction className="bg-customSec">
                     <Link href={'/local/pvp'}>
                     Player vs Player

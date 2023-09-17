@@ -110,7 +110,7 @@ export const localSlice = createSlice({
             return {
                 ...init,
                 pvp: state.pvp,
-                gameType: state.gameType
+                gameType: state.gameType,                
             }
         },
         botMode: (state) => {
