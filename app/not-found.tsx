@@ -1,4 +1,4 @@
-import Link from "next/link"
+import BacktoHome from "@/components/common/BackToHome"
 import { TbFaceIdError } from 'react-icons/tb'
 
 export default function NotFound() {
@@ -8,9 +8,7 @@ export default function NotFound() {
             <p className='text-4xl font-bold text-customSec'>
                 Page Not Found
             </p>
-            <Link href='/' className="select-none mx-auto w-fit underline decoration-2 text-xl text-center hover:text-customSec transition-all duration-150">
-                Back to Home
-            </Link>
+            <BacktoHome />
         </div>
     )
 }

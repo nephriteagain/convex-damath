@@ -1,6 +1,7 @@
 
 const loaderData = new Array(5).fill(true)
 import Link from "next/link"
+import BacktoHome from "../common/BackToHome"
 export default function LobbyLoading({opacity}: {opacity?: number}) {
     return (
         <div className="w-full h-full flex flex-col">            
@@ -33,9 +34,7 @@ export default function LobbyLoading({opacity}: {opacity?: number}) {
                     </div>
                 </section>
             </div>
-            <Link href='/' className="select-none mx-auto w-fit underline decoration-2 text-xl text-center hover:text-customSec transition-all duration-150">
-                Back to Home
-            </Link>
+           <BacktoHome />
         </div>
     )
 }

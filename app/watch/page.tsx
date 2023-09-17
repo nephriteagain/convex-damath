@@ -6,6 +6,7 @@ import Link from "next/link"
 import WatchLoading from "@/components/watch/WatchLoading"
 import Filter from "@/components/common/Filter"
 import { useSearchParams } from "next/navigation"
+import BacktoHome from "@/components/common/BackToHome"
 
 // TODO: add pagination
 export default function Watch() {
@@ -37,9 +38,7 @@ export default function Watch() {
                     <p className="text-center mt-4">no active game to watch</p>                
                 </div>
             </section>
-            <Link href='/' className="mt-2 underline decoration-2 text-xl text-center hover:text-customSec transition-all duration-150">
-                Back to Home
-            </Link>
+            <BacktoHome />
             </div>
         )
         
@@ -76,9 +75,7 @@ export default function Watch() {
                 })}
             </div>
             </section>
-            <Link href='/' className="overflow-clip mt-2 underline decoration-2 text-xl text-center hover:text-customSec transition-all duration-150">
-                Back to Home
-            </Link>
+            <BacktoHome />
             </div>
         )
     }

@@ -1,9 +1,9 @@
 "use client"
-import Link from "next/link"
 
 import LobbyComponent from "@/components/lobby/Lobby"
 import CreateRoom from "@/components/lobby/CreateRoom"
 import Filter from "@/components/common/Filter"
+import BacktoHome from "@/components/common/BackToHome"
 
 import { useEffect, useRef, useLayoutEffect } from "react"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
@@ -77,9 +77,7 @@ export default  function Home() {
                 </div>
                 <LobbyComponent id={id} showSheet={showSheet} />
             </div>
-            <Link href='/' className="select-none mx-auto w-fit underline decoration-2 text-xl text-center hover:text-customSec transition-all duration-150">
-                Back to Home
-            </Link>
+            <BacktoHome />
             <Toaster />
         </div>
     )
