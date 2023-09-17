@@ -5,7 +5,7 @@ import CreateRoom from "@/components/lobby/CreateRoom"
 import Filter from "@/components/common/Filter"
 import BacktoHome from "@/components/common/BackToHome"
 
-import { useEffect, useRef, useLayoutEffect } from "react"
+import { useEffect, useRef, useLayoutEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { clearJoinedLobbyId, getLocalId } from "@/redux/slices/userSlice"
 import { clearLobbyData } from "@/redux/slices/lobbySlice"
@@ -15,10 +15,13 @@ import { Toaster } from "@/components/ui/toaster"
 import { api } from "@/convex/_generated/api"
 import { convex } from "@/lib/convex"
 import { Id } from "@/convex/_generated/dataModel"
+import Progress from "@/components/common/Progress"
 
 export const dynamic = "force-dynamic";
 
 export default  function Home() {
+    const [ start, setStart ] = useState(false)
+
     const router = useRouter()
     const sheetRef = useRef<HTMLButtonElement>(null)
     const dispatch = useAppDispatch()
@@ -77,8 +80,9 @@ export default  function Home() {
                 </div>
                 <LobbyComponent id={id} showSheet={showSheet} />
             </div>
-            <BacktoHome />
+            <BacktoHome onClick={() => setStart(true)} />
             <Toaster />
+            <Progress start={start} />
         </div>
     )
 }

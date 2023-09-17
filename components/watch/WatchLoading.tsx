@@ -3,7 +3,7 @@ const loaderData = new Array(5).fill(true)
 import Link from "next/link"
 import Filter from "../common/Filter"
 
-export default function WatchLoading({opacity}: {opacity?:number}) {
+export default function WatchLoading({opacity, onClick}: {opacity?:number; onClick?: () => void}) {
     return (
         <div className="flex flex-col w-full items-center justify-center">
 
@@ -31,7 +31,9 @@ export default function WatchLoading({opacity}: {opacity?:number}) {
                 })}
             </div>
             </section>
-            <Link href='/' className="mt-2 underline decoration-2 text-xl text-center hover:text-customSec transition-all duration-150">
+            <Link href='/' className="mt-2 underline decoration-2 text-xl text-center hover:text-customSec transition-all duration-150"
+                onClick={onClick != undefined ? onClick : undefined}
+            >
                 Back to Home
             </Link>
             </div>

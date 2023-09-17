@@ -7,9 +7,14 @@ import WatchLoading from "@/components/watch/WatchLoading"
 import Filter from "@/components/common/Filter"
 import { useSearchParams } from "next/navigation"
 import BacktoHome from "@/components/common/BackToHome"
+import Progress from "@/components/common/Progress"
+import { useState } from "react"
+
 
 // TODO: add pagination
 export default function Watch() {
+    const [ start, setStart ] = useState(false)
+
     const searchParams = useSearchParams()
     
     type FILTER = 'COUNTING'|'WHOLE'|'INTEGER'|null|''
@@ -22,6 +27,7 @@ export default function Watch() {
     
     if (watchList?.length === 0) {
         return (
+            <>
             <div className="mt-12 flex flex-col w-full items-center justify-center">
 
             <section className=" w-full sm:w-auto bg-customNeutral p-1 sm:p-8 pt-4  text-white h-[500px]">
@@ -38,14 +44,17 @@ export default function Watch() {
                     <p className="text-center mt-4">no active game to watch</p>                
                 </div>
             </section>
-            <BacktoHome />
+            <BacktoHome onClick={() => setStart(true)} />            
             </div>
+            <Progress start={start} />
+            </>
         )
         
     }
 
     if (watchList) {
         return (
+            <>
             <div className="mt-12 flex flex-col w-full items-center justify-center">
             <section className=" w-full sm:w-auto bg-customNeutral p-1 sm:p-8 pt-4  text-white h-[500px]">
                 <div className="flex flex-row justify-end">
@@ -67,7 +76,9 @@ export default function Watch() {
                             <div className="basis-[27%] overflow-clip px-2">{players.z}</div>
                             <div className="basis-[27%] overflow-clip px-2">{players.x}</div>
                             <Link  href={`/watch/${_id}`}
-                            className="basis-[19%] text-center bg-green-600 hover:bg-green-800 transition-all duration-150 rounded-md mx-4">
+                                className="basis-[19%] text-center bg-green-600 hover:bg-green-800 transition-all duration-150 rounded-md mx-4"
+                                onClick={() => setStart(true)}
+                            >
                                 WATCH
                             </Link>
                         </div>
@@ -75,13 +86,18 @@ export default function Watch() {
                 })}
             </div>
             </section>
-            <BacktoHome />
+            <BacktoHome onClick={() => setStart(true)} />
             </div>
+            <Progress start={start} />
+            </>
         )
     }
 
     return (
-        <WatchLoading />
+        <>
+        <WatchLoading onClick={() => setStart(true)} />
+        <Progress start={start} />
+        </>
     )
     
 }

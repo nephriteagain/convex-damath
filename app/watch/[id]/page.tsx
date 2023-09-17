@@ -5,7 +5,7 @@ import { useQuery } from "convex/react"
 import { api } from "@/convex/_generated/api"
 import { Id } from "@/convex/_generated/dataModel"
 import { Toaster } from "@/components/ui/toaster"
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useToast } from "@/components/ui/use-toast"
 import { useRouter } from "next/navigation"
 import { debounce } from "lodash"
@@ -17,6 +17,7 @@ import Scores from "@/components/game/Score"
 import Link from "next/link"
 import LoadingSvg from "@/components/common/LoadingSvg"
 import EmptyBoard from "@/components/watch/EmptyBoard"
+import Progress from "@/components/common/Progress"
 
 const fakeScore = {
     x: 0,
@@ -29,6 +30,8 @@ const fakePlayers = {
 }
 
 export default function Watch() {
+    const [ start, setStart ] = useState(false)
+
     const {id} = useParams()
     const gameId = id as Id<'games'>
     const gameData = useQuery(api.game.getGameData, {id: gameId})
@@ -62,12 +65,15 @@ export default function Watch() {
                 players={gameData.players}
                 playerTurn={gameData.playerTurn}
             />
-            <Link href={'/watch'} className="absolute left-4 top-3 px-3 py-[2px] font-bold text-lg flex flex-row items-center justify-center hover:underline hover:bg-customSec hover:text-customLight transition-all duration-150 rounded-lg">
+            <Link href={'/watch'} className="absolute left-4 top-3 px-3 py-[2px] font-bold text-lg flex flex-row items-center justify-center hover:underline hover:bg-customSec hover:text-customLight transition-all duration-150 rounded-lg"
+                onClick={() => setStart(true)}
+            >
                 <BiArrowBack className="me-2"/> 
                 <p>watch lobby</p>
             </Link>
         </div>
         <Toaster />
+        <Progress start={start} />
         </>
     )
 
