@@ -100,7 +100,7 @@ export const COUNTING : boxPiece[]  = [
 
 
 
-export const INTEGER = [
+export const INTEGER : boxPiece[] = [
 {x: 0, y: 7, hightlighted: false,    playable: true, piece: {type: 'x', king: false,  value: 2, moves: []},   operation: operation.MULTIPLY, },
   {x: 1, y: 7,  playable: false, },
 
@@ -199,7 +199,7 @@ export const INTEGER = [
 ]
 
 
-export const WHOLE = [
+export const WHOLE : boxPiece[] = [
 {x: 0, y: 7, hightlighted: false,    playable: true, piece: {type: 'x', king: false,  value: 2, moves: []},   operation: operation.MULTIPLY, },
   {x: 1, y: 7,  playable: false, },
 

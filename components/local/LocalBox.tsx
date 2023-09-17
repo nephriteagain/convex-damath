@@ -1,7 +1,9 @@
 import { piece, operation } from "@/types";
 import { RiAddFill, RiSubtractFill, RiCloseFill, RiDivideFill,  } from 'react-icons/ri'
 import LocalPiece from "./LocalPiece";
-
+import { MouseEvent } from "react";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { movePiece } from "@/redux/slices/localSlice";
 interface BoxProps {
     playable: boolean;
     piece: piece|undefined;
@@ -13,10 +15,20 @@ interface BoxProps {
 
 
 export default function LocalBox({playable, piece, operation, index, highlighted, playerTurn}: BoxProps) {
+    const { pieceIndex, pieceToMove, boardData,  score } = useAppSelector(s => s.local)
+    const dispatch = useAppDispatch()
+
+
+    function handleClick(e: MouseEvent, index: number) {
+        e.preventDefault()
+        dispatch(movePiece({index}))
+        return
+    }
+
     return (
         <div className={`select-none relative w-full aspect-square flex items-center justify-center ${highlighted? 'bg-green-300' : ''}`}
             style={playable ? {}: {background: 'linear-gradient(to top left, #111 0%, rgba(0, 0, 0, 0.80) 75%'}}
-            // onClick={highlighted ? (e) => handleClick(e,index) : undefined}
+            onClick={highlighted ? (e) => handleClick(e,index) : undefined}
         >
             {
                 piece != undefined &&

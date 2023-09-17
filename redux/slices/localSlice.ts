@@ -1,8 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {  boxPiece, piece, score } from '@/types'
 import { cloneDeep } from 'lodash'
-import { COUNTING } from '@/lib/data/gameData'
+import { COUNTING, WHOLE, INTEGER } from '@/lib/data/gameData'
 import { movePiece as MovePieceHelper } from '@/gameLogic/movePiece'
+import { checkMovablePieces, kingPromoter } from '@/gameLogic/checkMovablePieces'
+import { scoreHandler, getNewPieceBox } from '@/gameLogic/scoreHandler'
+
+const games = {
+    'COUNTING': COUNTING,
+    'WHOLE': WHOLE,
+    'INTEGER': INTEGER,
+}   
 
 type initialState = {
     pvp: boolean;
@@ -31,7 +39,9 @@ export const localSlice = createSlice({
     initialState: init,
     reducers: {
         changeGameType: (state, action) => {
+            const type = action.payload as 'COUNTING'|'WHOLE'|'INTEGER';
             state.gameType = action.payload
+            state.boardData = games[type]
         },
         highlightMoves: (state, action) => {
             const index = action.payload.pieceIndex as number
@@ -53,24 +63,64 @@ export const localSlice = createSlice({
         },
         movePiece: (state, action) => {
             const {
-                piece, 
                 index, 
-                pieceIndex, 
-                playerTurn, 
-                id, 
-                boardData, 
-                score
             } = action.payload
 
-            const nextTurn = playerTurn === 'z' ? 'x' : 'z'
+            const piece = state.pieceToMove as piece
+            const pieceIndex = state.pieceIndex
+            const playerTurn = state.playerTurn
+            const boardData = state.boardData
+            const score = state.score
+            
+            let nextTurn : 'x'|'z' = playerTurn === 'z' ? 'x' : 'z'
             const oldBoard = cloneDeep(boardData)
 
             const capturedPieceArr : piece[] = []
-            // TODO:
-            // const newBoardData = MovePieceHelper()
+
+            const newBoardData = MovePieceHelper(boardData, piece, index, pieceIndex, capturedPieceArr)
+            const playerToCheck = nextTurn
+
+            const didCapturedAPiece = pieceCount(boardData) > pieceCount(newBoardData)
+            const boardDataWithNewMoves = checkMovablePieces(newBoardData, playerToCheck, didCapturedAPiece, piece)
+            const canMultiJump = boardDataWithNewMoves.some(box => box?.piece?.moves && box.piece.moves.length > 0 && box?.piece?.type !== playerToCheck && box?.piece?.value === piece.value)
+
+            let newScore = score
+            if (didCapturedAPiece) {
+                const capturedPiece = capturedPieceArr[0]
+                const newPieceBox = getNewPieceBox(boardDataWithNewMoves, piece)
+                const scoree =  nextTurn === 'x' ? 'z' : 'x'
+                newScore = scoreHandler(score, scoree, piece, capturedPiece, newPieceBox)
+            }
+
+            if (canMultiJump && didCapturedAPiece) {
+                nextTurn = playerTurn === 'z' ? 'z' : 'x'
+            }
+
+            if (!canMultiJump) {
+                kingPromoter(boardDataWithNewMoves)
+            }
+
+            state.playerTurn = nextTurn;
+            state.boardData = boardDataWithNewMoves;
+            state.score = newScore;
+            state.pieceIndex = -1;
+            state.pieceToMove = null;
+        },
+        reset: ( state ) => {
+            state = init
         }
     }
 })
 
-export const { changeGameType, highlightMoves } = localSlice.actions
+function pieceCount(board: boxPiece[]) : number {
+    let count = 0
+    board.forEach(box => {
+        if (box?.piece) {
+            count++
+        }
+    })
+    return count
+}
+
+export const { changeGameType, highlightMoves ,movePiece, reset} = localSlice.actions
 export default localSlice.reducer
