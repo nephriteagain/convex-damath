@@ -107,7 +107,18 @@ export const localSlice = createSlice({
             state.pieceToMove = null;
         },
         reset: ( state ) => {
-            state = init
+            return {
+                ...init,
+                pvp: state.pvp,
+                gameType: state.gameType
+            }
+        },
+        botMode: (state) => {
+            state.pvp = false
+        },
+        botMove: (state, action) => {            
+            localSlice.caseReducers.highlightMoves(state, action)
+            localSlice.caseReducers.movePiece(state, action)
         }
     }
 })
@@ -122,5 +133,5 @@ function pieceCount(board: boxPiece[]) : number {
     return count
 }
 
-export const { changeGameType, highlightMoves ,movePiece, reset} = localSlice.actions
+export const { changeGameType, highlightMoves ,movePiece, reset, botMode, botMove } = localSlice.actions
 export default localSlice.reducer

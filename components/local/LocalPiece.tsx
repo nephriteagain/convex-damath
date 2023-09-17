@@ -5,10 +5,12 @@ interface PieceProps {
     playerTurn: 'z'|'x';
 }
 import { MouseEvent } from "react";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { highlightMoves } from "@/redux/slices/localSlice";
 
 export default function LocalPiece({piece, index, playerTurn}: PieceProps){
+    const { pvp } = useAppSelector(s => s.local)
+
     const { type, value, moves, king } = piece
     const dispatch = useAppDispatch()
 
@@ -17,6 +19,10 @@ export default function LocalPiece({piece, index, playerTurn}: PieceProps){
         e.preventDefault();
         e.stopPropagation();
         if (piece.moves.length === 0 || playerTurn !== piece.type) {
+            return
+        }
+        // for bots
+        if (!pvp && playerTurn === 'x') {
             return
         }
         console.log('clicked')

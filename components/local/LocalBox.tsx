@@ -15,12 +15,12 @@ interface BoxProps {
 
 
 export default function LocalBox({playable, piece, operation, index, highlighted, playerTurn}: BoxProps) {
-    const { pieceIndex, pieceToMove, boardData,  score } = useAppSelector(s => s.local)
     const dispatch = useAppDispatch()
 
 
     function handleClick(e: MouseEvent, index: number) {
         e.preventDefault()
+
         dispatch(movePiece({index}))
         return
     }

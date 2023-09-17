@@ -33,7 +33,7 @@ export function movePiece(
 
         return box
     })
-    if (piece.king) {
+    if (piece?.king) {
         const boardCopyWithoutCaptured = removeCapturedAsKing(boardCopy, index, pieceIndex, capturedArr)
         return boardCopyWithoutCaptured
     }
