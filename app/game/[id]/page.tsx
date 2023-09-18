@@ -43,6 +43,9 @@ export default function Home() {
     const boardRef = useRef<HTMLDivElement>(null)
     const router = useRouter()
 
+    // redirect other users that is not a player to the watch route
+    // ex: if you share the game link to another browser they will
+    // redirect to the watch route
     if (gData && (gData.players.x !== userId && gData.players.z !== userId)) {
         router.push(`/watch/${gData._id}`)
     }
