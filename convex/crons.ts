@@ -5,7 +5,7 @@ const crons = cronJobs()
 
 crons.interval(
     'clear old rooms',
-    {minutes: 5},
+    {minutes: 20},
     internal.plans.clearOldRooms
 )
 
