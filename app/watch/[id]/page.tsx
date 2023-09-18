@@ -13,7 +13,7 @@ import { debounce } from "lodash"
 import { BiArrowBack } from 'react-icons/bi'
 import Board from "@/components/game/Board"
 import WatchTurnBar from "@/components/watch/WatchTurnBar"
-import Scores from "@/components/game/Score"
+import Scores from "@/components/common/Score"
 import Link from "next/link"
 import LoadingSvg from "@/components/common/LoadingSvg"
 import EmptyBoard from "@/components/watch/EmptyBoard"

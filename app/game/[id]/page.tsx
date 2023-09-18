@@ -14,8 +14,8 @@ import { boardStyleFlip } from "@/lib/helper/styleHelper"
 
 import GameMessage from "@/components/game/GameMessage"
 import Settings from "@/components/game/Settings"
-import Rules from "@/components/game/Rules"
-import Scores from "@/components/game/Score"
+import Rules from "@/components/common/Rules"
+import Scores from "@/components/common/Score"
 import WinnerModal from "@/components/game/WinnerModal"
 
 import { useToast } from "@/components/ui/use-toast"
@@ -171,14 +171,15 @@ export default function Home() {
                 ref={boardRef}
                 side={getPlayerColor(userId, gData.players)}
             />
-            <GameMessage 
-                messages={gData.chat} 
-                _id={gData._id}
-            />
-            <Settings   
-                showRules={showRules}
-                gameId={gData._id}
-            />
+                <GameMessage 
+                    messages={gData.chat} 
+                    _id={gData._id}
+                />
+                <Settings   
+                    showRules={showRules}
+                    gameId={gData._id}
+                />
+            
             { openRules && <Rules
                 openRules={openRules}
                 setOpenRules={setOpenRules}        

@@ -6,10 +6,10 @@ import { useAppSelector } from "@/redux/hooks"
 import PreGameModal from "@/components/local/PreGameModal"
 import LocalBoard from "@/components/local/LocalBoard"
 import LocalTurn from "@/components/local/LocalTurn"
-import Scores from "@/components/game/Score"
+import Scores from "@/components/common/Score"
 import PostGameModal from "@/components/local/GameOverModal"
 import LocalSettings from "@/components/local/LocalSettings"
-import Rules from "@/components/game/Rules"
+import Rules from "@/components/common/Rules"
 
 export default function Page() {
     const [ gameStart, setGameStart ] = useState(false)    
