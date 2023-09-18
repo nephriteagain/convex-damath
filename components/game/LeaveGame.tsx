@@ -53,12 +53,12 @@ export default function LeaveGame({gameId}: LeaveGameProps) {
                     This action cannot be undone.
                 </AlertDialogDescription>
                 </AlertDialogHeader>
-                <AlertDialogFooter>
+                <AlertDialogFooter className="gap-2">
                 <AlertDialogCancel className="bg-transparent hover:bg-transparent border-2 border-customSec hover:bg-customSec hover:text-white">
                     Cancel
                 </AlertDialogCancel>
                 <AlertDialogAction
-                    className="relative flex items-center justify-center bg-customSec text-white"
+                    className=" relative flex items-center justify-center bg-customSec text-white"
                     onClick={handleClick}
                     disabled={loading}
                 >

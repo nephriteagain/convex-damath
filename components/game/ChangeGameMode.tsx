@@ -74,7 +74,7 @@ export default function ChangeGameMode({gameId}: ChangeGameModeProps) {
           <AlertDialogAction 
             onClick={handleClick}
             disabled={loading}
-            className="relative flex items-center justify-center disabled:opacity-50 bg-customSec"
+            className="mt-2 sm:mt-0 relative flex items-center justify-center disabled:opacity-50 bg-customSec"
           >
             { loading && <LoadingSvg
                     className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
@@ -88,7 +88,7 @@ export default function ChangeGameMode({gameId}: ChangeGameModeProps) {
             <AlertDialogAction 
                 onClick={handleClick}
                 disabled={loading}
-                className="relative flex items-center justify-center disabled:opacity-50 bg-customSec"
+                className="mt-2 sm:mt-0 relative flex items-center justify-center disabled:opacity-50 bg-customSec"
             >
                 { loading && <LoadingSvg
                     className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
@@ -102,7 +102,7 @@ export default function ChangeGameMode({gameId}: ChangeGameModeProps) {
             <AlertDialogAction 
                 onClick={handleClick}
                 disabled={loading}
-                className="relative flex items-center justify-center disabled:opacity-50 bg-customSec"
+                className="mt-2 sm:mt-0 relative flex items-center justify-center disabled:opacity-50 bg-customSec"
             >
               { loading && <LoadingSvg
                     className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"

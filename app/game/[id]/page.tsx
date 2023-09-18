@@ -120,6 +120,7 @@ export default function Home() {
                     duration: 5000,
                     action: <ToastAction altText="approve" 
                         onClick={() => dispatch(appRestart({gameId: gData._id, gameType: gData.gameType}))}
+                        className="px-2 py-1 rounded-md border-2 border-customSec"
                     >APPROVE</ToastAction>
                 })
             }
@@ -140,6 +141,7 @@ export default function Home() {
                     description: `a player is requesting a change game mode to (${gData.command.data}), click approve to confirm`,
                     duration: 5000,
                     action: <ToastAction altText="approve" 
+                        className="px-2 py-1 rounded-md border-2 border-customSec"
                         onClick={() => dispatch(appChangeGameMode({gameId: gData._id, gameType: newGameType}))}
                     >APPROVE</ToastAction>
                 })
