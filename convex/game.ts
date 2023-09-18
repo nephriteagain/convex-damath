@@ -156,6 +156,7 @@ export const getWatchGameList = query({
                 .query('games')
                 .filter(q => q.eq(q.field('gameOngoing'), true))
                 .filter(q => q.eq(q.field('gameType'), filter))
+                .filter(q => q.gte(q.field('_creationTime'), (Date.now() - (25*60_000))))
                 .order(order)
                 .collect()
             return watchGameList
@@ -163,6 +164,7 @@ export const getWatchGameList = query({
         const watchGameList = await ctx.db
             .query('games')
             .filter(q => q.eq(q.field('gameOngoing'), true))
+            .filter(q => q.gte(q.field('_creationTime'), (Date.now() - (25*60_000))))
             .order(order)
             .collect()
         return watchGameList
