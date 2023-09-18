@@ -8,7 +8,7 @@ export default function LocalBoard() {
     const { boardData, playerTurn } = useAppSelector(s => s.local)
 
     return (
-        <div className="board relative  w-[95%] max-w-[500px] sm:w-[500px] aspect-square grid grid-cols-8 grid-rows-[8] bg-slate-100 shadow-xl drop-shadow-lg"
+        <div className="board relative  w-[95%] max-w-[450px] sm:w-[450px] aspect-square grid grid-cols-8 grid-rows-[8] bg-slate-100 shadow-xl drop-shadow-lg"
         >
             {
                 boardData.map((item, index) => {

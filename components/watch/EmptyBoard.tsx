@@ -6,7 +6,7 @@ import { RiAddFill, RiSubtractFill, RiCloseFill, RiDivideFill,  } from 'react-ic
 
 export default function EmptyBoard({className}: {className?: string}) {
     return (
-        <div className={`board relative  w-[95%] sm:w-[500px] aspect-square grid grid-cols-8 grid-rows-[8] bg-slate-100 shadow-xl drop-shadow-lg ${className}`}>
+        <div className={`board relative  w-[95%] max-w-[450px] sm:w-[450px] aspect-square grid grid-cols-8 grid-rows-[8] bg-slate-100 shadow-xl drop-shadow-lg ${className}`}>
             {COUNTING.map((b,i) => {
                 const { playable, operation} = b
                 return (

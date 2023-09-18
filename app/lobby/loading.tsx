@@ -1,5 +1,5 @@
-import LobbyLoading from "@/components/lobby/LobbyLoading";
+import Loader from "@/components/common/Loader"
 
 export default function Loading() {
-    return <LobbyLoading opacity={0.6} />
+    return <Loader />
 }
