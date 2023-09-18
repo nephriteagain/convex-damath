@@ -80,13 +80,14 @@ export default function LobbyComponent ({id, showSheet}: {id:string; showSheet: 
             const { _id, host, guest, gameType } = lobby
             return (
                 <div key={_id} className='flex flex-row bg-customSec mb-2 px-1 sm:px-4 py-1 text-sm sm:text-base'>
-                    <div className='basis-1/4 text-center overflow-clip'>{gameType}</div>
-                    <div className='basis-1/4 text-center overflow-clip'>{host}</div>
-                    <div className='basis-1/4 text-center overflow-clip'>{guest || 'empty'}</div>                    
+                    <div className='basis-1/4 text-center overflow-clip px-[2px] sm:px-0'>{gameType}</div>
+                    <div className='basis-1/4 text-center overflow-clip px-[2px] sm:px-0'>{host}</div>
+                    <div className='basis-1/4 text-center overflow-clip px-[2px] sm:px-0'>{guest || 'empty'}</div>                    
                     <JoinRoom 
                       id={_id} 
                       userId={id} 
                       showSheet={showSheet}
+                      guest={guest}
                     />                  
                 </div>
             )

@@ -13,7 +13,7 @@ import { Id } from "@/convex/_generated/dataModel"
 import { useState, MouseEvent, useRef } from "react"
 import LoadingSvg from "../common/LoadingSvg"
 import { joinRoom } from "@/redux/thunks"
-export default function JoinRoom({id, userId, showSheet}: {id: Id<'lobby'>, userId: string, showSheet: () => void}) {
+export default function JoinRoom({id, userId, showSheet, guest}: {id: Id<'lobby'>, userId: string, showSheet: () => void, guest: string}) {
     const dispatch = useAppDispatch()
     const sheetRef = useRef<HTMLDivElement>(null)
     const { joinedLobby} = useAppSelector(state => state.user)
@@ -40,7 +40,7 @@ export default function JoinRoom({id, userId, showSheet}: {id: Id<'lobby'>, user
             <SheetTrigger         
             className="relative flex items-center justify-center basis-1/4 disabled:opacity-40 bg-green-600 rounded-md shadow-md drop-shadow-md hover:bg-green-800 transition-all duration-150"
             onClick={handleJoinRoom}
-            disabled={Boolean(joinedLobby)}
+            disabled={Boolean(joinedLobby||guest.length > 0)}
     >
             { loading && <LoadingSvg
                 className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
