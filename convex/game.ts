@@ -98,20 +98,6 @@ export const movePiece = mutation({
             kingPromoter(boardDataWithNewMoves)
         }
 
-        // TODO: make an option to restart game
-        // if (!boardDataWithNewMoves.some(box => box?.piece?.moves && box.piece.moves.length > 0)) {
-        //     const totalScores = {...newScore}
-        //     totalScores.x += getTotalRemainingScore('x', boardDataWithNewMoves)
-        //     totalScores.z += getTotalRemainingScore('z', boardDataWithNewMoves)
-        //     await ctx.db.patch(id, {
-        //         playerTurn: nextTurn, 
-        //         boardData: 
-        //         boardDataWithNewMoves,
-        //         score: newScore,
-        //         gameOngoing: false
-        //     })
-        //     return
-        // }
         
         await ctx.db.patch(id, {
             playerTurn: nextTurn, 
