@@ -24,8 +24,7 @@ export function useRecon(lobbyData: Lobby|undefined) {
     }
 
     useEffect(() => {
-        //TODO: make auto recon when game is disconnected,
-        // fix this dont delete the db
+
         if (lobbyData?.start) {
             const gameId = lobbyData.start as Id<'games'>
             getGameData(gameId)

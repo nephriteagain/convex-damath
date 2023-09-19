@@ -6,7 +6,6 @@ import { playerLeft } from "@/redux/slices/gameSlice";
 import { useAppDispatch } from "@/redux/hooks";
 import { Button } from "../ui/button";
 
-// TODO: fix the bug instant redirecting after game finishes
 export default function WinnerModal({totalScores, setShowWinnerModal}: {
     totalScores: score;
     setShowWinnerModal: Dispatch<SetStateAction<boolean>>

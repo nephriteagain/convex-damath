@@ -11,7 +11,6 @@ import Progress from "@/components/common/Progress"
 import { useState } from "react"
 
 
-// TODO: add pagination
 export default function Watch() {
     const [ start, setStart ] = useState(false)
 
