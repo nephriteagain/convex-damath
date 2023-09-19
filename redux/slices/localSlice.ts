@@ -111,6 +111,7 @@ export const localSlice = createSlice({
                 ...init,
                 pvp: state.pvp,
                 gameType: state.gameType,                
+                boardData: games[state.gameType]
             }
         },
         botMode: (state) => {
