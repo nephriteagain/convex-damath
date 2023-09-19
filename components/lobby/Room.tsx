@@ -76,7 +76,7 @@ export default forwardRef(function Room({_id,userId}: RoomProps, ref: ForwardedR
     }
 
     useEffect(() => {
-        if (room?.host === '') {
+        if (room && room?.host === '') {
             dispatch(clearJoinedLobbyId())
             dispatch(clearLobbyData())
         }

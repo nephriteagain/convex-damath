@@ -17,6 +17,7 @@ import Settings from "@/components/game/Settings"
 import Rules from "@/components/common/Rules"
 import Scores from "@/components/common/Score"
 import WinnerModal from "@/components/game/WinnerModal"
+import Loader from "@/components/common/Loader"
 
 import { useToast } from "@/components/ui/use-toast"
 import { ToastAction } from "@radix-ui/react-toast"
@@ -27,6 +28,10 @@ import { useRouter } from "next/navigation"
 import { debounce, delay } from "lodash"
 import { getTotalRemainingScore } from "@/gameLogic/scoreHandler"
 import { getLocalId } from "@/redux/slices/userSlice"
+
+import { useLocalId } from "@/hooks/useLocalId"
+import { useBoardFlip } from "@/hooks/useBoardFlip"
+import { useUpdateGameData } from "@/hooks/useUpdateGameData"
 
 export default function Home() {
     const [ openRules, setOpenRules ] = useState(false)
@@ -61,33 +66,12 @@ export default function Home() {
     const delayedRedirect = debounce(redirectToLobby, 3000)
     
 
-    useLayoutEffect(() => {
-        const localId = localStorage.getItem('localId')
-        if (typeof localId === 'string') {
-            dispatch(getLocalId(localId))
-            return
-        }
-        localStorage.setItem('localId', userId)
-    
-        }, [])
+    const localId = useLocalId(userId)
 
 
-    useEffect(() => {
-        if (boardRef?.current && userId === gData?.players.x) {
-            const board = boardRef.current as HTMLDivElement;              
-            const verticalNum = document.querySelector('.vertical-num') as HTMLDivElement
-            const horizontalNum = document.querySelector('.horizontal-num') as HTMLDivElement            
-            boardStyleFlip(board, horizontalNum, verticalNum)              
-        }
-    }, [gData])
+    useBoardFlip(gData, boardRef, userId)
 
-    useEffect(() => {
-        if (gameData) {
-            dispatch(getGame({id, gameData}))
-
-
-        }
-    } , [gameData])
+    useUpdateGameData(gameData, id)
 
     useEffect(() => {
         if (!gData) {
@@ -193,10 +177,7 @@ export default function Home() {
     )
     
     return (
-        <div className="w-[100vw] h-[100vh] fixed bg-customBg text-3xl text-customLight flex items-center justify-center">
-            Loading...
-        </div>
-        
+        <Loader />        
     )
     
 }

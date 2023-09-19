@@ -4,6 +4,7 @@ import LobbyComponent from "@/components/lobby/Lobby"
 import CreateRoom from "@/components/lobby/CreateRoom"
 import Filter from "@/components/common/Filter"
 import BacktoHome from "@/components/common/BackToHome"
+import Progress from "@/components/common/Progress"
 
 import { useEffect, useRef, useLayoutEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
@@ -15,7 +16,9 @@ import { Toaster } from "@/components/ui/toaster"
 import { api } from "@/convex/_generated/api"
 import { convex } from "@/lib/convex"
 import { Id } from "@/convex/_generated/dataModel"
-import Progress from "@/components/common/Progress"
+import { useRecon } from "@/hooks/useRecon"
+import { useLocalId } from "@/hooks/useLocalId"
+import { useRejoinLobby } from "@/hooks/useRejoinLobby"
 
 export const dynamic = "force-dynamic";
 
@@ -29,40 +32,9 @@ export default  function Home() {
     const {lobbies, lobbyData} = useAppSelector(state => state.lobby)
 
 
-    useLayoutEffect(() => {
-    const localId = localStorage.getItem('localId')
-    if (typeof localId === 'string') {
-        dispatch(getLocalId(localId))
-        dispatch(checkJoinedLobby(localId))
-        return
-    }
-    localStorage.setItem('localId', id)
-
-    }, [])
-
-
-    async function getGameData(gameId: Id<'games'>) {
-        if (lobbyData?.start) {
-            const data = await convex.query(api.game.getGameData, {id:gameId})
-            dispatch(clearJoinedLobbyId())
-            dispatch(clearLobbyData())
-            if (data?.gameOngoing) {
-                router.push(`/game/${lobbyData.start}`)
-            }
-            
-        }
-    }
-    
-    useEffect(() => {
-        //TODO: make auto recon when game is disconnected,
-        // fix this dont delete the db
-        if (lobbyData?.start) {
-            const gameId = lobbyData.start as Id<'games'>
-            getGameData(gameId)
-        }
-
-    }, [lobbyData])
-
+    const localId = useLocalId(id)
+    useRejoinLobby(localId)
+    useRecon(lobbyData)
 
     function showSheet() {
         if (!sheetRef.current) {
@@ -70,6 +42,14 @@ export default  function Home() {
         }
         sheetRef.current.click()
     }
+
+    useEffect(() => {
+        if (joinedLobby === '') {
+            localStorage.removeItem('joined_lobby')
+        } else {
+            localStorage.setItem('joined_lobby', joinedLobby)
+        }
+    }, [joinedLobby])
 
     return (
         <div className="w-full h-full flex flex-col">            
