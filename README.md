@@ -12,7 +12,7 @@ yarn dev
 pnpm dev
 ```
 
-NOTE: if you are running this use 2 different browser to play
+NOTE: if you are running this use 2 different browser to play.
 .env.local
 
 CONVEX_DEPLOYMENT
