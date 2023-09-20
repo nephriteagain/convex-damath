@@ -6,16 +6,10 @@ import Filter from "@/components/common/Filter"
 import BacktoHome from "@/components/common/BackToHome"
 import Progress from "@/components/common/Progress"
 
-import { useEffect, useRef, useLayoutEffect, useState } from "react"
+import { useEffect, useRef,  useState, } from "react"
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
-import { clearJoinedLobbyId, getLocalId } from "@/redux/slices/userSlice"
-import { clearLobbyData } from "@/redux/slices/lobbySlice"
 import { useRouter } from 'next/navigation'
-import { clearRoom, checkJoinedLobby } from "@/redux/thunks"
 import { Toaster } from "@/components/ui/toaster"
-import { api } from "@/convex/_generated/api"
-import { convex } from "@/lib/convex"
-import { Id } from "@/convex/_generated/dataModel"
 import { useRecon } from "@/hooks/useRecon"
 import { useLocalId } from "@/hooks/useLocalId"
 import { useRejoinLobby } from "@/hooks/useRejoinLobby"
@@ -25,12 +19,10 @@ export const dynamic = "force-dynamic";
 export default  function Home() {
     const [ start, setStart ] = useState(false)
 
-    const router = useRouter()
     const sheetRef = useRef<HTMLButtonElement>(null)
     const dispatch = useAppDispatch()
     const {id, joinedLobby} = useAppSelector(state => state.user)
     const {lobbies, lobbyData} = useAppSelector(state => state.lobby)
-
 
     const localId = useLocalId(id)
     useRejoinLobby(localId)

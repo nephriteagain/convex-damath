@@ -12,7 +12,8 @@ const newId = generateId() as string
 const initialState : User = {
     id: newId,
     isLoggedIn: false,
-    joinedLobby: ''
+    joinedLobby: '',
+    disableCreateLobby: true
 }
 
 export const userSlice = createSlice({
@@ -45,8 +46,12 @@ export const userSlice = createSlice({
         }),
         builder.addCase(checkJoinedLobby.fulfilled, (state, action) => {
             if (action.payload !== null) {
-                state.joinedLobby = action.payload._id
+                state.joinedLobby = action.payload._id                
             }
+            state.disableCreateLobby = false
+        }),
+        builder.addCase(checkJoinedLobby.rejected, (state, action) => {
+            state.disableCreateLobby = false
         })
     }
 })

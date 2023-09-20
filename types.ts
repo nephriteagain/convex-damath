@@ -4,6 +4,7 @@ export interface User {
     id: string;
     isLoggedIn: boolean;
     joinedLobby: string;
+    disableCreateLobby: boolean;
 }
 
 export interface Lobby {
