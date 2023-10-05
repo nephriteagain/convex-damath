@@ -4,6 +4,8 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { highlightMoves } from "@/redux/slices/gameSlice";
 import { piece, players } from "@/types";
 
+import { VALUES } from "@/lib/data/values";
+
 interface PieceProps {
     piece: piece;
     index?: number;
@@ -12,9 +14,10 @@ interface PieceProps {
 }
 
 
-
+// TODO: fix 16sqrt32 appearing twice
 export default function Piece({piece, index, players, playerTurn}: PieceProps) {
     const {id} = useAppSelector(state => state.user)
+    const { gameData } = useAppSelector(state => state.game)
     const dispatch = useAppDispatch()
     const { type, value, moves, king } = piece
 
@@ -30,6 +33,8 @@ export default function Piece({piece, index, players, playerTurn}: PieceProps) {
         playerTurn === id
     ) ? handleClick : undefined
 
+    const gameType = gameData?.gameType || 'COUNTING'
+
     return (
         <div className={`z-10 ${type === 'z' ? 'red-piece' : 'blue-piece'}
             ${moves.length > 0 ? 'opacity-100 cursor-pointer' : 'opacity-70'}
@@ -38,7 +43,7 @@ export default function Piece({piece, index, players, playerTurn}: PieceProps) {
             onClick={onClick}
         >
             <span className={`${(value === 6 || value === 9) && "border-t-4 border-white"}`}>
-                {value}
+            <div className={gameType === 'RADICAL' ? 'text-sm opacity-100': 'opacity-100'} dangerouslySetInnerHTML={{__html: VALUES[gameType].get(value)||value}}/>                
             </span>
         </div>
     )

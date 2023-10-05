@@ -10,6 +10,9 @@ export default defineSchema({
             v.literal('COUNTING'),
             v.literal('INTEGER'),
             v.literal('WHOLE'),
+            v.literal('FRACTION'),
+            v.literal('RATIONAL'),
+            v.literal('RADICAL')
         ),
         messages: v.array(v.object({
             sId: v.string(),
@@ -32,6 +35,9 @@ export default defineSchema({
             v.literal('COUNTING'),
             v.literal('INTEGER'),
             v.literal('WHOLE'),
+            v.literal('FRACTION'),
+            v.literal('RATIONAL'),
+            v.literal('RADICAL')
         ),
         boardData: v.array(v.any()),
         gameOngoing: v.boolean(),

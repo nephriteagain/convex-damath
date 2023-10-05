@@ -55,6 +55,9 @@ export default function Filter({className}: {className?: string}) {
                     <SelectItem value="COUNTING">Counting</SelectItem>
                     <SelectItem value="WHOLE">Whole</SelectItem>
                     <SelectItem value="INTEGER">Integer</SelectItem>
+                    <SelectItem value="FRACTION">Fraction</SelectItem>
+                    <SelectItem value="RATIONAL">Rational</SelectItem>
+                    <SelectItem value="RADICAL">Radical</SelectItem>
                     <SelectItem value="">None</SelectItem>
                     </SelectGroup>
                 </SelectContent>

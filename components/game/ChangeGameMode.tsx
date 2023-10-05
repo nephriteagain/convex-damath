@@ -70,7 +70,7 @@ export default function ChangeGameMode({gameId}: ChangeGameModeProps) {
             A request will be sent to your opponent.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
+        <AlertDialogFooter className="flex-wrap sm:gap-2">
           <AlertDialogAction 
             onClick={handleClick}
             disabled={loading}
@@ -113,7 +113,48 @@ export default function ChangeGameMode({gameId}: ChangeGameModeProps) {
                     INTEGER
                 </p>
             </AlertDialogAction>
-
+            <AlertDialogAction 
+            onClick={handleClick}
+            disabled={loading}
+            className="mt-2 sm:mt-0 relative flex items-center justify-center disabled:opacity-50 bg-customSec"
+          >
+            { loading && <LoadingSvg
+                    className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                    width={24}
+                    height={24}
+                />}                
+                <p className={loading ? 'invisible' : 'visible'}>
+                    FRACTION
+                </p>
+            </AlertDialogAction>
+            <AlertDialogAction 
+            onClick={handleClick}
+            disabled={loading}
+            className="mt-2 sm:mt-0 relative flex items-center justify-center disabled:opacity-50 bg-customSec"
+          >
+            { loading && <LoadingSvg
+                    className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                    width={24}
+                    height={24}
+                />}                
+                <p className={loading ? 'invisible' : 'visible'}>
+                    RATIONAL
+                </p>
+            </AlertDialogAction>
+            <AlertDialogAction 
+            onClick={handleClick}
+            disabled={loading}
+            className="mt-2 sm:mt-0 relative flex items-center justify-center disabled:opacity-50 bg-customSec"
+          >
+            { loading && <LoadingSvg
+                    className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%]"
+                    width={24}
+                    height={24}
+                />}                
+                <p className={loading ? 'invisible' : 'visible'}>
+                    RADICAL
+                </p>
+            </AlertDialogAction>
           <AlertDialogCancel className="bg-transparent border-customSec border-2 hover:bg-customSec hover:text-white">
             CLOSE
             </AlertDialogCancel>
