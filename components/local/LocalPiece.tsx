@@ -8,8 +8,10 @@ import { MouseEvent } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { highlightMoves } from "@/redux/slices/localSlice";
 
+import { VALUES } from "@/lib/data/values";
+
 export default function LocalPiece({piece, index, playerTurn}: PieceProps){
-    const { pvp } = useAppSelector(s => s.local)
+    const { pvp, gameType } = useAppSelector(s => s.local)
 
     const { type, value, moves, king } = piece
     const dispatch = useAppDispatch()
@@ -42,7 +44,7 @@ export default function LocalPiece({piece, index, playerTurn}: PieceProps){
             onClick={onClick}
         >
             <span className={`${(value === 6 || value === 9) && "border-t-4 border-white"}`}>
-                {value}
+                <div className={gameType === 'RADICAL' ? 'text-sm opacity-100': 'opacity-100'} dangerouslySetInnerHTML={{__html: VALUES[gameType].get(value)||value}}/>
             </span>
         </div>
     )

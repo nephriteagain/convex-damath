@@ -69,6 +69,9 @@ export enum GameTypes  {
     COUNTING = 'COUNTING',
     WHOLE = 'WHOLE',
     INTEGER = 'INTEGER',
+    RADICAL = 'RADICAL',
+    RATIONAL = 'RATIONAL',
+    FRACTION = 'FRACTION'
 }
 export interface score {
     z: number;

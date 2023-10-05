@@ -1,7 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {  boxPiece, piece, score } from '@/types'
 import { cloneDeep } from 'lodash'
-import { COUNTING, WHOLE, INTEGER } from '@/lib/data/gameData'
+import { 
+    COUNTING, 
+    WHOLE, 
+    INTEGER, 
+    FRACTION, 
+    RATIONAL, 
+    RADICAL  
+} from '@/lib/data/gameData'
 import { movePiece as MovePieceHelper } from '@/gameLogic/movePiece'
 import { checkMovablePieces, kingPromoter } from '@/gameLogic/checkMovablePieces'
 import { scoreHandler, getNewPieceBox } from '@/gameLogic/scoreHandler'
@@ -10,6 +17,9 @@ const games = {
     'COUNTING': COUNTING,
     'WHOLE': WHOLE,
     'INTEGER': INTEGER,
+    'FRACTION': FRACTION,
+    'RATIONAL': RATIONAL,
+    'RADICAL': RADICAL
 }   
 
 type initialState = {
@@ -17,7 +27,7 @@ type initialState = {
     pieceToMove: null|piece;
     pieceIndex: number;
     playerTurn: 'x'|'z';
-    gameType: 'COUNTING'|'WHOLE'|'INTEGER';
+    gameType: 'COUNTING'|'WHOLE'|'INTEGER'|'FRACTION'|'RATIONAL'|'RADICAL';
     gameOngoing: boolean;
     score: score;
     boardData: boxPiece[]
@@ -39,7 +49,7 @@ export const localSlice = createSlice({
     initialState: init,
     reducers: {
         changeGameType: (state, action) => {
-            const type = action.payload as 'COUNTING'|'WHOLE'|'INTEGER';
+            const type = action.payload as 'COUNTING'|'WHOLE'|'INTEGER'|'FRACTION'|'RATIONAL'|'RADICAL';
             state.gameType = action.payload
             state.boardData = games[type]
         },

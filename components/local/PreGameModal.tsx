@@ -32,6 +32,9 @@ export default function PreGameModal({hideModal}: {hideModal: () => void}) {
                     <SelectItem value="COUNTING">Counting</SelectItem>
                     <SelectItem value="WHOLE">Whole</SelectItem>
                     <SelectItem value="INTEGER">Integer</SelectItem>
+                    <SelectItem value="FRACTION">Fraction</SelectItem>
+                    <SelectItem value="RATIONAL">Rational</SelectItem>
+                    <SelectItem value="RADICAL">Radical</SelectItem>
                     </SelectGroup>
                 </SelectContent>
             </Select>
