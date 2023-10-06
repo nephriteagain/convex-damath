@@ -120,7 +120,7 @@ export const sendGameMsg = createAsyncThunk(
 
 type changeTypeArgs = {
     _id: Id<'lobby'>;
-    gameType: 'COUNTING'|'WHOLE'|'INTEGER';
+    gameType: 'COUNTING'|'WHOLE'|'INTEGER'|'RADICAL'|'FRACTION'|'RATIONAL';
 } 
 
 export const changeType = createAsyncThunk(
@@ -145,7 +145,7 @@ export const reqRestart = createAsyncThunk(
 )
 type appRestartArgs = {
     gameId: Id<'games'>;
-    gameType: 'COUNTING'|'WHOLE'|'INTEGER';
+    gameType: 'COUNTING'|'WHOLE'|'INTEGER'|'FRACTION'|'RADICAL'|'RATIONAL';
  }
 
 export const appRestart = createAsyncThunk(
@@ -159,7 +159,7 @@ export const appRestart = createAsyncThunk(
 type reqChangeGameModeArgs = {
     userId: string;
     gameId: Id<'games'>;
-    gameType: 'COUNTING'|'WHOLE'|'INTEGER';
+    gameType: 'COUNTING'|'WHOLE'|'INTEGER'|'FRACTION'|'RADICAL'|'RATIONAL';
  }
  
 export const reqChangeGameMode = createAsyncThunk(
@@ -172,7 +172,8 @@ export const reqChangeGameMode = createAsyncThunk(
 
 type appChangeGameModeArgs = {
     gameId: Id<'games'>;
-    gameType: 'COUNTING'|'WHOLE'|'INTEGER';
+    gameType: 'COUNTING'|'WHOLE'|'INTEGER'|'FRACTION'|'RADICAL'|'RATIONAL';
+
  }
  
 export const appChangeGameMode = createAsyncThunk(

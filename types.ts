@@ -38,6 +38,7 @@ export interface piece {
     value: number;
     king: boolean;
     moves: number[];
+    label?: string;
 }
 
 export enum operation {
@@ -69,6 +70,9 @@ export enum GameTypes  {
     COUNTING = 'COUNTING',
     WHOLE = 'WHOLE',
     INTEGER = 'INTEGER',
+    RADICAL = 'RADICAL',
+    RATIONAL = 'RATIONAL',
+    FRACTION = 'FRACTION'
 }
 export interface score {
     z: number;

@@ -8,10 +8,12 @@ import { MouseEvent } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { highlightMoves } from "@/redux/slices/localSlice";
 
-export default function LocalPiece({piece, index, playerTurn}: PieceProps){
-    const { pvp } = useAppSelector(s => s.local)
+import { VALUES } from "@/lib/data/values";
 
-    const { type, value, moves, king } = piece
+export default function LocalPiece({piece, index, playerTurn}: PieceProps){
+    const { pvp, gameType } = useAppSelector(s => s.local)
+
+    const { type, value, moves, king, label } = piece
     const dispatch = useAppDispatch()
 
 
@@ -36,13 +38,19 @@ export default function LocalPiece({piece, index, playerTurn}: PieceProps){
 
     return (
         <div className={`z-10 ${type === 'z' ? 'red-piece' : 'blue-piece'}
-            ${moves.length > 0 ? 'opacity-100 cursor-pointer' : 'opacity-70'}
+            ${moves.length > 0 ? 'opacity-100 cursor-pointer' : 'opacity-80'}
             ${king ? 'border-4 border-dashed border-black' : ''}
             flex items-center justify-center aspect-square w-[80%] text-2xl text-white rounded-full`}
             onClick={onClick}
         >
             <span className={`${(value === 6 || value === 9) && "border-t-4 border-white"}`}>
-                {value}
+                <div className={gameType === 'RADICAL' ? 'text-sm opacity-100': 'opacity-100'} 
+                    dangerouslySetInnerHTML={
+                        gameType !== 'RADICAL' ?
+                        {__html: VALUES[gameType].get(value)||value} :
+                        {__html: VALUES[gameType].get(label||value)||value}
+                    }
+                />
             </span>
         </div>
     )

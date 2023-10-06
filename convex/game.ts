@@ -5,7 +5,7 @@ import { gameData } from "../types";
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 import { checkMovablePieces, kingPromoter } from '../gameLogic/checkMovablePieces'
-import { COUNTING, WHOLE, INTEGER } from '../lib/data/gameData';
+import { COUNTING, WHOLE, INTEGER, FRACTION, RATIONAL, RADICAL } from '../lib/data/gameData';
 // import { } from '../gameLogic/'
 import { scoreHandler, getNewPieceBox, getTotalRemainingScore} from '../gameLogic/scoreHandler'
 
@@ -17,6 +17,9 @@ const games = {
     'COUNTING': COUNTING,
     'WHOLE': WHOLE,
     'INTEGER': INTEGER,
+    'FRACTION': FRACTION,
+    'RATIONAL': RATIONAL,
+    'RADICAL': RADICAL
 }   
 
 
@@ -32,7 +35,8 @@ const pieceType = v.object({
     type: v.union(v.literal('z'), v.literal('x')),
     value: v.number(),
     king: v.boolean(),
-    moves: v.array(v.number())
+    moves: v.array(v.number()),
+    label: v.optional(v.string())
 })
 // const boxPieceType = v.object({
 //     x: v.number(),
@@ -136,7 +140,10 @@ export const getWatchGameList = query({
         if (
             filter === 'COUNTING' ||
             filter === 'WHOLE' ||
-            filter === 'INTEGER'
+            filter === 'INTEGER' ||
+            filter === 'FRACTION' ||
+            filter === 'RATIONAL' ||
+            filter === 'RADICAL'
         ) {
             const watchGameList = await ctx.db
                 .query('games')
@@ -202,6 +209,9 @@ const gameTypeSchema = v.union(
     v.literal('COUNTING'),
     v.literal('INTEGER'),
     v.literal('WHOLE'),
+    v.literal('FRACTION'),
+    v.literal('RATIONAL'),
+    v.literal('RADICAL')
 )
 
 export const approveRestart = mutation({
@@ -247,7 +257,8 @@ export const approveChangeGameMode = mutation({
         const { gameId, gameType } = args        
         const res = await ctx.db.patch(gameId, {
             command: undefined,
-            boardData: games[gameType]
+            boardData: games[gameType],
+            gameType: gameType
         })
         return res
     },

@@ -13,7 +13,7 @@ import {
 
 interface GameTypeProps {
     host: string;
-    gameType: "COUNTING"|"INTEGER"|"WHOLE";
+    gameType: "COUNTING"|"INTEGER"|"WHOLE"|'FRACTION'|'RATIONAL'|'RADICAL';
     lobbyId: Id<"lobby">
 }
 
@@ -36,6 +36,9 @@ export default function GameType({host, gameType, lobbyId}: GameTypeProps) {
                 <SelectItem value={GameTypes.COUNTING}>COUNTING</SelectItem>
                 <SelectItem value={GameTypes.WHOLE}>WHOLE</SelectItem>
                 <SelectItem value={GameTypes.INTEGER}>INTEGER</SelectItem>
+                <SelectItem value={GameTypes.FRACTION}>FRACTION</SelectItem>
+                <SelectItem value={GameTypes.RATIONAL}>RATIONAL</SelectItem>
+                <SelectItem value={GameTypes.RADICAL}>RADICAL</SelectItem>
             </SelectContent>
     </Select>
     )

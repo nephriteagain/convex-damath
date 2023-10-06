@@ -1,7 +1,7 @@
 import { GameTypes, Lobby } from '../types';
 import { query, mutation } from './_generated/server'
 import { v } from "convex/values";
-import {COUNTING, WHOLE, INTEGER} from '../lib/data/gameData'
+import {COUNTING, WHOLE, INTEGER, FRACTION, RATIONAL, RADICAL} from '../lib/data/gameData'
 
 function generateId() {
     return Math.random().toString(16).slice(2)
@@ -11,6 +11,9 @@ const games = {
     'COUNTING': COUNTING,
     'WHOLE': WHOLE,
     'INTEGER': INTEGER,
+    'FRACTION': FRACTION,
+    'RATIONAL': RATIONAL,
+    'RADICAL': RADICAL
 }
 
 
@@ -56,7 +59,10 @@ export const getLobby = query({
         if (
             filter === 'COUNTING' ||
             filter === 'WHOLE' ||
-            filter === 'INTEGER'
+            filter === 'INTEGER'||
+            filter === 'RATIONAL' ||
+            filter === 'RADICAL' ||
+            filter === 'FRACTION'            
         ) {
             return await ctx.db
                 .query('lobby')
@@ -130,7 +136,10 @@ export const startGame = mutation({
         gameType: v.union(
             v.literal('COUNTING'),
             v.literal('WHOLE'),
-            v.literal('INTEGER')
+            v.literal('INTEGER'),
+            v.literal('FRACTION'),
+            v.literal('RATIONAL'),
+            v.literal('RADICAL')
         ), 
         guest: v.string(), 
         host: v.string()
@@ -188,7 +197,10 @@ export const changeGameType = mutation({
         gameType: v.union(
             v.literal('COUNTING'),
             v.literal('WHOLE'),
-            v.literal('INTEGER')
+            v.literal('INTEGER'),
+            v.literal('FRACTION'),
+            v.literal('RATIONAL'),
+            v.literal('RADICAL')
         ), 
     },
     handler: async (ctx, args) => {
