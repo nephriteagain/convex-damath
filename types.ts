@@ -38,6 +38,7 @@ export interface piece {
     value: number;
     king: boolean;
     moves: number[];
+    label?: string;
 }
 
 export enum operation {

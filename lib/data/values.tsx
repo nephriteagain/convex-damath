@@ -187,85 +187,85 @@ export const VALUES = {
               </mfrac>
         </math>`]
     ]),
-    RADICAL: new Map<number,number|string>([
-        [144*Math.sqrt(8), `<math>
+    RADICAL: new Map<string|number,number|string>([
+        ['144s8', `<math>
         <mrow>
             <mn>144</mn>
             <mo>&#x221A;</mo>
             <mn>8</mn>
             </mrow>
         </math>`],
-        [100*Math.sqrt(2), `<math>
+        ['100s2', `<math>
         <mrow>
             <mn>100</mn>
             <mo>&#x221A;</mo>
             <mn>2</mn>
             </mrow>
         </math>`],
-        [-81*Math.sqrt(32), `<math>
+        ['-81s32', `<math>
         <mrow>
             <mn>-81</mn>
             <mo>&#x221A;</mo>
             <mn>32</mn>
             </mrow>
         </math>`],
-        [-121*Math.sqrt(18), `<math>
+        ['-121s18', `<math>
         <mrow>
             <mn>-121</mn>
             <mo>&#x221A;</mo>
             <mn>18</mn>
             </mrow>
         </math>`],
-        [64*Math.sqrt(2), `<math>
+        ['64s2', `<math>
         <mrow>
             <mn>64</mn>
             <mo>&#x221A;</mo>
             <mn>2</mn>
             </mrow>
-        </math>`],
-        [36*Math.sqrt(32), `<math>
+        </math>`,],
+        ['36s32', `<math>
         <mrow>
             <mn>36</mn>
             <mo>&#x221A;</mo>
             <mn>32</mn>
             </mrow>
         </math>`],
-        [-25*Math.sqrt(18), `<math>
+        ['-25s18', `<math>
         <mrow>
             <mn>-25</mn>
             <mo>&#x221A;</mo>
             <mn>18</mn>
             </mrow>
         </math>`],
-        [-49*Math.sqrt(8), `<math>
+        ['-49s8', `<math>
         <mrow>
             <mn>-49</mn>
             <mo>&#x221A;</mo>
             <mn>8</mn>
             </mrow>
         </math>`],
-        [16*Math.sqrt(32), `<math>
+        ['16s32', `<math>
         <mrow>
             <mn>16</mn>
             <mo>&#x221A;</mo>
             <mn>32</mn>
             </mrow>
         </math>`],
-        [4*Math.sqrt(18), `<math>
+        ['4s18', `<math>
         <mrow>
             <mn>4</mn>
             <mo>&#x221A;</mo>
             <mn>18</mn>
             </mrow>
         </math>`],
-        [-1*Math.sqrt(8), `<math>
+        ['-1s8', `<math>
         <mrow>
             <mn>-1</mn>
             <mo>&#x221A;</mo>
             <mn>8</mn>
             </mrow>
         </math>`],
-        [-9*Math.sqrt(2), `<math>
+        ['-9s2', `<math>
         <mrow>
             <mn>-9</mn>
             <mo>&#x221A;</mo>

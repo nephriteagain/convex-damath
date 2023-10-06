@@ -14,12 +14,11 @@ interface PieceProps {
 }
 
 
-// TODO: fix 16sqrt32 appearing twice
 export default function Piece({piece, index, players, playerTurn}: PieceProps) {
     const {id} = useAppSelector(state => state.user)
     const { gameData } = useAppSelector(state => state.game)
     const dispatch = useAppDispatch()
-    const { type, value, moves, king } = piece
+    const { type, value, moves, king, label } = piece
 
     function handleClick(e: MouseEvent) {
         e.preventDefault();
@@ -37,13 +36,19 @@ export default function Piece({piece, index, players, playerTurn}: PieceProps) {
 
     return (
         <div className={`z-10 ${type === 'z' ? 'red-piece' : 'blue-piece'}
-            ${moves.length > 0 ? 'opacity-100 cursor-pointer' : 'opacity-70'}
+            ${moves.length > 0 ? 'opacity-100 cursor-pointer' : 'opacity-80'}
             ${king ? 'border-4 border-dashed border-black' : ''}
             flex items-center justify-center aspect-square w-[80%] text-2xl text-white rounded-full`}
             onClick={onClick}
         >
             <span className={`${(value === 6 || value === 9) && "border-t-4 border-white"}`}>
-            <div className={gameType === 'RADICAL' ? 'text-sm opacity-100': 'opacity-100'} dangerouslySetInnerHTML={{__html: VALUES[gameType].get(value)||value}}/>                
+            <div className={gameType === 'RADICAL' ? 'text-sm opacity-100': 'opacity-100'} 
+            dangerouslySetInnerHTML={
+                gameType !== 'RADICAL' ?
+                {__html: VALUES[gameType].get(value)||value} :
+                {__html: VALUES[gameType].get(label||value)||value}
+            }
+            />                
             </span>
         </div>
     )

@@ -1,7 +1,7 @@
 import { boxPiece, operation } from "../../types"
 
 export const COUNTING : boxPiece[]  = [
-  {x: 0, y: 7, hightlighted: false,    playable: true, piece: {type: 'x', king: false,  value: 3, moves: []},   operation: operation.MULTIPLY},
+  {x: 0, y: 7, hightlighted: false,    playable: true, piece: {type: 'x', king: false,  value: 3, moves: [],},   operation: operation.MULTIPLY},
   {x: 1, y: 7,  playable: false, },
 
   {x: 2, y: 7, hightlighted: false,   playable: true, piece: {type: 'x', king: false,  value: 6, moves: []},   operation: operation.DIVIDE, },
@@ -494,40 +494,40 @@ export const RATIONAL : boxPiece[] = [
 ]
 
 export const RADICAL : boxPiece[] = [
-    {x: 0, y: 7, hightlighted: false,    playable: true, piece: {type: 'x', king: false,  value: 144*Math.sqrt(8), moves: []},   operation: operation.MULTIPLY, },
+    {x: 0, y: 7, hightlighted: false,    playable: true, piece: {type: 'x', king: false,  value: 144*Math.sqrt(8), moves: [], label: '144s8'},   operation: operation.MULTIPLY, },
       {x: 1, y: 7,  playable: false, },
     
-      {x: 2, y: 7, hightlighted: false,   playable: true, piece: {type: 'x', king: false,  value: 100*Math.sqrt(2), moves: []},   operation: operation.DIVIDE, },
+      {x: 2, y: 7, hightlighted: false,   playable: true, piece: {type: 'x', king: false,  value: 100*Math.sqrt(2), moves: [], label: '100s2'},   operation: operation.DIVIDE, },
       {x: 3, y: 7,  playable: false, },
     
-      {x: 4, y: 7, hightlighted: false,   playable: true, piece: {type: 'x', king: false,  value: -81*Math.sqrt(32), moves: []},   operation: operation.SUBTRACT, },
+      {x: 4, y: 7, hightlighted: false,   playable: true, piece: {type: 'x', king: false,  value: -81*Math.sqrt(32), moves: [], label: '-81s32'},   operation: operation.SUBTRACT, },
       {x: 5, y: 7 ,  playable: false, },
     
-      {x: 6, y: 7, hightlighted: false,   playable: true, piece: {type: 'x', king: false,  value: -121*Math.sqrt(18), moves: []},   operation: operation.ADD, },
+      {x: 6, y: 7, hightlighted: false,   playable: true, piece: {type: 'x', king: false,  value: -121*Math.sqrt(18), moves: [], label: '-121s18'},    operation: operation.ADD, },
       {x: 7, y: 7,  playable: false, },
     
       {x: 0, y: 6,  playable: false, },
-      {x: 1, y: 6, hightlighted: false,  playable: true, piece: {type: 'x', king: false,  value: 64*Math.sqrt(2), moves: []},  operation: operation.DIVIDE, },
+      {x: 1, y: 6, hightlighted: false,  playable: true, piece: {type: 'x', king: false,  value: 64*Math.sqrt(2), moves: [], label: '64s2'},  operation: operation.DIVIDE, },
     
       {x: 2, y: 6,  playable: false, },
-      {x: 3, y: 6, hightlighted: false,    playable: true, piece: {type: 'x', king: false,  value: 36*Math.sqrt(32), moves: []},  operation: operation.MULTIPLY, },
+      {x: 3, y: 6, hightlighted: false,    playable: true, piece: {type: 'x', king: false,  value: 36*Math.sqrt(32), moves: [], label: '36s32'},  operation: operation.MULTIPLY, },
       
       {x: 4, y: 6,  playable: false, },
-      {x: 5, y: 6, hightlighted: false,  playable: true, piece: {type: 'x', king: false,  value: -25*Math.sqrt(18), moves: []},  operation: operation.ADD, },
+      {x: 5, y: 6, hightlighted: false,  playable: true, piece: {type: 'x', king: false,  value: -25*Math.sqrt(18), moves: [], label: '-25s18'},  operation: operation.ADD, },
     
       {x: 6, y: 6,  playable: false, },
-      {x: 7, y: 6, hightlighted: false,  playable: true, piece: {type: 'x', king: false,  value: -49*Math.sqrt(8), moves: []},  operation: operation.SUBTRACT, },
+      {x: 7, y: 6, hightlighted: false,  playable: true, piece: {type: 'x', king: false,  value: -49*Math.sqrt(8), moves: [], label: '-49s8'},  operation: operation.SUBTRACT, },
     
-      {x: 0, y: 5, hightlighted: false,   playable: true, piece: {type: 'x', king: false,  value: 16*Math.sqrt(32), moves: [25]},  operation: operation.SUBTRACT, },
+      {x: 0, y: 5, hightlighted: false,   playable: true, piece: {type: 'x', king: false,  value: 16*Math.sqrt(32), moves: [25], label: '16s32'},  operation: operation.SUBTRACT, },
       {x: 1, y: 5,  playable: false, },
     
-      {x: 2, y: 5, hightlighted: false,  playable: true, piece: {type: 'x', king: false,  value: 4*Math.sqrt(18), moves: [25,27]},  operation: operation.ADD, },
+      {x: 2, y: 5, hightlighted: false,  playable: true, piece: {type: 'x', king: false,  value: 4*Math.sqrt(18), moves: [25,27], label: '4s18'},  operation: operation.ADD, },
       {x: 3, y: 5,  playable: false, },
     
-      {x: 4, y: 5, hightlighted: false,  playable: true, piece: {type: 'x', king: false,  value: -1*Math.sqrt(8), moves: [27,29]},  operation: operation.MULTIPLY, },
+      {x: 4, y: 5, hightlighted: false,  playable: true, piece: {type: 'x', king: false,  value: -1*Math.sqrt(8), moves: [27,29], label: '-1s8'},  operation: operation.MULTIPLY, },
       {x: 5, y: 5,  playable: false, },
     
-      {x: 6, y: 5, hightlighted: false,   playable: true, piece: {type: 'x', king: false,  value: -9*Math.sqrt(2), moves: [29,31]},  operation: operation.DIVIDE, },
+      {x: 6, y: 5, hightlighted: false,   playable: true, piece: {type: 'x', king: false,  value: -9*Math.sqrt(2), moves: [29,31], label: '-9s2'},  operation: operation.DIVIDE, },
       {x: 7, y: 5,  playable: false, },
     
       {x: 0, y: 4,  playable: false, },
@@ -555,40 +555,40 @@ export const RADICAL : boxPiece[] = [
       {x: 7, y: 3,  playable: false, },
     
       {x: 0, y: 2,  playable: false, },
-      {x: 1, y: 2, hightlighted: false,   playable: true, piece: {type: 'z', king: false,  value: -9*Math.sqrt(2), moves: [32,34]},  operation: operation.DIVIDE, },
+      {x: 1, y: 2, hightlighted: false,   playable: true, piece: {type: 'z', king: false,  value: -9*Math.sqrt(2), moves: [32,34], label: '-9s2'},  operation: operation.DIVIDE, },
     
       {x: 2, y: 2,  playable: false, },
-      {x: 3, y: 2, hightlighted: false,  playable: true, piece: {type: 'z', king: false,  value: -1*Math.sqrt(8), moves: [34,36]},  operation: operation.MULTIPLY, },
+      {x: 3, y: 2, hightlighted: false,  playable: true, piece: {type: 'z', king: false,  value: -1*Math.sqrt(8), moves: [34,36], label: '-1s8'},  operation: operation.MULTIPLY, },
     
       {x: 4, y: 2,  playable: false, },
-      {x: 5, y: 2, hightlighted: false,   playable: true, piece: {type: 'z', king: false,  value: 4*Math.sqrt(18), moves: [36,38]},  operation: operation.ADD, },
+      {x: 5, y: 2, hightlighted: false,   playable: true, piece: {type: 'z', king: false,  value: 4*Math.sqrt(18), moves: [36,38], label: '4s18'},  operation: operation.ADD, },
     
       {x: 6, y: 2,  playable: false, },
-      {x: 7, y: 2, hightlighted: false,  playable: true, piece: {type: 'z', king: false,  value: 16*Math.sqrt(32), moves: [38]},  operation: operation.SUBTRACT, },
+      {x: 7, y: 2, hightlighted: false,  playable: true, piece: {type: 'z', king: false,  value: 16*Math.sqrt(32), moves: [38], label: '16s32'},  operation: operation.SUBTRACT, },
     
-      {x: 0, y: 1, hightlighted: false,  playable: true, piece: {type: 'z', king: false,  value: -49*Math.sqrt(8), moves: []},  operation: operation.SUBTRACT, },
+      {x: 0, y: 1, hightlighted: false,  playable: true, piece: {type: 'z', king: false,  value: -49*Math.sqrt(8), moves: [], label: '-49s8'},  operation: operation.SUBTRACT, },
       {x: 1, y: 1,  playable: false, },
     
-      {x: 2, y: 1, hightlighted: false,  playable: true, piece: {type: 'z', king: false,  value: -25*Math.sqrt(18), moves: []},  operation: operation.ADD, },
+      {x: 2, y: 1, hightlighted: false,  playable: true, piece: {type: 'z', king: false,  value: -25*Math.sqrt(18), moves: [], label: '-25s18'},  operation: operation.ADD, },
       {x: 3, y: 1,  playable: false, },
     
-      {x: 4, y: 1, hightlighted: false,   playable: true, piece: {type: 'z', king: false,  value: 36*Math.sqrt(32), moves: []},  operation: operation.MULTIPLY, },
+      {x: 4, y: 1, hightlighted: false,   playable: true, piece: {type: 'z', king: false,  value: 36*Math.sqrt(32), moves: [], label: '36s32'},  operation: operation.MULTIPLY, },
       {x: 5, y: 1,  playable: false, },
     
-      {x: 6, y: 1, hightlighted: false,  playable: true, piece: {type: 'z', king: false,  value: 64*Math.sqrt(2), moves: []},  operation: operation.DIVIDE, },
+      {x: 6, y: 1, hightlighted: false,  playable: true, piece: {type: 'z', king: false,  value: 64*Math.sqrt(2), moves: [], label: '64s2'},  operation: operation.DIVIDE, },
       {x: 7, y: 1,  playable: false, },
     
       {x: 0, y: 0,  playable: false, },
-      {x: 1, y: 0, hightlighted: false,   playable: true, piece: {type: 'z', king: false,  value: -121*Math.sqrt(18), moves: []},   operation: operation.ADD, },
+      {x: 1, y: 0, hightlighted: false,   playable: true, piece: {type: 'z', king: false,  value: -121*Math.sqrt(18), moves: [], label: '-121s18'},   operation: operation.ADD, },
     
       {x: 2, y: 0,  playable: false, },
-      {x: 3, y: 0, hightlighted: false,  playable: true, piece: {type: 'z', king: false,  value: -81*Math.sqrt(32), moves: []},   operation: operation.SUBTRACT, },
+      {x: 3, y: 0, hightlighted: false,  playable: true, piece: {type: 'z', king: false,  value: -81*Math.sqrt(32), moves: [], label: '-81s32'},   operation: operation.SUBTRACT, },
     
       {x: 4, y: 0,  playable: false, },
-      {x: 5, y: 0, hightlighted: false,  playable: true, piece: {type: 'z', king: false,  value: 100*Math.sqrt(2), moves: []},   operation: operation.DIVIDE, },
+      {x: 5, y: 0, hightlighted: false,  playable: true, piece: {type: 'z', king: false,  value: 100*Math.sqrt(2), moves: [], label: '100s2'},   operation: operation.DIVIDE, },
     
       {x: 6, y: 0,  playable: false, },
-      {x: 7, y: 0, hightlighted: false,  playable: true, piece: {type: 'z', king: false,  value: 144*Math.sqrt(8), moves: []},  operation: operation.MULTIPLY, },
+      {x: 7, y: 0, hightlighted: false,  playable: true, piece: {type: 'z', king: false,  value: 144*Math.sqrt(8), moves: [], label: '144s8'},  operation: operation.MULTIPLY, },
   ]
 
 export type POSSIBLEJUMPSTYPE = number[][]

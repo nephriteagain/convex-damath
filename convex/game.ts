@@ -35,7 +35,8 @@ const pieceType = v.object({
     type: v.union(v.literal('z'), v.literal('x')),
     value: v.number(),
     king: v.boolean(),
-    moves: v.array(v.number())
+    moves: v.array(v.number()),
+    label: v.optional(v.string())
 })
 // const boxPieceType = v.object({
 //     x: v.number(),
