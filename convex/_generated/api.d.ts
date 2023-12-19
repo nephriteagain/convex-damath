@@ -10,14 +10,15 @@
  */
 
 import type {
-    ApiFromModules,
-    FilterApi,
-    FunctionReference,
+  ApiFromModules,
+  FilterApi,
+  FunctionReference,
 } from "convex/server";
 import type * as crons from "../crons";
 import type * as game from "../game";
 import type * as lobby from "../lobby";
 import type * as plans from "../plans";
+import type * as user from "../user";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -28,16 +29,17 @@ import type * as plans from "../plans";
  * ```
  */
 declare const fullApi: ApiFromModules<{
-    crons: typeof crons;
-    game: typeof game;
-    lobby: typeof lobby;
-    plans: typeof plans;
+  crons: typeof crons;
+  game: typeof game;
+  lobby: typeof lobby;
+  plans: typeof plans;
+  user: typeof user;
 }>;
 export declare const api: FilterApi<
-    typeof fullApi,
-    FunctionReference<any, "public">
+  typeof fullApi,
+  FunctionReference<any, "public">
 >;
 export declare const internal: FilterApi<
-    typeof fullApi,
-    FunctionReference<any, "internal">
+  typeof fullApi,
+  FunctionReference<any, "internal">
 >;

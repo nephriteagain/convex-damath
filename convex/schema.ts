@@ -61,4 +61,7 @@ export default defineSchema({
             }),
         ),
     }),
+    user: defineTable({
+        isVerified: v.boolean()
+    })
 });
