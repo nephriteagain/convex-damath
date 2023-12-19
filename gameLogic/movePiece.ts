@@ -1,45 +1,55 @@
-import { cloneDeep } from 'lodash';
-import { boxPiece, piece } from '../types';
-import { POSSIBLEJUMPS } from '../lib/data/gameData';
+import { cloneDeep } from "lodash";
+import { boxPiece, piece } from "../types";
+import { POSSIBLEJUMPS } from "../lib/data/gameData";
 /**
  * @description moves the selected piece to its new position
  */
 export function movePiece(
     boardData: boxPiece[],
-    piece: piece, 
-    index:number,
+    piece: piece,
+    index: number,
     pieceIndex: number,
-    capturedArr: piece[] // i need this to get the capture piece
-) : boxPiece[] {
-    const boardCopy = cloneDeep(boardData).map((box,idx) => {
+    capturedArr: piece[], // i need this to get the capture piece
+): boxPiece[] {
+    const boardCopy = cloneDeep(boardData).map((box, idx) => {
         if (idx === pieceIndex) {
-            const copy = box
-            delete copy.piece
-            return copy
+            const copy = box;
+            delete copy.piece;
+            return copy;
         }
         if (idx === index) {
             return {
                 ...box,
                 piece,
-                hightlighted: false
-            }
+                hightlighted: false,
+            };
         }
         if (box.hightlighted) {
             return {
                 ...box,
-                hightlighted: false
-            }
+                hightlighted: false,
+            };
         }
 
-        return box
-    })
+        return box;
+    });
     if (piece?.king) {
-        const boardCopyWithoutCaptured = removeCapturedAsKing(boardCopy, index, pieceIndex, capturedArr)
-        return boardCopyWithoutCaptured
+        const boardCopyWithoutCaptured = removeCapturedAsKing(
+            boardCopy,
+            index,
+            pieceIndex,
+            capturedArr,
+        );
+        return boardCopyWithoutCaptured;
     }
-    const boardCopyWithoutCaptured = removeCaptured(boardCopy, index, pieceIndex, capturedArr)
+    const boardCopyWithoutCaptured = removeCaptured(
+        boardCopy,
+        index,
+        pieceIndex,
+        capturedArr,
+    );
 
-    return boardCopyWithoutCaptured
+    return boardCopyWithoutCaptured;
 }
 
 /**
@@ -47,32 +57,32 @@ export function movePiece(
  * if it's a jump, remove the captured piece
  */
 function removeCaptured(
-    boardData: boxPiece[], 
-    index: number, 
+    boardData: boxPiece[],
+    index: number,
     pieceIndex: number,
-    captureArr: piece[]
-) : boxPiece[] {
-    const boardCopy = cloneDeep(boardData)
+    captureArr: piece[],
+): boxPiece[] {
+    const boardCopy = cloneDeep(boardData);
 
-    const higher = Math.max(index, pieceIndex)
-    const lower = Math.min(index, pieceIndex)
+    const higher = Math.max(index, pieceIndex);
+    const lower = Math.min(index, pieceIndex);
 
     if (higher - lower === 14) {
-        if (boardCopy[higher-7]?.piece && captureArr[0] == undefined) {
-            const copy = cloneDeep(boardCopy[higher-7].piece) as piece
-            captureArr[0] = copy
+        if (boardCopy[higher - 7]?.piece && captureArr[0] == undefined) {
+            const copy = cloneDeep(boardCopy[higher - 7].piece) as piece;
+            captureArr[0] = copy;
         }
-        delete boardCopy[higher-7]?.piece
+        delete boardCopy[higher - 7]?.piece;
     }
     if (higher - lower === 18) {
-        if (boardCopy[higher-9]?.piece && captureArr[0] == undefined) {
-            const copy = cloneDeep(boardCopy[higher-9].piece) as piece
-            captureArr[0] = copy
+        if (boardCopy[higher - 9]?.piece && captureArr[0] == undefined) {
+            const copy = cloneDeep(boardCopy[higher - 9].piece) as piece;
+            captureArr[0] = copy;
         }
-        delete boardCopy[higher-9]?.piece
+        delete boardCopy[higher - 9]?.piece;
     }
 
-    return boardCopy
+    return boardCopy;
 }
 
 /**
@@ -80,30 +90,29 @@ function removeCaptured(
  * if it's a jump, remove the captured piece
  */
 function removeCapturedAsKing(
-    boardData: boxPiece[], 
-    index: number, 
+    boardData: boxPiece[],
+    index: number,
     pieceIndex: number,
-    captureArr: piece[]
-) : boxPiece[] {
+    captureArr: piece[],
+): boxPiece[] {
+    const boardCopy = cloneDeep(boardData);
+    const higher = Math.max(index, pieceIndex);
+    const lower = Math.min(index, pieceIndex);
 
-    const boardCopy = cloneDeep(boardData)
-    const higher = Math.max(index, pieceIndex)
-    const lower = Math.min(index, pieceIndex)
-
-    const array = POSSIBLEJUMPS.find((arr:number[]) => {
-        return arr.includes(higher) && arr.includes(lower)
-    })
+    const array = POSSIBLEJUMPS.find((arr: number[]) => {
+        return arr.includes(higher) && arr.includes(lower);
+    });
     if (array) {
         array.forEach((num: number) => {
             if (num > lower && num < higher) {
-                if ( (boardCopy[num]?.piece && captureArr[0] == undefined)) {
-                    const copy = cloneDeep(boardCopy[num].piece) as piece
-                    captureArr[0] = copy
+                if (boardCopy[num]?.piece && captureArr[0] == undefined) {
+                    const copy = cloneDeep(boardCopy[num].piece) as piece;
+                    captureArr[0] = copy;
                 }
-                delete boardCopy[num].piece
+                delete boardCopy[num].piece;
             }
-        })
+        });
     }
-    
-    return boardCopy
+
+    return boardCopy;
 }

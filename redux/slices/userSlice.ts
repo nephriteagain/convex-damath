@@ -2,59 +2,57 @@ import { User } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 import { createRoom, joinRoom, leaveRoom, checkJoinedLobby } from "../thunks";
 export function generateId() {
-    return Math.random().toString(16).slice(2)
+    return Math.random().toString(16).slice(2);
 }
 
-const newId = generateId() as string
+const newId = generateId() as string;
 
-
-
-const initialState : User = {
+const initialState: User = {
     id: newId,
     isLoggedIn: false,
-    joinedLobby: '',
-    disableCreateLobby: true
-}
+    joinedLobby: "",
+    disableCreateLobby: true,
+};
 
 export const userSlice = createSlice({
-    name: 'user',
+    name: "user",
     initialState,
     reducers: {
         getUserId(state, action) {
-            state.id = action.payload
+            state.id = action.payload;
         },
         clearJoinedLobbyId(state) {
-            state.joinedLobby = ''
+            state.joinedLobby = "";
         },
         getLocalId(state, action) {
-            state.id = action.payload
+            state.id = action.payload;
         },
     },
-    extraReducers: builder => {
+    extraReducers: (builder) => {
         builder.addCase(createRoom.fulfilled, (state, action) => {
             if (action.payload) {
-                state.joinedLobby = action.payload._id
+                state.joinedLobby = action.payload._id;
             }
         }),
-        builder.addCase(joinRoom.fulfilled, (state, action) => {
-            if (action.payload) {
-                state.joinedLobby = action.payload._id
-            }        
-        }),
-        builder.addCase(leaveRoom.fulfilled, (state) => {
-            state.joinedLobby = ''
-        }),
-        builder.addCase(checkJoinedLobby.fulfilled, (state, action) => {
-            if (action.payload !== null) {
-                state.joinedLobby = action.payload._id                
-            }
-            state.disableCreateLobby = false
-        }),
-        builder.addCase(checkJoinedLobby.rejected, (state, action) => {
-            state.disableCreateLobby = false
-        })
-    }
-})
+            builder.addCase(joinRoom.fulfilled, (state, action) => {
+                if (action.payload) {
+                    state.joinedLobby = action.payload._id;
+                }
+            }),
+            builder.addCase(leaveRoom.fulfilled, (state) => {
+                state.joinedLobby = "";
+            }),
+            builder.addCase(checkJoinedLobby.fulfilled, (state, action) => {
+                if (action.payload !== null) {
+                    state.joinedLobby = action.payload._id;
+                }
+                state.disableCreateLobby = false;
+            }),
+            builder.addCase(checkJoinedLobby.rejected, (state, action) => {
+                state.disableCreateLobby = false;
+            });
+    },
+});
 
-export const { getUserId, clearJoinedLobbyId, getLocalId } = userSlice.actions
-export default userSlice.reducer
+export const { getUserId, clearJoinedLobbyId, getLocalId } = userSlice.actions;
+export default userSlice.reducer;

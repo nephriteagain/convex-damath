@@ -1,12 +1,12 @@
 import { cronJobs } from "convex/server";
-import { internal } from './_generated/api'
+import { internal } from "./_generated/api";
 
-const crons = cronJobs()
+const crons = cronJobs();
 
 crons.interval(
-    'clear old rooms',
-    {minutes: 20},
-    internal.plans.clearOldRooms
-)
+    "clear old rooms",
+    { minutes: 20 },
+    internal.plans.clearOldRooms,
+);
 
-export default crons
+export default crons;

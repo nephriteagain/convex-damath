@@ -18,11 +18,9 @@ export interface Lobby {
 
 export interface lobbyMessage {
     sId: string;
-    text:string;
+    text: string;
     mId: string;
 }
-
-
 
 export interface boxPiece {
     x: number;
@@ -34,7 +32,7 @@ export interface boxPiece {
 }
 
 export interface piece {
-    type: 'x'|'z';
+    type: "x" | "z";
     value: number;
     king: boolean;
     moves: number[];
@@ -42,10 +40,10 @@ export interface piece {
 }
 
 export enum operation {
-    ADD = 'add',
-    SUBTRACT = 'subtract',
-    MULTIPLY = 'multiply',
-    DIVIDE = 'divide'
+    ADD = "add",
+    SUBTRACT = "subtract",
+    MULTIPLY = "multiply",
+    DIVIDE = "divide",
 }
 
 export interface players {
@@ -54,8 +52,8 @@ export interface players {
 }
 
 export interface gameData {
-    from: Id<'lobby'>
-    _id: Id<'games'>;
+    from: Id<"lobby">;
+    _id: Id<"games">;
     players: players;
     playerTurn: string;
     gameType: GameTypes;
@@ -66,13 +64,13 @@ export interface gameData {
     chat: lobbyMessage[];
 }
 
-export enum GameTypes  {
-    COUNTING = 'COUNTING',
-    WHOLE = 'WHOLE',
-    INTEGER = 'INTEGER',
-    RADICAL = 'RADICAL',
-    RATIONAL = 'RATIONAL',
-    FRACTION = 'FRACTION'
+export enum GameTypes {
+    COUNTING = "COUNTING",
+    WHOLE = "WHOLE",
+    INTEGER = "INTEGER",
+    RADICAL = "RADICAL",
+    RATIONAL = "RATIONAL",
+    FRACTION = "FRACTION",
 }
 export interface score {
     z: number;
@@ -82,14 +80,12 @@ export interface score {
 export interface message {
     sender: string;
     type: string;
-    data?: GameTypes
+    data?: GameTypes;
 }
-
-
 
 export interface movablePieces {
     piece: piece;
     index: number;
     jumpIndex: number;
-    direction: 'top right'|'top left'|'bot right'|'bot left'
+    direction: "top right" | "top left" | "bot right" | "bot left";
 }

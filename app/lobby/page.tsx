@@ -1,53 +1,53 @@
-"use client"
+"use client";
 
-import LobbyComponent from "@/components/lobby/Lobby"
-import CreateRoom from "@/components/lobby/CreateRoom"
-import Filter from "@/components/common/Filter"
-import BacktoHome from "@/components/common/BackToHome"
-import Progress from "@/components/common/Progress"
+import LobbyComponent from "@/components/lobby/Lobby";
+import CreateRoom from "@/components/lobby/CreateRoom";
+import Filter from "@/components/common/Filter";
+import BacktoHome from "@/components/common/BackToHome";
+import Progress from "@/components/common/Progress";
 
-import { useEffect, useRef,  useState, } from "react"
-import { useAppDispatch, useAppSelector } from "@/redux/hooks"
-import { useRouter } from 'next/navigation'
-import { Toaster } from "@/components/ui/toaster"
-import { useRecon } from "@/hooks/useRecon"
-import { useLocalId } from "@/hooks/useLocalId"
-import { useRejoinLobby } from "@/hooks/useRejoinLobby"
+import { useEffect, useRef, useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useRouter } from "next/navigation";
+import { Toaster } from "@/components/ui/toaster";
+import { useRecon } from "@/hooks/useRecon";
+import { useLocalId } from "@/hooks/useLocalId";
+import { useRejoinLobby } from "@/hooks/useRejoinLobby";
 
 export const dynamic = "force-dynamic";
 
-export default  function Home() {
-    const [ start, setStart ] = useState(false)
+export default function Home() {
+    const [start, setStart] = useState(false);
 
-    const sheetRef = useRef<HTMLButtonElement>(null)
-    const dispatch = useAppDispatch()
-    const {id, joinedLobby} = useAppSelector(state => state.user)
-    const {lobbies, lobbyData} = useAppSelector(state => state.lobby)
+    const sheetRef = useRef<HTMLButtonElement>(null);
+    const dispatch = useAppDispatch();
+    const { id, joinedLobby } = useAppSelector((state) => state.user);
+    const { lobbies, lobbyData } = useAppSelector((state) => state.lobby);
 
-    const localId = useLocalId(id)
-    useRejoinLobby(localId)
-    useRecon(lobbyData)
+    const localId = useLocalId(id);
+    useRejoinLobby(localId);
+    useRecon(lobbyData);
 
     function showSheet() {
         if (!sheetRef.current) {
-            return
+            return;
         }
-        sheetRef.current.click()
+        sheetRef.current.click();
     }
 
     useEffect(() => {
-        if (joinedLobby === '') {
-            localStorage.removeItem('joined_lobby')
+        if (joinedLobby === "") {
+            localStorage.removeItem("joined_lobby");
         } else {
-            localStorage.setItem('joined_lobby', joinedLobby)
+            localStorage.setItem("joined_lobby", joinedLobby);
         }
-    }, [joinedLobby])
+    }, [joinedLobby]);
 
     return (
-        <div className="w-full h-full flex flex-col">            
+        <div className="w-full h-full flex flex-col">
             <div className=" flex flex-col mt-12 py-8 px-1 sm:p-8 h-[85%] sm:h-auto bg-customNeutral shadow-lg drop-shadow-lg mb-4 w-full sm:w-[640px] mx-auto">
                 <div className="flex flex-row justify-between items-center">
-                    <CreateRoom ref={sheetRef} showSheet={showSheet}/>
+                    <CreateRoom ref={sheetRef} showSheet={showSheet} />
                     <Filter />
                 </div>
                 <LobbyComponent id={id} showSheet={showSheet} />
@@ -56,5 +56,5 @@ export default  function Home() {
             <Toaster />
             <Progress start={start} />
         </div>
-    )
+    );
 }

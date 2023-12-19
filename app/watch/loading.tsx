@@ -1,6 +1,5 @@
-
-import WatchLoading from "@/components/watch/WatchLoading"
+import WatchLoading from "@/components/watch/WatchLoading";
 
 export default function Loading() {
-    return <WatchLoading opacity={0.6} />
+    return <WatchLoading opacity={0.6} />;
 }

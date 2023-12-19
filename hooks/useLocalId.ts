@@ -7,21 +7,19 @@ import { checkJoinedLobby } from "@/redux/thunks";
  * checks if there is previously joined
  * room
  */
-export function useLocalId(id:string) {
-    const [ res, setRes ] = useState(id)
+export function useLocalId(id: string) {
+    const [res, setRes] = useState(id);
 
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
     useLayoutEffect(() => {
-        const localId = localStorage.getItem('localId')
-        if (typeof localId === 'string') {
-            setRes(localId)
-            dispatch(getLocalId(localId))
-            dispatch(checkJoinedLobby(localId))
-            return
+        const localId = localStorage.getItem("localId");
+        if (typeof localId === "string") {
+            setRes(localId);
+            dispatch(getLocalId(localId));
+            dispatch(checkJoinedLobby(localId));
+            return;
         }
-        localStorage.setItem('localId', id)
-    
-    }, [])
-    return res
-
+        localStorage.setItem("localId", id);
+    }, []);
+    return res;
 }

@@ -10,9 +10,9 @@
  */
 
 import type {
-  ApiFromModules,
-  FilterApi,
-  FunctionReference,
+    ApiFromModules,
+    FilterApi,
+    FunctionReference,
 } from "convex/server";
 import type * as crons from "../crons";
 import type * as game from "../game";
@@ -28,16 +28,16 @@ import type * as plans from "../plans";
  * ```
  */
 declare const fullApi: ApiFromModules<{
-  crons: typeof crons;
-  game: typeof game;
-  lobby: typeof lobby;
-  plans: typeof plans;
+    crons: typeof crons;
+    game: typeof game;
+    lobby: typeof lobby;
+    plans: typeof plans;
 }>;
 export declare const api: FilterApi<
-  typeof fullApi,
-  FunctionReference<any, "public">
+    typeof fullApi,
+    FunctionReference<any, "public">
 >;
 export declare const internal: FilterApi<
-  typeof fullApi,
-  FunctionReference<any, "internal">
+    typeof fullApi,
+    FunctionReference<any, "internal">
 >;
