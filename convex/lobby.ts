@@ -48,13 +48,15 @@ export const checkJoinedLobby = query({
     },
 });
 
+
+
 export const getLobby = query({
     args: {
         filter: v.optional(v.union(v.string(), v.null())),
         order: v.optional(v.union(v.literal("asc"), v.literal("desc"))),
     },
     handler: async (ctx, args) => {
-        const { filter, order = "desc" } = args;
+        const { filter, order = "desc" } = args;        
         if (
             filter === "COUNTING" ||
             filter === "WHOLE" ||

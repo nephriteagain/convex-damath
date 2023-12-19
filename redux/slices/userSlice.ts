@@ -1,6 +1,6 @@
 import { User } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
-import { createRoom, joinRoom, leaveRoom, checkJoinedLobby } from "../thunks";
+import { createRoom, joinRoom, leaveRoom, checkJoinedLobby, createUser } from "../thunks";
 export function generateId() {
     return Math.random().toString(16).slice(2);
 }
@@ -50,7 +50,10 @@ export const userSlice = createSlice({
             }),
             builder.addCase(checkJoinedLobby.rejected, (state, action) => {
                 state.disableCreateLobby = false;
-            });
+            }),
+            builder.addCase(createUser.fulfilled, (state, action) => {
+                state.id = action.payload
+            })
     },
 });
 

@@ -11,8 +11,8 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
 import { Toaster } from "@/components/ui/toaster";
 import { useRecon } from "@/hooks/useRecon";
-import { useLocalId } from "@/hooks/useLocalId";
 import { useRejoinLobby } from "@/hooks/useRejoinLobby";
+import { useLocalContext } from "@/components/common/LocalProvider";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +24,7 @@ export default function Home() {
     const { id, joinedLobby } = useAppSelector((state) => state.user);
     const { lobbies, lobbyData } = useAppSelector((state) => state.lobby);
 
-    const localId = useLocalId(id);
+    const { localId } = useLocalContext()
     useRejoinLobby(localId);
     useRecon(lobbyData);
 

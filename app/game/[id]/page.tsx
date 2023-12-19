@@ -29,7 +29,6 @@ import { debounce, delay } from "lodash";
 import { getTotalRemainingScore } from "@/gameLogic/scoreHandler";
 import { getLocalId } from "@/redux/slices/userSlice";
 
-import { useLocalId } from "@/hooks/useLocalId";
 import { useBoardFlip } from "@/hooks/useBoardFlip";
 import { useUpdateGameData } from "@/hooks/useUpdateGameData";
 
@@ -65,7 +64,6 @@ export default function Home() {
 
     const delayedRedirect = debounce(redirectToLobby, 3000);
 
-    const localId = useLocalId(userId);
 
     useBoardFlip(gData, boardRef, userId);
 

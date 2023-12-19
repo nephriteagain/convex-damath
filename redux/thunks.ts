@@ -273,3 +273,25 @@ export const checkJoinedLobby = createAsyncThunk(
         return res;
     },
 );
+
+export const getUser = createAsyncThunk(
+    'user/getUser',
+    async (id:Id<'user'>) => {
+        const res = await convex.query(api.user.getUser, {
+            id
+        })
+        if (!res) {
+            const newUser = await convex.mutation(api.user.createUser)
+            return newUser
+        }
+        return res._id;
+    }
+)
+
+export const createUser = createAsyncThunk(
+    'user/createUser',
+    async () => {
+        const newUser = await convex.mutation(api.user.createUser)
+        return newUser
+    }
+)
