@@ -1,6 +1,6 @@
 import { User } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
-import { createRoom, joinRoom, leaveRoom, checkJoinedLobby, createUser } from "../thunks";
+import { createRoom, joinRoom, leaveRoom, checkJoinedLobby, createUser, getUser, signIn } from "../thunks";
 export function generateId() {
     return Math.random().toString(16).slice(2);
 }
@@ -27,6 +27,10 @@ export const userSlice = createSlice({
         getLocalId(state, action) {
             state.id = action.payload;
         },
+        signOut(state) {
+            state.id = generateId();
+            state.isLoggedIn = false;
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(createRoom.fulfilled, (state, action) => {
@@ -53,7 +57,16 @@ export const userSlice = createSlice({
             }),
             builder.addCase(createUser.fulfilled, (state, action) => {
                 state.id = action.payload
+            }),
+            builder.addCase(getUser.fulfilled, (state, action) => {
+                state.id = action.payload;
+                state.isLoggedIn = true;
+            }),
+            builder.addCase(signIn.fulfilled, (state, action) => {
+                state.id = action.payload._id;
+                state.isLoggedIn = action.payload.isVerified
             })
+
     },
 });
 

@@ -62,6 +62,7 @@ export default defineSchema({
         ),
     }),
     user: defineTable({
-        isVerified: v.boolean()
+        isVerified: v.boolean(),
+        email: v.optional(v.string())
     })
 });

@@ -20,3 +20,29 @@ export const createUser = mutation({
         return newUser
     }
 })
+
+export const verifyUser = mutation({
+    args: {
+        id: v.id('user'),
+        email: v.string()
+    },
+    handler: async (ctx, args) => {
+        const { id, email } = args
+        await ctx.db.patch(id, {
+            email
+        })
+    }
+})
+
+export const getUserByEmail = query({
+    args: {
+        email: v.string()
+    },
+    // throws an error if multiple users with same email is found
+    handler: async (ctx, {email}) => {
+        const user = await ctx.db.query("user")
+            .filter(q => q.eq(q.field('email'), email))
+            .unique()
+        return user
+    }
+})

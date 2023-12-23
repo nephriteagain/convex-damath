@@ -295,3 +295,19 @@ export const createUser = createAsyncThunk(
         return newUser
     }
 )
+
+export const signIn = createAsyncThunk(
+    'user/signin',
+    async ({id, email}: {id: Id<'user'>, email:string}) => {
+        const user = await convex.query(api.user.getUserByEmail, {email})
+        if (!user) {
+            await convex.mutation(api.user.verifyUser, {id, email})
+            return {
+                _id: id,
+                email,
+                isVerified: true
+            }
+        }
+        return user;
+    }
+)
