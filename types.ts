@@ -3,7 +3,7 @@ import { Id } from "./convex/_generated/dataModel";
 export interface User {
     id: string;
     isLoggedIn: boolean;
-    joinedLobby: string;
+    joinedLobby: '' | Id<'lobby'>;
     disableCreateLobby: boolean;
 }
 
