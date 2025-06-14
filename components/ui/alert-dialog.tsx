@@ -11,11 +11,13 @@ const AlertDialog = AlertDialogPrimitive.Root;
 const AlertDialogTrigger = AlertDialogPrimitive.Trigger;
 
 const AlertDialogPortal = ({
-    // className,
+    //@ts-expect-error will not work if this is removed
+    className,
     ...props
 }: AlertDialogPrimitive.AlertDialogPortalProps) => (
     <AlertDialogPrimitive.Portal 
-    // className={cn(className)} {...props} 
+    //@ts-expect-error will not work if this is removed
+    className={cn(className)} {...props} 
     />
 );
 AlertDialogPortal.displayName = AlertDialogPrimitive.Portal.displayName;

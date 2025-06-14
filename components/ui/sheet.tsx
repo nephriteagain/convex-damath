@@ -12,13 +12,14 @@ const Sheet = SheetPrimitive.Root;
 const SheetTrigger = SheetPrimitive.Trigger;
 
 const SheetClose = SheetPrimitive.Close;
-
 const SheetPortal = ({
-    // className,
+    //@ts-expect-error will not work if this is removed
+    className,
     ...props
 }: SheetPrimitive.DialogPortalProps) => (
     <SheetPrimitive.Portal 
-    // className={cn(className)} {...props} 
+    //@ts-expect-error will not work if this is removed
+    className={cn(className)} {...props} 
     />
 );
 SheetPortal.displayName = SheetPrimitive.Portal.displayName;
