@@ -4,7 +4,7 @@ import { boardStyleFlip } from "@/lib/helper/styleHelper";
 
 export function useBoardFlip(
     gData: gameData | undefined,
-    boardRef: RefObject<HTMLDivElement>,
+    boardRef: RefObject<HTMLDivElement|null>,
     userId: string,
 ) {
     useEffect(() => {

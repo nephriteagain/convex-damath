@@ -37,7 +37,12 @@ export default function Filter({ className }: { className?: string }) {
     }
 
     function changeFilter(value: string): void {
+      
         const order = searchParams.get("order");
+        if (value === "NONE") {
+            router.push(`${path}`)
+            return
+        }
         if (order) {
             router.push(`${path}?filter=${value}&order=${order}`);
             return;
@@ -65,7 +70,7 @@ export default function Filter({ className }: { className?: string }) {
                         <SelectItem value="FRACTION">Fraction</SelectItem>
                         <SelectItem value="RATIONAL">Rational</SelectItem>
                         <SelectItem value="RADICAL">Radical</SelectItem>
-                        <SelectItem value="">None</SelectItem>
+                        <SelectItem value="NONE">None</SelectItem>
                     </SelectGroup>
                 </SelectContent>
             </Select>
